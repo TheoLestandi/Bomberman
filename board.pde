@@ -1,4 +1,4 @@
-enum TypeCell
+  enum TypeCell
 {
   EMPTY, WALL, DESTRUCTIBLE_WALL, EXIT_DOOR
 }
@@ -10,28 +10,35 @@ class Board
   PVector _drawSize;
   int _nbCellsX;
   int _nbCellsY;
-  int _cellSize; // cells should be square
-  
-  String[] _line;
+  float _cellSize; // cells should be square
 
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
+    // On initialise chaque variables par les arguments mis en paramarètre de Board. 
     _drawPosition = drawPosition;
     _drawSize = drawSize;
     _nbCellsX = nbCellsX;
     _nbCellsY = nbCellsY;
+    
+    // _cellSize correspond à la taille d'une cellule dans le "Board" donc on divise la taille du Board par le nombre de cellules. 
     _cellSize = drawSize.x / nbCellsX;
+    
+    // On crée le tableau "_cells" qui doit être de taille: nbCellsX * nbCellsY. 
     _cells  = new TypeCell[nbCellsX][nbCellsY];
   }
 
   PVector getCellCenter(int i, int j) {
-    PVector centerCell = new PVector( i + _cellSize / 2, j + _cellSize / 2);
-    return centerCell;
+    // cellCenterX et cellCenterY correspondent à l'angle haut-gauche de la cellule avec les index i et j. 
+    // Puis on ajoute la moitié de cellSize aux deux pour avoir le milieu de la cellule. 
+    float cellCenterX = i * _cellSize + _cellSize / 2;
+    float cellCenterY = j * _cellSize + _cellSize / 2;
+    return new PVector( cellCenterX, cellCenterY);
   }
 
   void drawIt() {
+    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);
     for ( int i = 0; i < _cells.length; i++ ) {
       for ( int j = 0; j < _cells[i].length; i++ ) {
-        //square( i, j, _cellSize);
+        
       }
     }
   }
