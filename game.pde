@@ -6,7 +6,7 @@ class Game
   String _levelName;
 
   Game() {
-    _board = new Board(,0);
+    _board = null;
     _hero = null;
   }
 

@@ -19,7 +19,7 @@ class Board
     _drawSize = drawSize;
     _nbCellsX = nbCellsX;
     _nbCellsY = nbCellsY;
-    float(_cellSize) = _drawSize.x / nbCellsX;
+    _cellSize = drawSize.x / nbCellsX;
     _cells  = new TypeCell[nbCellsX][nbCellsY];
   }
 
