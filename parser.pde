@@ -11,7 +11,12 @@ class Parser{
     final boolean isWall = ;
     final boolean isWallDestruct = ;
     final boolean isExit = ;
-    
+
+    for ( int i = 0; i < _line.length; i++ ) {
+      for ( int j = 0; j < _line[i].length; j++ ) {
+        
+      }
+    }
     
 }
 
