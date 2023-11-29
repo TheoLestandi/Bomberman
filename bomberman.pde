@@ -3,6 +3,7 @@ Game game;
 void setup() {
   size(800, 800, P2D);
   game = new Game();
+  println();
 }
 
 void draw() {
