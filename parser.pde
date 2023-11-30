@@ -1,14 +1,20 @@
+enum TypeCell {
+  EMPTY, WALL, DESTRUCTIBLE_WALL, EXIT_DOOR, BOMBERMAN, MOB
+}
+
 class Parser{
-  String[] _line;
   TypeCell [][] cell;
+  
+  String[] _line;
+  
   char val;
+  
   Parser(String file){
     _line = loadStrings(file);
   }
   
   void loadParser(){
-
-
+    
     cell=new TypeCell[_line.length][_line[0].length()];
     
     for ( int i = 0; i < cell.length; i++ ) {

@@ -1,11 +1,4 @@
-enum TypeCell
-{
-  EMPTY, WALL, DESTRUCTIBLE_WALL, EXIT_DOOR, BOMBERMAN, MOB
-}
-
-class Board
-{
-  TypeCell _cells[][];
+class Board {
   PVector _drawPosition;
   PVector _drawSize;
   int _nbCellsX;
