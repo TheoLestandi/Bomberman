@@ -9,8 +9,14 @@ class Parser{
   
   char val;
   
+  boolean isEmpty,isWall, isWallDestruct, isExit;
+  
   Parser(String file){
     _line = loadStrings(file);
+    isEmpty = val == 'v' || val == 'B' || val == 'M';
+    isWall = val == 'x';
+    isWallDestruct = val == 'o';
+    isExit = val == 'S';
   }
   
   void loadParser(){
@@ -20,10 +26,7 @@ class Parser{
     for ( int i = 0; i < cell.length; i++ ) {
       for ( int j = 0; j < cell[i].length; j++ ) {
         val = _line[i].charAt(i);
-        boolean isEmpty = val == 'v' || val == 'B' || val == 'M';
-        boolean isWall = val == 'x';
-        boolean isWallDestruct = val == 'o';
-        boolean isExit = val == 'S';
+        
         if (isEmpty){
           cell[i][j]=TypeCell.EMPTY;
         }
