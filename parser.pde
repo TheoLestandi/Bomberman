@@ -5,7 +5,7 @@ class Parser{
     _line = loadStrings(file);
   }
   
-  void loadParser(){
+  void testParser(){
     /* A corriger
     final boolean isEmpty = _line[i][j] == "v" || _line[i][j] == "B" || _line[i][j] == "M";
     final boolean isWall = ;
