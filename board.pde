@@ -1,6 +1,6 @@
-  enum TypeCell
+enum TypeCell
 {
-  EMPTY, WALL, DESTRUCTIBLE_WALL, EXIT_DOOR
+  EMPTY, WALL, DESTRUCTIBLE_WALL, EXIT_DOOR, BOMBERMAN, MOB
 }
 
 class Board
@@ -35,10 +35,13 @@ class Board
   }
 
   void drawIt() {
-    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);
-    for ( int i = 0; i < _cells.length; i++ ) {
-      for ( int j = 0; j < _cells[i].length; i++ ) {
-        
+    /*noStroke();
+    fill(0);
+    rectMode(CORNER);
+    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);*/
+    for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
+      for ( int colonne = 0; colonne < _cells[ligne].length; colonne++ ) {
+        print("");
       }
     }
   }
