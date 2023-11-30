@@ -1,7 +1,7 @@
 class Parser{
   String[] _line;
   TypeCell [][] cell;
-  String val;
+  char val;
   Parser(String file){
     _line = loadStrings(file);
   }
@@ -13,11 +13,11 @@ class Parser{
     
     for ( int i = 0; i < cell.length; i++ ) {
       for ( int j = 0; j < cell[i].length; j++ ) {
-        val = _line[i].substring(i-1,i);
-        boolean isEmpty = val == "v" || val == "B" || val == "M";
-        boolean isWall = val == "x";
-        boolean isWallDestruct = val == "o";
-        boolean isExit = val == "S";
+        val = _line[i].charAt(i);
+        boolean isEmpty = val == 'v' || val == 'B' || val == 'M';
+        boolean isWall = val == 'x';
+        boolean isWallDestruct = val == 'o';
+        boolean isExit = val == 'S';
         if (isEmpty){
           cell[i][j]=TypeCell.EMPTY;
         }
