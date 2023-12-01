@@ -16,7 +16,9 @@ class Board {
     _cellSize = drawSize.x / nbCellsX;
     
     // On crée le tableau "_cells" qui doit être de taille: nbCellsX * nbCellsY. 
-    _cells  = new TypeCell[nbCellsX][nbCellsY];
+    //_cells  = new TypeCell[nbCellsX][nbCellsY];
+    
+    
   }
 
   PVector getCellCenter(int i, int j) {

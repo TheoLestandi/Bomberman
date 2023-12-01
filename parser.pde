@@ -3,7 +3,7 @@ enum TypeCell {
 }
 
 class Parser{
-  TypeCell [][] _cells;
+  TypeCell [][] _cells;  
   
   String[] _line;
   
@@ -37,10 +37,21 @@ class Parser{
     }
   }
   
-  void loadParser() {
+  void loadParser( float cellSize ) {
+    PImage sprite_tiles = loadImage("data/img/tiles.png");
+    //PImage sprite_characters = loadImage("data/img/characters.png");
     for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
       for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
-        if (isEmpty){
+        if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
+          image( sprite_tiles.get(48,96,16,16), ligne * cellSize, colonne * cellSize) ;
+        }
+        if ( _cells[ligne][colonne] == TypeCell.WALL ) {
+        }
+        if ( _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
+        }
+        if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
+        }
+        /*if (isEmpty){
           _cells[i][j]=TypeCell.EMPTY;
         }
         if (isWall){
@@ -52,7 +63,7 @@ class Parser{
         if (isExit){
           _cells[i][j]=TypeCell.EXIT_DOOR;
         }
-        
+        */
         
       }
     }
