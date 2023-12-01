@@ -10,6 +10,7 @@ class Parser{
   char val;
   
   boolean isEmpty,isWall, isWallDestruct, isExit;
+  //Board board=game._board;
   
   Parser(String file){
     _line = loadStrings(file);
@@ -44,6 +45,7 @@ class Parser{
       for ( int colonne = 0; colonne < _cells.length; colonne++ ) {
         float colonnebis=(2+colonne)*cellSize;
         float lignebis=ligne*cellSize;
+        game._board.getCellCenter(lignebis,colonnebis);
         if ( _cells[colonne][ligne] == TypeCell.EMPTY ) {
           image( sprite_tiles.get(48, 96, 16, 16), lignebis, colonnebis) ;
         }

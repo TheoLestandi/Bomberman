@@ -28,7 +28,7 @@ class Board {
     
   }
 
-  PVector getCellCenter(int i, int j) {
+  PVector getCellCenter(float i, float j) {
     // cellCenterX et cellCenterY correspondent à l'angle haut-gauche de la cellule avec les index i et j. 
     // Puis on ajoute la moitié de cellSize aux deux pour avoir le milieu de la cellule. 
     float cellCenterX = i * _cellSize + _cellSize / 2;
