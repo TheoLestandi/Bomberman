@@ -3,7 +3,7 @@ enum TypeCell {
 }
 
 class Parser{
-  TypeCell [][] cell;
+  TypeCell [][] _cells;
   
   String[] _line;
   
@@ -13,31 +13,44 @@ class Parser{
   
   Parser(String file){
     _line = loadStrings(file);
-    isEmpty = val == 'v' || val == 'B' || val == 'M';
-    isWall = val == 'x';
-    isWallDestruct = val == 'o';
-    isExit = val == 'S';
+    _cells = new TypeCell[_line.length][_line[0].length()];
+    for ( int i = 0; i < _line.length; i++ ) { 
+      for ( int j = 0; j < _line[0].length(); j++ ) { 
+        val = _line[i].charAt(j);
+        isEmpty = val == 'v' || val == 'B' || val == 'M';
+        isWall = val == 'x';
+        isWallDestruct = val == 'o';
+        isExit = val == 'S';
+        if ( isEmpty ) {
+          _cells[i][j] = TypeCell.EMPTY;
+        }
+        else if ( isWall ) {
+          _cells[i][j] = TypeCell.WALL;
+        }
+        else if ( isWallDestruct ) {
+          _cells[i][j] = TypeCell.DESTRUCTIBLE_WALL;
+        }
+        else {
+          _cells[i][j] = TypeCell.EXIT_DOOR;
+        }
+      }
+    }
   }
   
-  void loadParser(){
-    
-    cell=new TypeCell[_line.length][_line[0].length()];
-    
-    for ( int i = 0; i < cell.length; i++ ) {
-      for ( int j = 0; j < cell[i].length; j++ ) {
-        val = _line[i].charAt(i);
-        
+  void loadParser() {
+    for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
+      for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
         if (isEmpty){
-          cell[i][j]=TypeCell.EMPTY;
+          _cells[i][j]=TypeCell.EMPTY;
         }
         if (isWall){
-          cell[i][j]=TypeCell.WALL;
+          _cells[i][j]=TypeCell.WALL;
         }
         if (isWallDestruct){
-          cell[i][j]=TypeCell.DESTRUCTIBLE_WALL;
+          _cells[i][j]=TypeCell.DESTRUCTIBLE_WALL;
         }
         if (isExit){
-          cell[i][j]=TypeCell.EXIT_DOOR;
+          _cells[i][j]=TypeCell.EXIT_DOOR;
         }
         
         
