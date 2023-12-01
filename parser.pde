@@ -35,38 +35,59 @@ class Parser{
   }
   
   void loadParser( float cellSize ) {
+    
     PImage sprite_tiles = loadImage("data/img/tiles.png");
     //PImage sprite_characters = loadImage("data/img/characters.png");
-    for ( int ligne = 0; ligne < _cells[0].length; ligne++ ) {
-      for ( int colonne = 0; colonne < _cells.length; colonne++ ) {
-        float colonnebis=(2+colonne)*cellSize;
-        float lignebis=ligne*cellSize;
+    
+    for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
+      for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
+        float lignebis=(2+ligne)*cellSize;
+        float colonnebis=colonne*cellSize;
         //game._board.getCellCenter(lignebis,colonnebis);
-        if ( _cells[colonne][ligne] == TypeCell.EMPTY ) {
-          PImage sprite_t = sprite_tiles.get(48, 96, 16, 16);
-          image( sprite_t, lignebis, colonnebis, cellSize, cellSize) ;
+        
+        if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
+          if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
+            PImage sprite_t = sprite_tiles.get(48, 80, 16, 16);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+          }
+          else if ( _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
+            PImage sprite_t = sprite_tiles.get(64, 96, 16, 16);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;      
+          }
+          else {
+            PImage sprite_t = sprite_tiles.get(48, 96, 16, 16);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+          }
         }
-        if ( _cells[colonne][ligne] == TypeCell.WALL ) {
-          if ( colonne != 0 && colonne != _cells.length - 1 && ligne != 0 && ligne != _cells[0].length - 1) {
+        
+        if ( _cells[ligne][colonne] == TypeCell.WALL ) {
+          if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {
             PImage sprite_t = sprite_tiles.get(80, 96, 16, 16);
-            image( sprite_t, ligne * cellSize, colonnebis, cellSize, cellSize) ;
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
           }
           else {
             PImage sprite_t = sprite_tiles.get(32, 96, 16, 16);
-            image( sprite_t, ligne * cellSize, colonnebis, cellSize, cellSize) ;
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
           }
         }
-        if ( _cells[colonne][ligne] == TypeCell.DESTRUCTIBLE_WALL ) {
-          PImage sprite_t = sprite_tiles.get(64, 80, 16, 16);
-          image( sprite_t, lignebis, colonnebis, cellSize, cellSize) ;
+        
+        if ( _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
+          if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
+            PImage sprite_t = sprite_tiles.get(64, 80, 16, 16);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+          }
+          else {
+            PImage sprite_t = sprite_tiles.get(64, 64, 16, 16);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+          }
         }
-        if ( _cells[colonne][ligne] == TypeCell.EXIT_DOOR ) {
+        
+        if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
           PImage sprite_t = sprite_tiles.get(128, 48, 16, 16);
-          image( sprite_t, lignebis, colonnebis, cellSize, cellSize) ;
+          image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
         }
       }
     }
-    
   }
 
 }
