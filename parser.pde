@@ -42,17 +42,19 @@ class Parser{
     //PImage sprite_characters = loadImage("data/img/characters.png");
     for ( int ligne = 0; ligne < _cells[0].length; ligne++ ) {
       for ( int colonne = 0; colonne < _cells.length; colonne++ ) {
+        float colonnebis=(2+colonne)*cellSize;
+        
         if ( _cells[colonne][ligne] == TypeCell.EMPTY ) {
-          image( sprite_tiles.get(48, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(48, 96, 16, 16), ligne * cellSize, colonnebis) ;
         }
         if ( _cells[colonne][ligne] == TypeCell.WALL ) {
-          image( sprite_tiles.get(32, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(32, 96, 16, 16), ligne * cellSize, colonnebis) ;
         }
         if ( _cells[colonne][ligne] == TypeCell.DESTRUCTIBLE_WALL ) {
-          image( sprite_tiles.get(64, 80, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(64, 80, 16, 16), ligne * cellSize, colonnebis) ;
         }
         if ( _cells[colonne][ligne] == TypeCell.EXIT_DOOR ) {
-          image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonnebis) ;
         }
         
       }
