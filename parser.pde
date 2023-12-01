@@ -43,18 +43,22 @@ class Parser{
     for ( int ligne = 0; ligne < _cells[0].length; ligne++ ) {
       for ( int colonne = 0; colonne < _cells.length; colonne++ ) {
         if ( _cells[colonne][ligne] == TypeCell.EMPTY ) {
-          image( sprite_tiles.get(48, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(48, 96, 16, 16), ligne * cellSize, colonne * cellSize, cellSize, cellSize) ;
         }
         if ( _cells[colonne][ligne] == TypeCell.WALL ) {
-          image( sprite_tiles.get(32, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          if ( colonne != 0 && ligne != 0 ) {
+            image( sprite_tiles.get(64, 96, 16, 16), ligne * cellSize, colonne * cellSize, cellSize, cellSize);
+          }
+          else {
+            image( sprite_tiles.get(32, 96, 16, 16), ligne * cellSize, colonne * cellSize, cellSize, cellSize);
+          }
         }
         if ( _cells[colonne][ligne] == TypeCell.DESTRUCTIBLE_WALL ) {
-          image( sprite_tiles.get(64, 80, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(64, 80, 16, 16), ligne * cellSize, colonne * cellSize, cellSize, cellSize) ;
         }
         if ( _cells[colonne][ligne] == TypeCell.EXIT_DOOR ) {
-          image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonne * cellSize, cellSize, cellSize) ;
         }
-        
       }
     }
     
