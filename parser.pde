@@ -56,7 +56,6 @@ class Parser{
         if ( _cells[colonne][ligne] == TypeCell.EXIT_DOOR ) {
           image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonnebis) ;
         }
-        
       }
     }
     
