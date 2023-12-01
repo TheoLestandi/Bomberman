@@ -21,9 +21,6 @@ class Board {
     // _cellSize correspond à la taille d'une cellule dans le "Board" donc on divise la taille du Board par le nombre de cellules. 
     _cellSize = drawSize.x / nbCellsX;
     
-    // On crée le tableau "_cells" qui doit être de taille: nbCellsX * nbCellsY. 
-    //_cells  = new TypeCell[nbCellsX][nbCellsY];
-    
     _parser = new Parser("levels/level1.txt");
     
   }
