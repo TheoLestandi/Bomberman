@@ -7,7 +7,9 @@ class Board {
   
   float _cellSize; // cells should be square
 
-  color orange;
+  color orange = color(255, 128, 0);
+  
+  Parser _parser;
 
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
@@ -22,6 +24,7 @@ class Board {
     // On crée le tableau "_cells" qui doit être de taille: nbCellsX * nbCellsY. 
     //_cells  = new TypeCell[nbCellsX][nbCellsY];
     
+    _parser = new Parser("levels/level1.txt");
     
   }
 
@@ -34,14 +37,10 @@ class Board {
   }
 
   void drawIt() {
-    /*noStroke();
-    fill(0);
+    noStroke();
+    fill(orange);
     rectMode(CORNER);
-    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);*/
-    for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
-      for ( int colonne = 0; colonne < _cells[ligne].length; colonne++ ) {
-        print("");
-      }
-    }
+    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);
+    _parser.loadParser(_cellSize);
   }
 }

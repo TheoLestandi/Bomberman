@@ -53,7 +53,8 @@ class Parser{
         }
         if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
           image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonne * cellSize) ;
-        }              
+        }
+        
       }
     }
     

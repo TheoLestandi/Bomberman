@@ -22,6 +22,7 @@ class Game
   }
 
   void drawIt() {
+    _board.drawIt();
   }
 
   void handleKey(int k) {
