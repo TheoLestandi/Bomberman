@@ -1,9 +1,13 @@
 class Board {
   PVector _drawPosition;
   PVector _drawSize;
+  
   int _nbCellsX;
   int _nbCellsY;
+  
   float _cellSize; // cells should be square
+
+  color orange;
 
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 

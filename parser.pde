@@ -43,28 +43,17 @@ class Parser{
     for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
       for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
         if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
-          image( sprite_tiles.get(48,96,16,16), ligne * cellSize, colonne * cellSize) ;
+          image( sprite_tiles.get(48, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
         }
         if ( _cells[ligne][colonne] == TypeCell.WALL ) {
+          image( sprite_tiles.get(32, 96, 16, 16), ligne * cellSize, colonne * cellSize) ;
         }
         if ( _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
+          image( sprite_tiles.get(64, 80, 16, 16), ligne * cellSize, colonne * cellSize) ;
         }
         if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
-        }
-        /*if (isEmpty){
-          _cells[i][j]=TypeCell.EMPTY;
-        }
-        if (isWall){
-          _cells[i][j]=TypeCell.WALL;
-        }
-        if (isWallDestruct){
-          _cells[i][j]=TypeCell.DESTRUCTIBLE_WALL;
-        }
-        if (isExit){
-          _cells[i][j]=TypeCell.EXIT_DOOR;
-        }
-        */
-        
+          image( sprite_tiles.get(128, 48, 16, 16), ligne * cellSize, colonne * cellSize) ;
+        }              
       }
     }
     
