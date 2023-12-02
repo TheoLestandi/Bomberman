@@ -12,8 +12,8 @@ class Game
   PVector _sizeTableau;
 
   Game() {
-    _posTableau = new PVector(0,0);
-    _sizeTableau = new PVector(800, 800);
+    _posTableau = new PVector(0,0);  // pas utile 
+    _sizeTableau = new PVector(width, height);
     _board = new Board(_posTableau, _sizeTableau, _numberCellsX, _numberCellsY);
     _hero = null;
   }
@@ -22,6 +22,7 @@ class Game
   }
 
   void drawIt() {
+    background(orange);
     _board.drawIt();
   }
 

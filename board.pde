@@ -6,8 +6,6 @@ class Board {
   int _nbCellsY;
   
   float _cellSize; // cells should be square
-
-  color orange = color(255, 128, 0);
   
   Parser _parser;
 
@@ -33,11 +31,7 @@ class Board {
     return new PVector( cellCenterX, cellCenterY);
   }
 
-  void drawIt() {
-    noStroke();
-    fill(orange);
-    rectMode(CORNER);
-    rect( _drawPosition.x, _drawPosition.y, _drawSize.x, _drawSize.y);
+  void drawIt() 
     _parser.loadParser(_cellSize);
   }
 }

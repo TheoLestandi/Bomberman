@@ -41,8 +41,9 @@ class Parser{
     
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
-        float lignebis=(2+ligne)*cellSize;
-        float colonnebis=colonne*cellSize;
+        
+        float lignebis = ( 2 + ligne ) * cellSize;
+        float colonnebis = colonne * cellSize;
         //game._board.getCellCenter(lignebis,colonnebis);
         
         if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
