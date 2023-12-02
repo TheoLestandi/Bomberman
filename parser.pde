@@ -66,6 +66,22 @@ class Parser{
             PImage sprite_t = sprite_tiles.get(80, 96, 16, 16);
             image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
           }
+          else if ( ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1 ) {
+            PImage sprite_t = sprite_tiles.get(48, 64, 16, 16);
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+          }
+          else if ( ligne == 0 && colonne == 0 ) {
+            PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+          }
+          else if ( ligne == _cells.length - 1 && colonne == 0 ) {
+            PImage sprite_t = sprite_tiles.get(16, 96, 16, 16);
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+          }
+          else if ( colonne == 0 && ligne != 0 && ligne != _cells.length - 1 ) {
+            PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
+            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);        
+          }
           else {
             PImage sprite_t = sprite_tiles.get(32, 96, 16, 16);
             image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
@@ -82,7 +98,7 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
-        
+       
         if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
           PImage sprite_t = sprite_tiles.get(128, 48, 16, 16);
           image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;

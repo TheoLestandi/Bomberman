@@ -31,7 +31,7 @@ class Board {
     return new PVector( cellCenterX, cellCenterY);
   }
 
-  void drawIt() 
+  void drawIt() {
     _parser.loadParser(_cellSize);
   }
 }
