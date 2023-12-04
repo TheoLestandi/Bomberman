@@ -17,7 +17,7 @@ class Game
     _posTableau = new PVector(0,0);  // pas utile 
     _sizeTableau = new PVector(width, height);
     _board = new Board(_posTableau, _sizeTableau, _numberCellsX, _numberCellsY, _line);
-    _hero = new Hero(Board._CellSize);
+    _hero = new Hero(_board._cellSize);
   }
 
   void update() {
@@ -26,6 +26,7 @@ class Game
   void drawIt() {
     background(orange);
     _board.drawIt();
+    _hero.drawIt();
   }
 
   void handleKey(int k) {

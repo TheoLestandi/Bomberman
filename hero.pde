@@ -1,5 +1,5 @@
 class Hero {
-  float CellS;
+  float cellS;
   // position on screen
   PVector _position;
   
@@ -13,12 +13,14 @@ class Hero {
   boolean _wasHit;
   PImage characters = loadImage("data/img/characters.png");
   PImage hero = characters.get(16, 0, 16, 24);
-  float lignebis = ( 2 + 5 ) * board.cellSize;
-  float colonnebis = 3 * cellSize;
+  float lignebis;
+  float colonnebis;
 
   Hero(float cellSize) {
     _wasHit = false;
-    cellS=cellSize;
+    cellS = cellSize;
+    lignebis = (5 + 2) * cellS;
+    colonnebis = 3 * cellS;
   }
 
   void move(Board board, PVector direction) {
@@ -28,7 +30,7 @@ class Hero {
   }
 
   void drawIt() {
-    image( hero, 4, lignebis, cellS, cellS) ;
+    image( hero, colonnebis, lignebis, cellS, cellS) ;
     
   }
 }
