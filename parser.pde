@@ -46,6 +46,7 @@ class Parser{
         float colonnebis = colonne * cellSize;
         //game._board.getCellCenter(lignebis,colonnebis);
         
+        // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
         if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
           if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
             PImage sprite_t = sprite_tiles.get(48, 80, 16, 16);
@@ -60,7 +61,7 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
-        
+        // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       
         if ( _cells[ligne][colonne] == TypeCell.WALL ) {
           if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {
             PImage sprite_t = sprite_tiles.get(80, 96, 16, 16);
@@ -88,8 +89,9 @@ class Parser{
           }
         }
         
+        // ici c'est les sprites des mur qui sont destructibles ( 1 où si il y a un mur au dessus ducoup le sprite change et sinon l'autre sprite si il y a rien.
         if ( _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
-          if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
+          if ( _cells[ligne-1][colonne] == TypeCell.WALL || _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
             PImage sprite_t = sprite_tiles.get(64, 80, 16, 16);
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
@@ -98,7 +100,8 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
-       
+        
+        // ici c'est le sprite de la sortie.
         if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
           PImage sprite_t = sprite_tiles.get(128, 48, 16, 16);
           image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
