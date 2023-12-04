@@ -12,8 +12,8 @@ class Parser{
   boolean isEmpty,isWall, isWallDestruct, isExit;
   //Board board=game._board;
   
-  Parser(String file){
-    _line = loadStrings(file);
+  Parser(String[] _line){
+    //_line = loadStrings(file);
     _cells = new TypeCell[_line.length][_line[0].length()];
     for ( int i = 0; i < _line.length; i++ ) { 
       for ( int j = 0; j < _line[0].length(); j++ ) { 
@@ -61,6 +61,7 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
+        
         // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       
         if ( _cells[ligne][colonne] == TypeCell.WALL ) {
           if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {

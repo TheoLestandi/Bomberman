@@ -9,7 +9,7 @@ class Board {
   
   Parser _parser;
 
-  Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
+  Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
     _drawPosition = drawPosition;
     _drawSize = drawSize;
@@ -19,7 +19,7 @@ class Board {
     // _cellSize correspond à la taille d'une cellule dans le "Board" donc on divise la taille du Board par le nombre de cellules. 
     _cellSize = drawSize.x / nbCellsX;
     
-    _parser = new Parser("levels/level1.txt");
+    _parser = new Parser(_line);
     
   }
 
