@@ -34,6 +34,20 @@ class Parser{
     }
   }
   
+  void inversedSprite ( PImage sprite ) {
+    sprite.loadPixels();
+    for ( int y = 0; y < sprite.height; y++ ) {
+      for ( int x = 0; x < sprite.width / 2; x++ ) {
+        int start = x + y * sprite.width;
+        int end = ( sprite.width - 1 ) - x + y * sprite.width;
+        int temp = sprite.pixels[start];
+        sprite.pixels[start] = sprite.pixels[end];
+        sprite.pixels[end] = temp;
+      }
+    }
+    sprite.updatePixels();
+  }
+  
   void loadParser( float cellSize ) {
     
     PImage sprite_tiles = loadImage("data/img/tiles.png");
@@ -66,27 +80,42 @@ class Parser{
         if ( _cells[ligne][colonne] == TypeCell.WALL ) {
           if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {
             PImage sprite_t = sprite_tiles.get(80, 96, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
           else if ( ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1 ) {
             PImage sprite_t = sprite_tiles.get(48, 64, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else if ( ligne == 0 && colonne == 0 ) {
             PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);
+          }
+          else if ( ligne == 0 && colonne == _cells[0].length - 1 ) {
+            PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
+            inversedSprite(sprite_t);
+            image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else if ( ligne == _cells.length - 1 && colonne == 0 ) {
             PImage sprite_t = sprite_tiles.get(16, 96, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);
+          }
+          else if ( ligne == _cells.length - 1 && colonne == _cells[0].length - 1 ) {
+            PImage sprite_t = sprite_tiles.get(16, 96, 16, 16);
+            inversedSprite(sprite_t);
+            image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else if ( colonne == 0 && ligne != 0 && ligne != _cells.length - 1 ) {
             PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize);        
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);        
+          }
+          else if ( colonne == _cells[0].length - 1 && ligne != 0 && ligne != _cells.length - 1) {
+            PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
+            inversedSprite(sprite_t);
+            image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else {
             PImage sprite_t = sprite_tiles.get(32, 96, 16, 16);
-            image( sprite_t, colonne * cellSize, lignebis, cellSize, cellSize) ;
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
         
