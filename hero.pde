@@ -22,14 +22,18 @@ class Hero {
   Hero(float cellSize) {
     _wasHit = false;
     cellS = cellSize;
-    _size = cellSize + cellSize / 2; 
+    _size = cellS + cellS / 2; 
     _cellY = 2 * cellS + cellS/2;
     _cellX = cellS;
   }
 
   void move(Board board, PVector direction) {
-    if ( board._parser.isEmpty ) {
-    }
+   /* if ( board._parser.isEmpty ) {
+    }*/
+    _cellX=direction.x;
+    _cellY=direction.y;
+    
+    
   }
 
   void update(Board board) {
