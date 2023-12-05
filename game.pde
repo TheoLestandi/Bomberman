@@ -10,13 +10,16 @@ class Game
   int _numberCellsX = _line[0].length();
   int _numberCellsY = _line.length;
   
-  PVector _posTableau;
-  PVector _sizeTableau;
+  //float start_posY;
+  
+  PVector _posTab;
+  PVector _sizeTab;
 
   Game() {
-    _posTableau = new PVector(0,0);  // pas utile 
-    _sizeTableau = new PVector(width, height);
-    _board = new Board(_posTableau, _sizeTableau, _numberCellsX, _numberCellsY, _line);
+    //start_posY = _sizeTab.y * 2;
+    _posTab = new PVector(0,0);
+    _sizeTab = new PVector(width, height);
+    _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line);
     _hero = new Hero(_board._cellSize);
   }
 
