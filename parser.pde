@@ -114,7 +114,7 @@ class Parser{
             image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else {
-            PImage sprite_t = sprite_tiles.get(32, 96, 16, 16);
+            PImage sprite_t = sprite_tiles.get(32, 96, 16, 8);
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }

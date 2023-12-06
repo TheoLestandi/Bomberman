@@ -10,3 +10,5 @@ final boolean Up = key == 'Z'|| keyCode == UP;
 final boolean Left = key == 'Q' || keyCode == LEFT;
 final boolean Down = key == 'S' || keyCode == DOWN;
 final boolean Right = key == 'D' || keyCode == RIGHT;
+
+final 
