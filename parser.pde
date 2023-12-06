@@ -91,9 +91,9 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
           else if ( ligne == 0 && colonne == _cells[0].length - 1 ) {
-            PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
+            PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
             inversedSprite(sprite_t);
-            image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
+            image(sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
           else if ( ligne == _cells.length - 1 && colonne == 0 ) {
             PImage sprite_t = sprite_tiles.get(16, 96, 16, 8);
