@@ -79,16 +79,16 @@ class Parser{
         // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       
         if ( _cells[ligne][colonne] == TypeCell.WALL ) {
           if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {
-            PImage sprite_t = sprite_tiles.get(80, 96, 16, 16);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+            PImage sprite_t = sprite_tiles.get(80, 96+8, 16, 8);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2) ;
           }
           else if ( ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1 ) {
-            PImage sprite_t = sprite_tiles.get(48, 64, 16, 8);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);
+            PImage sprite_t = sprite_tiles.get(48, 64+8, 16, 8);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
           else if ( ligne == 0 && colonne == 0 ) {
-            PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize);
+            PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
           else if ( ligne == 0 && colonne == _cells[0].length - 1 ) {
             PImage sprite_t = sprite_tiles.get(16, 64, 16, 16);
