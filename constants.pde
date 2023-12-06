@@ -7,8 +7,9 @@ public color orange = color(255, 128, 0);
 public color black = color(0);
 
 // Textes.
-final int _TextSize = width/2;
-final float _TextPos = width;
+//public int _TextSize = ;
+//public float _TextPos = width;
+
 
 // Boolean pour les touches de contrôle du Bomberman.
 final boolean Up = key == 'Z'|| keyCode == UP;

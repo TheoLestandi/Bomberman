@@ -29,9 +29,10 @@ class Game
 
   void drawIt() {
     background(orange);
+    textAlign(CENTER, CENTER);
     fill(black); 
-    textSize(_TextSize);
-    text(_levelName, _TextPos, _posTab.y/2 );
+    textSize(width/16);
+    text(_levelName, width/2, _posTab.y/2 );
     //_board.drawIt();
     _hero.drawIt();
   }
