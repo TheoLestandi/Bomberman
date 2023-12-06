@@ -14,7 +14,7 @@ void draw() {
 void keyPressed() {
   game.handleKey(key);
   if(Up){
-    float positionY = game._hero._cellY+game._hero.cellS;
+    float positionY = game._hero._cellY - game._hero.cellS;
     PVector position = new PVector(game._hero._cellX, positionY);
     Board board = game._board;
     game._hero.move(board,position);
