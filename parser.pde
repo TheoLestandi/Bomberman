@@ -109,13 +109,13 @@ class Parser{
             image( sprite_t, colonnebis, lignebis, cellSize, cellSize);        
           }
           else if ( colonne == _cells[0].length - 1 && ligne != 0 && ligne != _cells.length - 1) {
-            PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
+            PImage sprite_t = sprite_tiles.get(16, 80, 16, 8);
             inversedSprite(sprite_t);
-            image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
+            image(sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
           else {
             PImage sprite_t = sprite_tiles.get(32, 96, 16, 8);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
+            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2) ;
           }
         }
         
