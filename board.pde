@@ -2,6 +2,8 @@ class Board {
   PVector _drawPosition;
   PVector _drawSize;
   
+  PImage [][] tabB;
+  
   int _nbCellsX;
   int _nbCellsY;
   
@@ -32,6 +34,11 @@ class Board {
   }
 
   void drawIt() {
-    _parser.loadParser(_cellSize);
+    tabB =_parser.loadParser();
+    for (int ligne = 0; ligne<tabB.length;ligne++){
+      for (int colonne = 0; colonne<tabB[0].length;colonne++){
+        image( tabB[ligne][colonne], colonne*_cellSize, ligne*_cellSize, _cellSize, _cellSize);
+      }
+    }
   }
 }
