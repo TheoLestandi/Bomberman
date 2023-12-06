@@ -56,7 +56,7 @@ class Parser{
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
         
-        float lignebis = ( 2 + ligne ) * cellSize;
+        float lignebis = ( 2 + ligne ) * cellSize + cellSize / 2;
         float colonnebis = colonne * cellSize;
         //game._board.getCellCenter(lignebis,colonnebis);
         
@@ -84,16 +84,16 @@ class Parser{
           }
           else if ( ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1 ) {
             PImage sprite_t = sprite_tiles.get(48, 64+8, 16, 8);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
+            image( sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
           else if ( ligne == 0 && colonne == 0 ) {
             PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
-            image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
+            image( sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
           else if ( ligne == 0 && colonne == _cells[0].length - 1 ) {
             PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
             inversedSprite(sprite_t);
-            image(sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
+            image(sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
           else if ( ligne == _cells.length - 1 && colonne == 0 ) {
             PImage sprite_t = sprite_tiles.get(16, 96, 16, 8);
