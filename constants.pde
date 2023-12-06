@@ -6,8 +6,9 @@ final int SCORE_MONSTER_DESTROYED = 100;
 public color orange = color(255, 128, 0);
 public color black = color(0);
 
-final int _TextSize = width/16;
-final float _TextPos = width/2;
+// Textes.
+final int _TextSize = width/2;
+final float _TextPos = width;
 
 // Boolean pour les touches de contrôle du Bomberman.
 final boolean Up = key == 'Z'|| keyCode == UP;

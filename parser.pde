@@ -66,7 +66,6 @@ class Parser{
         
         //float lignebis = ( 2 + ligne ) * cellSize + cellSize / 2;
         //float colonnebis = colonne * cellSize;
-        //game._board.getCellCenter(lignebis,colonnebis);
         
         // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
         if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {

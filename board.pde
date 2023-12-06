@@ -2,7 +2,7 @@ class Board {
   PVector _drawPosition;
   PVector _drawSize;
   
-  PImage [][] tabB;
+  PImage [][] _tabB;
   
   int _nbCellsX;
   int _nbCellsY;
@@ -22,7 +22,7 @@ class Board {
     _cellSize = drawSize.x / nbCellsX;
     
     _parser = new Parser(_line);
-    
+    _tabB = _parser.loadParser();
   }
 
   PVector getCellCenter(float i, float j) {
@@ -34,11 +34,13 @@ class Board {
   }
 
   void drawIt() {
-    tabB =_parser.loadParser();
-    for (int ligne = 0; ligne<tabB.length;ligne++){
-      for (int colonne = 0; colonne<tabB[0].length;colonne++){
-        image( tabB[ligne][colonne], colonne*_cellSize, ligne*_cellSize, _cellSize, _cellSize);
+    for (int colonne = 0; colonne < _tabB[0].length; colonne++) {
+      for (int ligne = 0; ligne < _tabB.length; ligne++) {
+        float posx = colonne * _cellSize;
+        float posy = ligne * _cellSize;       
+        image(_tabB[ligne][colonne], posx, posy, _cellSize, _cellSize);
       }
     }
   }
+
 }
