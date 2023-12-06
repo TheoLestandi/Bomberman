@@ -68,6 +68,8 @@ class Sprites {
     // Porte de sortie.
     sprite_board.put(TypeSprites.EXIT_DOOR1, _imageSprites.get(128, 48, 16, 16));
     sprite_board.put(TypeSprites.EXIT_DOOR2, _imageSprites.get(144, 48, 16, 16));
+    
+    return sprite_board;
   }
   
   HashMap< TypeSprites, PImage > searchSpriteHero() {
@@ -101,6 +103,8 @@ class Sprites {
     sprite_hero.put(TypeSprites.BOMBERMAN_DEAD4, _imageSprites.get(48, 32, 16, 24));
     sprite_hero.put(TypeSprites.BOMBERMAN_DEAD5, _imageSprites.get(64, 32, 16, 24));
     sprite_hero.put(TypeSprites.BOMBERMAN_DEAD6, _imageSprites.get(80, 32, 16, 24));
+    
+    return sprite_hero;
   }
   
   HashMap< TypeSprites, PImage > searchSpriteMob() {
@@ -138,6 +142,8 @@ class Sprites {
     sprite_mob.put(TypeSprites.SLIME4, _imageSprites.get(48, 80, 16, 24));
     sprite_mob.put(TypeSprites.SLIME5, _imageSprites.get(64, 80, 16, 24));
     sprite_mob.put(TypeSprites.SLIME6, _imageSprites.get(80, 80, 16, 24));
+    
+    return sprite_mob;
   }
-  
+
 }
