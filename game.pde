@@ -8,17 +8,17 @@ class Game
   String _levelName;
 
   int _numberCellsX = _line[0].length();
-  int _numberCellsY = _line.length;
+  int _numberCellsY = _line.length - 1;
   
-  //float start_posY;
+  float _sizeCell = float(width)/ _numberCellsX;
   
   PVector _posTab;
   PVector _sizeTab;
 
   Game() {
-    //start_posY = _sizeTab.y * 2;
-    _posTab = new PVector(0,0);
-    _sizeTab = new PVector(width, height);
+    _levelName = _line[1];
+    _posTab = new PVector(0, 2.5 * _sizeCell);
+    _sizeTab = new PVector(width, height - _posTab.y);
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line);
     _hero = new Hero(_board._cellSize);
   }
@@ -29,6 +29,10 @@ class Game
 
   void drawIt() {
     background(orange);
+    textAlign(CENTER, CENTER);
+    fill(black); 
+    textSize(_TextSize);
+    text(_levelName, _TextPos, _posTab.y/2 );
     _board.drawIt();
     _hero.drawIt();
   }
