@@ -28,8 +28,6 @@ class Hero {
   }
 
   void move(Board board, PVector direction) {
-   /* if ( board._parser.isEmpty ) {
-    }*/
     _cellX=direction.x;
     _cellY=direction.y;
     
