@@ -144,16 +144,16 @@ class Parser{
         // ici c'est les sprites des mur qui sont destructibles ( 1 où si il y a un mur au dessus ducoup le sprite change et sinon l'autre sprite si il y a rien.
         if ( isDESTRUCTIBLE_WALL ) {
           if ( isDESTRUCTIBLE_WALL_UNDER_EITHER_WALL  ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(64, 80, 16, 16);
+            boardIm[ligne][colonne] =  _spriteB.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW1);
           }
           else {
-            boardIm[ligne][colonne] = sprite_tiles.get(64, 64, 16, 16);
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL1);
           }
         }
         
         // ici c'est le sprite de la sortie.
         if ( isEXIT_DOOR ) {
-          boardIm[ligne][colonne] = sprite_tiles.get(128, 48, 16, 16);
+          boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.EXIT_DOOR1);
         }
         
       }
