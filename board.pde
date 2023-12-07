@@ -25,7 +25,7 @@ class Board {
    
    
     _parser = new Parser(_line);
-    _tabB = _parser.loadParser(sprite_tiles);
+    _tabB = _parser.loadParser();
   }
 
   PVector getCellCenter(float i, float j) {

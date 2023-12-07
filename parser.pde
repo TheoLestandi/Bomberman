@@ -62,7 +62,7 @@ class Parser{
     sprite.updatePixels();
   }
   
-  PImage[][] loadParser(PImage sprite_tiles) {
+  PImage[][] loadParser() {
     
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
@@ -78,8 +78,8 @@ class Parser{
         boolean isWALL_UP = ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1;
         boolean isWALL_CORNER_LEFT_UP = ligne == 0 && colonne == 0;
         boolean isWALL_CORNER_RIGHT_UP = ligne == 0 && colonne == _cells[0].length - 1; 
-        boolean isWALL_CORNER_LEFT_UNDER = ligne == _cells.length - 1 && colonne == 0;
-        boolean isWALL_CORNER_RIGHT_UNDER = ligne == _cells.length - 1 && colonne == _cells[0].length - 1;
+        boolean isWALL_CORNER_LEFT_DOWN = ligne == _cells.length - 1 && colonne == 0;
+        boolean isWALL_CORNER_RIGHT_DOWN = ligne == _cells.length - 1 && colonne == _cells[0].length - 1;
         boolean isWALL_LEFT = colonne == 0 && ligne != 0 && ligne != _cells.length - 1;
         boolean isWALL_RIGHT = colonne == _cells[0].length - 1 && ligne != 0 && ligne != _cells.length - 1;
        
@@ -107,37 +107,37 @@ class Parser{
         // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       
         if ( isWALL ) {
           if ( isWALL_INSIDE_BOARD ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(80, 96, 16, 16);
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.WALL);
           }
           else if ( isWALL_UP ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(48, 64+8, 16, 8);
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_UP);
           }
           else if ( isWALL_CORNER_LEFT_UP ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(16, 64+8, 16, 8);
+            boardIm[ligne][colonne] =_spriteB.searchSpriteBoard().get(TypeSprites.WALL_CORNER_UP_LEFT);
           }
           else if ( isWALL_CORNER_RIGHT_UP ) {
-            PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
+            PImage sprite_t = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_CORNER_UP_RIGHT);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
           }
-          else if ( isWALL_CORNER_LEFT_UNDER ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(16, 96, 16, 8);
+          else if ( isWALL_CORNER_LEFT_DOWN ) {
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_CORNER_DOWN_LEFT);
           }
-          else if ( isWALL_CORNER_RIGHT_UNDER ) {
-            PImage sprite_t = sprite_tiles.get(16, 96, 16, 8);
+          else if ( isWALL_CORNER_RIGHT_DOWN) {
+            PImage sprite_t = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_CORNER_DOWN_RIGHT);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
           }
           else if ( isWALL_LEFT ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(16, 80, 16, 16);      
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_LEFT);      
           }
           else if ( isWALL_RIGHT ) {
-            PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
+            PImage sprite_t = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_RIGHT);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
           }
           else {
-            boardIm[ligne][colonne] = sprite_tiles.get(32, 96, 16, 8);
+            boardIm[ligne][colonne] = _spriteB.searchSpriteBoard().get(TypeSprites.WALL_DOWN);
           }
         }
         
