@@ -28,11 +28,9 @@ enum TypeSprites {
 
 class Sprites {
   PImage _imageSprites;
-  float _sizeSprite;
   
-  Sprites( PImage _file, float _size ) {
+  Sprites( PImage _file ) {
     _imageSprites = _file;
-    _sizeSprite = _size;
   }
   
   HashMap< TypeSprites, PImage > searchSpriteBoard() {

@@ -16,9 +16,11 @@ class Parser{
   
   boolean isEmpty,isWall, isWallDestruct, isExit, isBomberman;
   
+  PImage sprite_tiles = loadImage("data/img/tiles.png");
+  
   Parser(String[] _line){
-    _spriteB = Sprites();
-    HashMap<TypeSprites, PImage> spriteBoard = searchSpriteBoard();
+    
+    _spriteB = new Sprites(sprite_tiles);
     
     _cells = new TypeCell[_line.length][_line[0].length()];
     boardIm = new PImage[_cells.length][_cells[0].length];
@@ -64,90 +66,92 @@ class Parser{
     
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
+        
+        // Conditions pour "EMPTY".
+        boolean isEMPTY = _cells[ligne][colonne] == TypeCell.EMPTY;
+        boolean isEMPTY_UNDER_WALL = _cells[ligne-1][colonne] == TypeCell.WALL;
+        boolean isEMPTY_UNDER_DESTRUCTIBLE_WALL = _cells[ligne-1][colonne] == TypeCell.WALL;
+        
+        // Conditions pour "WALL".
+        boolean isWALL = _cells[ligne][colonne] == TypeCell.WALL;
+        boolean isWALL_INSIDE_BOARD = ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1;
+        boolean isWALL_UP = ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1;
+        boolean isWALL_CORNER_LEFT_UP = ligne == 0 && colonne == 0;
+        boolean isWALL_CORNER_RIGHT_UP = ligne == 0 && colonne == _cells[0].length - 1; 
+        boolean isWALL_CORNER_LEFT_UNDER = ligne == _cells.length - 1 && colonne == 0;
+        boolean isWALL_CORNER_RIGHT_UNDER = ligne == _cells.length - 1 && colonne == _cells[0].length - 1;
+        boolean isWALL_LEFT = colonne == 0 && ligne != 0 && ligne != _cells.length - 1;
+        boolean isWALL_RIGHT = colonne == _cells[0].length - 1 && ligne != 0 && ligne != _cells.length - 1;
        
+        // Conditions pour "DESTRUCTIBLE_WALL".       
+        boolean isDESTRUCTIBLE_WALL = _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL;
+        boolean isDESTRUCTIBLE_WALL_UNDER_EITHER_WALL = _cells[ligne-1][colonne] == TypeCell.WALL || _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL;
+        
+        // Conditions pour "EXIT_DOOR".
+        boolean isEXIT_DOOR = _cells[ligne][colonne] == TypeCell.EXIT_DOOR;
+        
         // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
-        if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
-          if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
+        if ( isEMPTY ) {
+          if ( isEMPTY_UNDER_WALL ) 
             boardIm[ligne][colonne] = sprite_tiles.get(48, 80, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
-            
-          }
-          else if ( _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(64, 96, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;      
-          }
-          else {
+          else if ( isEMPTY_UNDER_DESTRUCTIBLE_WALL ) 
+            boardIm[ligne][colonne] = sprite_tiles.get(64, 96, 16, 16);   
+          else 
             boardIm[ligne][colonne] = sprite_tiles.get(48, 96, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
-          }
-          
         }
         
         // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       
-        if ( _cells[ligne][colonne] == TypeCell.WALL ) {
-          if ( ligne != 0 && ligne != _cells.length - 1 && colonne != 0 && colonne != _cells[0].length - 1) {
+        if ( isWALL ) {
+          if ( isWALL_INSIDE_BOARD ) {
             boardIm[ligne][colonne] = sprite_tiles.get(80, 96, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
-          else if ( ligne == 0 && colonne != 0 && colonne != _cells[0].length - 1 ) {
+          else if ( isWALL_UP ) {
             boardIm[ligne][colonne] = sprite_tiles.get(48, 64+8, 16, 8);
-            //image( sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
-          else if ( ligne == 0 && colonne == 0 ) {
+          else if ( isWALL_CORNER_LEFT_UP ) {
             boardIm[ligne][colonne] = sprite_tiles.get(16, 64+8, 16, 8);
-            //image( sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
-          else if ( ligne == 0 && colonne == _cells[0].length - 1 ) {
+          else if ( isWALL_CORNER_RIGHT_UP ) {
             PImage sprite_t = sprite_tiles.get(16, 64+8, 16, 8);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
-            //image(sprite_t, colonnebis, lignebis+cellSize/2, cellSize, cellSize/2);
           }
-          else if ( ligne == _cells.length - 1 && colonne == 0 ) {
+          else if ( isWALL_CORNER_LEFT_UNDER ) {
             boardIm[ligne][colonne] = sprite_tiles.get(16, 96, 16, 8);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
-          else if ( ligne == _cells.length - 1 && colonne == _cells[0].length - 1 ) {
+          else if ( isWALL_CORNER_RIGHT_UNDER ) {
             PImage sprite_t = sprite_tiles.get(16, 96, 16, 8);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
-            //image(sprite_t, colonnebis, lignebis, cellSize, cellSize/2);
           }
-          else if ( colonne == 0 && ligne != 0 && ligne != _cells.length - 1 ) {
-            boardIm[ligne][colonne] = sprite_tiles.get(16, 80, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize);        
+          else if ( isWALL_LEFT ) {
+            boardIm[ligne][colonne] = sprite_tiles.get(16, 80, 16, 16);      
           }
-          else if ( colonne == _cells[0].length - 1 && ligne != 0 && ligne != _cells.length - 1) {
+          else if ( isWALL_RIGHT ) {
             PImage sprite_t = sprite_tiles.get(16, 80, 16, 16);
             inversedSprite(sprite_t);
             boardIm[ligne][colonne] = sprite_t;
-            //image(sprite_t, colonnebis, lignebis, cellSize, cellSize);
           }
           else {
             boardIm[ligne][colonne] = sprite_tiles.get(32, 96, 16, 8);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize/2) ;
           }
         }
         
         // ici c'est les sprites des mur qui sont destructibles ( 1 où si il y a un mur au dessus ducoup le sprite change et sinon l'autre sprite si il y a rien.
-        if ( _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
-          if ( _cells[ligne-1][colonne] == TypeCell.WALL || _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL ) {
+        if ( isDESTRUCTIBLE_WALL ) {
+          if ( isDESTRUCTIBLE_WALL_UNDER_EITHER_WALL  ) {
             boardIm[ligne][colonne] = sprite_tiles.get(64, 80, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
           else {
             boardIm[ligne][colonne] = sprite_tiles.get(64, 64, 16, 16);
-            //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
           }
         }
         
         // ici c'est le sprite de la sortie.
-        if ( _cells[ligne][colonne] == TypeCell.EXIT_DOOR ) {
+        if ( isEXIT_DOOR ) {
           boardIm[ligne][colonne] = sprite_tiles.get(128, 48, 16, 16);
-          //image( sprite_t, colonnebis, lignebis, cellSize, cellSize) ;
         }
         
-       
       }
     }
     return boardIm;

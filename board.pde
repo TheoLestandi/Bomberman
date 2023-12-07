@@ -22,9 +22,8 @@ class Board {
     
     // _cellSize correspond à la taille d'une cellule dans le "Board" donc on divise la taille du Board par le nombre de cellules. 
     _cellSize = drawSize.x / nbCellsX;
-    
-
-    
+   
+   
     _parser = new Parser(_line);
     _tabB = _parser.loadParser(sprite_tiles);
   }
