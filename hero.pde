@@ -4,7 +4,7 @@ class Hero {
   PVector _position;
   
   // position on board
-  float _cellX, _cellY;
+  float _cellX, _cellY, _cellCenter;
   
   // display size
   float _size;
@@ -25,6 +25,7 @@ class Hero {
     _size = cellS + cellS / 2; 
     _cellY = 2 * cellS + cellS/2;
     _cellX = cellS;
+    _cellCenter = 
   }
 
   void move(Board board, PVector direction) {
@@ -37,6 +38,7 @@ class Hero {
   }
 
   void update(Board board) {
+    
   }
 
   void drawIt() {
