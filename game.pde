@@ -16,7 +16,7 @@ class Game
   PVector _sizeTab;
 
   Game() {
-    _levelName = _line[1];
+    _levelName = _line[0];
     _posTab = new PVector(0, 2.5 * _sizeCell);
     _sizeTab = new PVector(width, height - _posTab.y);
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line);
