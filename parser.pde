@@ -18,8 +18,8 @@ class Parser{
     //_line = loadStrings(file);
     _cells = new TypeCell[_line.length][_line[0].length()];
     boardIm = new PImage[_cells.length][_cells[0].length];
-    for ( int i = 1; i < _line.length; i++ ) { 
-      for ( int j = 0; j < _line[1].length(); j++ ) { 
+    for ( int i = 0; i < _line.length; i++ ) { 
+      for ( int j = 0; j < _line[0].length(); j++ ) { 
         val = _line[i].charAt(j);
         isEmpty = val == 'v' ||val=='B'|| val == 'M';
         isWall = val == 'x';
