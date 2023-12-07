@@ -11,8 +11,6 @@ class Board {
   
   Parser _parser;
   
-  PImage sprite_tiles = loadImage("data/img/tiles.png");
-  
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
     _drawPosition = drawPosition;
