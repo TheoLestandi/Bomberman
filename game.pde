@@ -33,7 +33,7 @@ class Game
     fill(black); 
     textSize(width/16);
     text(_levelName, width/2, _posTab.y/2 );
-    //_board.drawIt();
+    _board.drawIt();
     _hero.drawIt();
   }
 

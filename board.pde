@@ -49,9 +49,14 @@ class Board {
     for (int colonne = 0; colonne < _tabB[0].length; colonne++) {
       for (int ligne = 0; ligne < _tabB.length; ligne++) {
         float posx = colonne * _cellSize;
-        float posy = ligne * _cellSize;       
+        float posy = ligne * _cellSize + _drawPosition.y;   
         PImage sprite = _tabB[ligne][colonne];
-        image(sprite, posx, posy, _cellSize, _cellSize);
+        if ( ligne == 0 ) 
+          image(sprite, posx, posy + _cellSize/2, _cellSize, _cellSize/2);       
+        else if ( ligne == _tabB.length - 1 ) 
+          image(sprite, posx, posy, _cellSize, _cellSize/2);
+        else 
+          image(sprite, posx, posy, _cellSize, _cellSize);
       }
     }
   }
