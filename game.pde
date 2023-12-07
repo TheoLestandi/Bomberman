@@ -8,7 +8,7 @@ class Game
   String _levelName;
 
   int _numberCellsX = _line[0].length();
-  int _numberCellsY = _line.length - 1;
+  int _numberCellsY = _line.length - 2;
   
   float _sizeCell = float(width)/ _numberCellsX;
   
