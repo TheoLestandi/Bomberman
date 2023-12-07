@@ -30,7 +30,7 @@ class Game{
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
     
     // Données pour le "hero". 
-    _hero = new Hero(_board._cellSize);
+    //_hero = new Hero(_board._cellSize);
   }
 
   void update() {
@@ -45,11 +45,11 @@ class Game{
     textAlign(CENTER, CENTER);
     fill(black); 
     textSize(width/16);
-    text(_levelName, width/6, _posTab.y/3);
+    text(_levelName, width/6, _posTab.y/2);
     
     // Affichage du "board" et du "hero". 
     _board.drawIt();
-    _hero.drawIt();
+    //_hero.drawIt();
   }
 
   void handleKey(int k) {

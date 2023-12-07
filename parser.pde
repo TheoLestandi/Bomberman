@@ -69,8 +69,8 @@ class Parser{
         
         // Conditions pour "EMPTY".
         boolean isEMPTY = _cells[ligne][colonne] == TypeCell.EMPTY;
-        boolean isEMPTY_UNDER_WALL = _cells[ligne-1][colonne] == TypeCell.WALL;
-        boolean isEMPTY_UNDER_DESTRUCTIBLE_WALL = _cells[ligne-1][colonne] == TypeCell.WALL;
+        boolean isEMPTY_UNDER_WALL = ligne != 0 && _cells[ligne-1][colonne] == TypeCell.WALL;
+        boolean isEMPTY_UNDER_DESTRUCTIBLE_WALL = ligne != 0 && _cells[ligne-1][colonne] == TypeCell.WALL;
         
         // Conditions pour "WALL".
         boolean isWALL = _cells[ligne][colonne] == TypeCell.WALL;
@@ -85,19 +85,23 @@ class Parser{
        
         // Conditions pour "DESTRUCTIBLE_WALL".       
         boolean isDESTRUCTIBLE_WALL = _cells[ligne][colonne] == TypeCell.DESTRUCTIBLE_WALL;
-        boolean isDESTRUCTIBLE_WALL_UNDER_EITHER_WALL = _cells[ligne-1][colonne] == TypeCell.WALL || _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL;
+        boolean isDESTRUCTIBLE_WALL_UNDER_EITHER_WALL = ligne != 0 && _cells[ligne-1][colonne] == TypeCell.WALL 
+        || ligne != 0 && _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL;
         
         // Conditions pour "EXIT_DOOR".
         boolean isEXIT_DOOR = _cells[ligne][colonne] == TypeCell.EXIT_DOOR;
         
         // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
         if ( isEMPTY ) {
-          if ( isEMPTY_UNDER_WALL ) 
+          if ( isEMPTY_UNDER_WALL ) {
             boardIm[ligne][colonne] = sprite_tiles.get(48, 80, 16, 16);
-          else if ( isEMPTY_UNDER_DESTRUCTIBLE_WALL ) 
-            boardIm[ligne][colonne] = sprite_tiles.get(64, 96, 16, 16);   
-          else 
+          }
+          else if ( isEMPTY_UNDER_DESTRUCTIBLE_WALL ) {
+            boardIm[ligne][colonne] = sprite_tiles.get(64, 96, 16, 16); 
+          }
+          else { 
             boardIm[ligne][colonne] = sprite_tiles.get(48, 96, 16, 16);
+          }
         }
         
         // ici on teste l'emplacement des murs puis on ajoute le bon sprite selon la condition.       

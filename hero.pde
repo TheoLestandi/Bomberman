@@ -25,7 +25,7 @@ class Hero {
     _size = cellS + cellS / 2; 
     _cellY = 2 * cellS + cellS/2;
     _cellX = cellS;
-    _cellCenter = 
+    //_cellCenter = 
   }
 
   void move(Board board, PVector direction) {
