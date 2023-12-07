@@ -21,11 +21,11 @@ class Parser{
     for ( int i = 0; i < _line.length; i++ ) { 
       for ( int j = 0; j < _line[0].length(); j++ ) { 
         val = _line[i].charAt(j);
-        isEmpty = val == 'v' || val == 'M';
+        isEmpty = val == 'v' ||val=='B'|| val == 'M';
         isWall = val == 'x';
         isWallDestruct = val == 'o';
         isExit = val == 'S';
-        isBomberman = val == 'B';
+        //isBomberman = val == 'B';
         
         //On associe les TypeCell à des cellules 
         if ( isEmpty ) 
@@ -56,9 +56,9 @@ class Parser{
     sprite.updatePixels();
   }
   
-  PImage[][] loadParser() {
+  PImage[][] loadParser(PImage sprite_tiles) {
     
-    PImage sprite_tiles = loadImage("data/img/tiles.png");
+    
     //PImage sprite_characters = loadImage("data/img/characters.png");
     
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
