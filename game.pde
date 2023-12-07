@@ -11,6 +11,8 @@ class Game{
   int _numberCellsY;
   
   float _sizeCell;
+  float _size_inter_board = width/160;
+  float _size_txt = width/16;
   
   PVector _posTab;
   PVector _sizeTab;
@@ -40,11 +42,14 @@ class Game{
   void drawIt() {
     // Fond d'écran quand on joue.
     background(orange);
+    strokeWeight(_size_inter_board);
+    stroke(inter_board);
+    line(0, _posTab.y + _sizeCell/2, width, _posTab.y + _sizeCell/2);
     
     // Niveau:
     textAlign(CENTER, CENTER);
     fill(black); 
-    textSize(width/16);
+    textSize(_size_txt);
     text(_levelName, width/6, _posTab.y/2);
     
     // Affichage du "board" et du "hero". 
