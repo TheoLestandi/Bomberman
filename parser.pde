@@ -3,6 +3,9 @@ enum TypeCell {
 }
 
 class Parser{
+  
+  Sprites _spriteB;
+  
   TypeCell [][] _cells;  
   
   String[] _line;
@@ -12,10 +15,11 @@ class Parser{
   char val;
   
   boolean isEmpty,isWall, isWallDestruct, isExit, isBomberman;
-  //Board board=game._board;
   
   Parser(String[] _line){
-    //_line = loadStrings(file);
+    _spriteB = Sprites();
+    HashMap<TypeSprites, PImage> spriteBoard = searchSpriteBoard();
+    
     _cells = new TypeCell[_line.length][_line[0].length()];
     boardIm = new PImage[_cells.length][_cells[0].length];
     for ( int i = 0; i < _line.length; i++ ) { 
@@ -36,8 +40,8 @@ class Parser{
           _cells[i][j] = TypeCell.DESTRUCTIBLE_WALL;
         else if ( isExit) 
           _cells[i][j] = TypeCell.EXIT_DOOR;
-       else 
-         _cells[i][j] = TypeCell.BOMBERMAN;
+        else 
+          _cells[i][j] = TypeCell.BOMBERMAN;
       }
     }
   }
@@ -58,15 +62,9 @@ class Parser{
   
   PImage[][] loadParser(PImage sprite_tiles) {
     
-    
-    //PImage sprite_characters = loadImage("data/img/characters.png");
-    
     for ( int colonne = 0; colonne < _cells[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells.length; ligne++ ) {
-        
-        //float lignebis = ( 2 + ligne ) * cellSize + cellSize / 2;
-        //float colonnebis = colonne * cellSize;
-        
+       
         // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
         if ( _cells[ligne][colonne] == TypeCell.EMPTY ) {
           if ( _cells[ligne-1][colonne] == TypeCell.WALL ) {
