@@ -15,10 +15,10 @@ class Button {
   
   void drawButton() {
     rectMode(CORNER);
-    fill(white);
+    fill(black);
     rect(topleft.x, topleft.y, size.x, size.y);
     textAlign(CENTER);
-    fill(black); 
+    fill(white); 
     textSize(size.x);
     text(text, size.x, size.y) ;
   }
