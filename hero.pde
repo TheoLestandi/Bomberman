@@ -7,6 +7,7 @@ class Hero {
   float _cellX, _cellY, _cellCenter;
   
   // display size
+  float _cellS;  
   float _size;
   
   // if hero was hit by a bomb
@@ -14,22 +15,19 @@ class Hero {
   
   PImage characters = loadImage("data/img/characters.png");
   PImage hero = characters.get(16, 0, 16, 24);
-  
-  float lignebis;
-  float colonnebis;
-  float cellS;  
+   
 
   Hero(float cellSize) {
     _wasHit = false;
-    cellS = cellSize;
-    _size = cellS + cellS / 2; 
-    _cellY = 2 * cellS + cellS/2;
-    _cellX = cellS;
+    _cellS = cellSize;
+    _size = _cellS + _cellS / 2; 
+    _cellY = 2 * _size;
+    _cellX = _cellS;
   }
 
   void move(Board board, PVector direction) {
-    _cellX=direction.x;
-    _cellY=direction.y;
+    _cellX += direction.x * _cellS;
+    _cellY += direction.y * _cellS;
     
     
   }
@@ -39,7 +37,7 @@ class Hero {
   }
 
   void drawIt() {
-    image( hero, _cellX, _cellY, cellS, cellS+cellS/2) ;
-    
+    image( hero, _cellX, _cellY, _cellS, _size) ;
+       
   }
 }

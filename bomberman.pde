@@ -30,18 +30,20 @@ void keyPressed() {
     }
   }
   if(Up){
-    float positionY = game._hero._cellY - game._hero.cellS;
-    PVector position = new PVector(game._hero._cellX, positionY);
+    PVector position = new PVector( -1, 0 );
     Board board = game._board;
     game._hero.move(board,position);
   }
   if(Left){
+    PVector position = new PVector( 0, -1 );
     ;
   }
   if(Down){
+    PVector position = new PVector( 1, 0 );
     ;
   }
   if(Right){
+    PVector position = new PVector( 0, 1 );
     ;
   }
 }
