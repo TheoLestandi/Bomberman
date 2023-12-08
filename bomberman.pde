@@ -36,15 +36,15 @@ void keyPressed() {
   }
   if(Left){
     PVector position = new PVector( 0, -1 );
-    ;
+    
   }
   if(Down){
     PVector position = new PVector( 1, 0 );
-    ;
+    
   }
   if(Right){
     PVector position = new PVector( 0, 1 );
-    ;
+    
   }
 }
 

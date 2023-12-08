@@ -35,6 +35,13 @@ class Menu {
   PVector size_menu;
   float radius_menu;
   
+  PVector size_button;
+  PVector pos_button1;
+  PVector pos_button2;
+  PVector pos_button3;
+  PVector pos_button4;
+  PVector pos_button5;
+  
   Menu() {
     
     pos_txt = new PVector( width / 2, height / 5);
@@ -43,6 +50,13 @@ class Menu {
     center_menu = new PVector(width / 2, height / 2);
     size_menu = new PVector( width * 0.9, height * 0.9 );
     radius_menu = width /20;
+    
+    size_button = new PVector( size_menu.x * 0.4, size_menu.y * 0.15 );
+    pos_button1 = new PVector( size_menu.x * 0.3, size_menu.y  );
+    pos_button2 = 
+    pos_button3 = 
+    pos_button4 = 
+    pos_button5 =
   }
 
   void drawIt() {
@@ -58,6 +72,7 @@ class Menu {
   }
 
   void update(Game game) {
+    
   }
 
   void handleMouse() {
