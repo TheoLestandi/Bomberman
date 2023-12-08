@@ -15,10 +15,10 @@ class Button {
   
   void drawButton() {
     rectMode(CORNER);
-    fill(white);
+    fill(black);
     rect(topleft.x, topleft.y, size.x, size.y);
     textAlign(CENTER);
-    fill(black); 
+    fill(white); 
     textSize(size.x);
     text(text, size.x, size.y) ;
   }
@@ -26,15 +26,35 @@ class Button {
 }
 
 class Menu {
+  
   String txt_menu =  "Menu Pause";
+  PVector pos_txt;
+  float size_txt;
+  
   PVector center_menu;
   PVector size_menu;
+  float radius_menu;
   
   Menu() {
-    //center
+    
+    pos_txt = new PVector( width / 2, height / 5);
+    size_txt = width / 12; 
+    
+    center_menu = new PVector(width / 2, height / 2);
+    size_menu = new PVector( width * 0.9, height * 0.9 );
+    radius_menu = width /20;
   }
 
   void drawIt() {
+    rectMode( CENTER );
+    stroke(black, 200);
+    fill( white_menu );
+    rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y, radius_menu );
+    textAlign( CENTER, CENTER );
+    fill(black); 
+    textSize(size_txt);
+    text( txt_menu, pos_txt.x, pos_txt.y );
+    
   }
 
   void update(Game game) {
