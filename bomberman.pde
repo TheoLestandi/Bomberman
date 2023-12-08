@@ -2,18 +2,31 @@ import java.util.Map;
 
 Game game;
 
+Menu menu;
+boolean is_menu = false;
 
 void setup() {
   size(800, 800, P2D);
   game = new Game();
+  menu = new Menu();
 }
 
 void draw() {
   game.update();
   game.drawIt();
+  if ( is_menu == true ) {
+    menu.drawIt(); 
+  }
 }
 
 void keyPressed() {
+  if ( keyCode == DOWN );
+    if ( is_menu == false ) {
+      is_menu = true; 
+    }
+    else {
+      is_menu = false;
+    }
   game.handleKey(key);
   if(Up){
     float positionY = game._hero._cellY - game._hero.cellS;

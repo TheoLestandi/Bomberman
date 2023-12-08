@@ -33,18 +33,27 @@ class Menu {
   
   PVector center_menu;
   PVector size_menu;
+  float radius_menu;
   
   Menu() {
-    pos_txt = new PVector( width / 2, height / 4);
-    size_txt = width / 9; 
+    
+    pos_txt = new PVector( width / 2, height / 5);
+    size_txt = width / 12; 
+    
     center_menu = new PVector(width / 2, height / 2);
-    size_menu = new PVector( width * 0.8, height * 0.8 );
+    size_menu = new PVector( width * 0.9, height * 0.9 );
+    radius_menu = width /20;
   }
 
   void drawIt() {
     rectMode( CENTER );
+    stroke(black, 200);
     fill( white_menu );
-    rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y );
+    rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y, radius_menu );
+    textAlign( CENTER, CENTER );
+    fill(black); 
+    textSize(size_txt);
+    text( txt_menu, pos_txt.x, pos_txt.y );
     
   }
 
