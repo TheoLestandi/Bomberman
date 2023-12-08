@@ -35,7 +35,7 @@ class Hero {
   }
 
   void update(Board board) {
-    
+    board.drawIt();
   }
 
   void drawIt() {

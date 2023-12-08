@@ -35,6 +35,7 @@ class Board {
   }
 
   void drawIt() {
+    
     for (int colonne = 0; colonne < _tabB[0].length; colonne++) {
       for (int ligne = 0; ligne < _tabB.length; ligne++) {
         float posx = colonne * _cellSize;
