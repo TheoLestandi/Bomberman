@@ -20,14 +20,15 @@ void draw() {
 }
 
 void keyPressed() {
-  if ( keyCode == DOWN );
+  game.handleKey(key);
+  if ( keyCode == ENTER ) {
     if ( is_menu == false ) {
       is_menu = true; 
     }
     else {
       is_menu = false;
     }
-  game.handleKey(key);
+  }
   if(Up){
     float positionY = game._hero._cellY - game._hero.cellS;
     PVector position = new PVector(game._hero._cellX, positionY);
