@@ -3,7 +3,7 @@ import java.util.Map;
 Game game;
 
 Menu menu;
-boolean is_menu = false;
+public boolean is_menu = false;
 
 void setup() {
   size(800, 800, P2D);
