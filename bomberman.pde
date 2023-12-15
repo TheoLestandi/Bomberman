@@ -1,6 +1,7 @@
 import java.util.Map;
 
 Game game;
+public boolean is_game = true;
 
 Menu menu;
 public boolean is_menu = false;
@@ -12,9 +13,11 @@ void setup() {
 }
 
 void draw() {
-  game.update();
-  game.drawIt();
-  if ( is_menu == true ) {
+  if ( is_game ){
+    game.update();
+    game.drawIt();
+  }
+  if ( is_menu ) {
     menu.drawIt(); 
   }
 }
@@ -24,9 +27,11 @@ void keyPressed() {
   if ( keyCode == ENTER ) {
     if ( is_menu == false ) {
       is_menu = true; 
+      is_game = false;
     }
     else {
       is_menu = false;
+      is_game = true;
     }
   }
   if(Up){
@@ -49,4 +54,5 @@ void keyPressed() {
 }
 
 void mousePressed() {
+  
 }

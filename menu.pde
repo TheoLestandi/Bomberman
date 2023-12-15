@@ -37,7 +37,7 @@ class Menu {
   Button _button4;
   Button _button5;
   
-  String txt_menu =  "Menu Pause";
+  String txt_menu =  "Pause";
   PVector pos_txt;
   float size_txt;
   
@@ -68,11 +68,11 @@ class Menu {
     pos_button4 = new PVector( width * 0.3, size_menu.y * 0.75 );
     pos_button5 = new PVector( width * 0.3, size_menu.y * 0.9 );
     
-    _button1 = new Button("1ABC", pos_button1, size_button);
-    _button2 = new Button("2", pos_button2, size_button);
-    _button3 = new Button("3", pos_button3, size_button);
-    _button4 = new Button("4", pos_button4, size_button);
-    _button5 = new Button("5", pos_button5, size_button);
+    _button1 = new Button("Resume", pos_button1, size_button);
+    _button2 = new Button("Save", pos_button2, size_button);
+    _button3 = new Button("Load save", pos_button3, size_button);
+    _button4 = new Button("Best score", pos_button4, size_button);
+    _button5 = new Button("Quit", pos_button5, size_button);
 
   }
 
