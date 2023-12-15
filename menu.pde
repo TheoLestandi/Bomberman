@@ -59,12 +59,12 @@ class Menu {
     size_menu = new PVector( width * 0.7, height * 0.9 );
     radius_menu = width /20;
     
-    size_button = new PVector( width * 0.4, height * 0.08 );
-    pos_button1 = new PVector( width * 0.3, height * 0.3 );
-    pos_button2 = new PVector( width * 0.4, height * 0.45 );
-    pos_button3 = new PVector( width * 0.4, height * 0.6 );
-    pos_button4 = new PVector( width * 0.4, height * 0.75 );
-    pos_button5 = new PVector( width * 0.4, height * 0.9 );
+    size_button = new PVector( width * 0.4, size_menu.y * 0.08 );
+    pos_button1 = new PVector( width * 0.3, size_menu.y * 0.3 );
+    pos_button2 = new PVector( width * 0.3, size_menu.y * 0.45 );
+    pos_button3 = new PVector( width * 0.3, size_menu.y * 0.6 );
+    pos_button4 = new PVector( width * 0.3, size_menu.y * 0.75 );
+    pos_button5 = new PVector( width * 0.3, size_menu.y * 0.9 );
     
     _button1 = new Button("1", pos_button1, size_button);
     _button2 = new Button("2", pos_button2, size_button);
