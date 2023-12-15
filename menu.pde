@@ -78,19 +78,22 @@ class Menu {
 
   void drawIt() {
     rectMode( CENTER );
-    stroke(black, 200);
+    stroke(black);
     fill( white_menu );
     rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y, radius_menu );
     textAlign( CENTER, CENTER );
-    fill(black); 
-    textSize(size_txt);
+    fill( black ); 
+    textSize( size_txt );
     text( txt_menu, pos_txt.x, pos_txt.y );
     _button1.drawButton();
     _button2.drawButton();
     _button3.drawButton();
     _button4.drawButton();
     _button5.drawButton();
-    
+  }
+
+  boolean isInsideButton ( PVector pos_button, PVector size_button ) {
+     return (mouseX >= pos_button.x  && mouseX < pos_button.x + size_button.x ) && (mouseY >= pos_button.y && mouseY < pos_button.y + size_button.y );
   }
 
   void update(Game game) {
@@ -99,4 +102,4 @@ class Menu {
 
   void handleMouse() {
   }
-}
+} 

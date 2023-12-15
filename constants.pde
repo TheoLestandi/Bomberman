@@ -7,7 +7,7 @@ public color orange = color(255, 128, 0);
 public color black = color(0);
 public color inter_board = color(148, 16, 0);
 public color white = color(255);
-public color white_menu = color(255, 230);
+public color white_menu = color(255, 220);
 
 // Boolean pour les touches de contrôle du Bomberman.
 final boolean Up = key == 'Z'|| keyCode == UP;

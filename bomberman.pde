@@ -54,5 +54,13 @@ void keyPressed() {
 }
 
 void mousePressed() {
-  
+  if ( mouseButton == LEFT && is_menu ) {
+    if ( menu.isInsideButton(menu.pos_button1, menu.size_button) ) {
+      is_menu = false;
+      is_game = true;
+    }
+    if ( menu.isInsideButton(menu.pos_button5, menu.size_button) ) {
+      exit();
+    }
+  }
 }
