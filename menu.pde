@@ -8,7 +8,7 @@ class Button {
     text = txt;
     topleft = corner_topleft;
     size = size_button;  
-    txtS = size.x / 5;
+    txtS = size.x / 6;
   }
   
   boolean isTriggered() {
@@ -29,7 +29,11 @@ class Button {
 
 class Menu {
   
-  Button _button;
+  Button _button1;
+  Button _button2;
+  Button _button3;
+  Button _button4;
+  Button _button5;
   
   String txt_menu =  "Menu Pause";
   PVector pos_txt;
@@ -55,14 +59,19 @@ class Menu {
     size_menu = new PVector( width * 0.9, height * 0.9 );
     radius_menu = width /20;
     
-    size_button = new PVector( size_menu.x * 0.4, size_menu.y * 0.1 );
-    pos_button1 = new PVector( size_menu.x * 0.3, size_menu.y * 0.3 );
+    size_button = new PVector( size_menu.x * 0.3, size_menu.y * 0.08 );
+    pos_button1 = new PVector( size_menu.x * 0.4, size_menu.y * 0.3 );
     pos_button2 = new PVector( size_menu.x * 0.3, size_menu.y * 0.4 );
     pos_button3 = new PVector( size_menu.x * 0.3, size_menu.y * 0.5 );
     pos_button4 = new PVector( size_menu.x * 0.3, size_menu.y * 0.6 );
     pos_button5 = new PVector( size_menu.x * 0.3, size_menu.y * 0.7 );
     
-    _button = new Button("1", pos_button1, size_button);
+    _button1 = new Button("1", pos_button1, size_button);
+    _button2 = new Button("2", pos_button2, size_button);
+    _button3 = new Button("3", pos_button3, size_button);
+    _button4 = new Button("4", pos_button4, size_button);
+    _button5 = new Button("5", pos_button5, size_button);
+
   }
 
   void drawIt() {
@@ -74,7 +83,11 @@ class Menu {
     fill(black); 
     textSize(size_txt);
     text( txt_menu, pos_txt.x, pos_txt.y );
-    _button.drawButton();
+    _button1.drawButton();
+    _button2.drawButton();
+    _button3.drawButton();
+    _button4.drawButton();
+    _button5.drawButton();
     
   }
 
