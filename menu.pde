@@ -3,12 +3,14 @@ class Button {
   PVector topleft;
   PVector size;
   float txtS;
+  PVector pos_txt_in_button;
   
   Button(String txt, PVector corner_topleft, PVector size_button) {
     text = txt;
     topleft = corner_topleft;
     size = size_button;  
-    txtS = size.x / 6;
+    txtS = size.x / 8;
+    pos_txt_in_button = new PVector(topleft.x + size.x / 2,topleft.y + size.y / 2);
   }
   
   boolean isTriggered() {
@@ -19,10 +21,10 @@ class Button {
     rectMode(CORNER);
     fill(black);
     rect(topleft.x, topleft.y, size.x, size.y);
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER,CENTER);
     fill(orange); 
     textSize(txtS);
-    text(text, size.x, size.y) ;
+    text(text, pos_txt_in_button.x, pos_txt_in_button.y) ;
   }
   
 }
@@ -66,7 +68,7 @@ class Menu {
     pos_button4 = new PVector( width * 0.3, size_menu.y * 0.75 );
     pos_button5 = new PVector( width * 0.3, size_menu.y * 0.9 );
     
-    _button1 = new Button("1", pos_button1, size_button);
+    _button1 = new Button("1ABC", pos_button1, size_button);
     _button2 = new Button("2", pos_button2, size_button);
     _button3 = new Button("3", pos_button3, size_button);
     _button4 = new Button("4", pos_button4, size_button);
