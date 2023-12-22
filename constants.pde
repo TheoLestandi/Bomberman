@@ -4,7 +4,7 @@ final int SCORE_MONSTER_DESTROYED = 100;
 
 // Couleurs.
 public color orange = color(255, 128, 0);
-public color black = color(0);
+public color black = color(0); 
 public color inter_board = color(148, 16, 0);
 public color white = color(255);
 public color white_menu = color(255, 220);
