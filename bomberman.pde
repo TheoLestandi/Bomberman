@@ -38,6 +38,7 @@ void keyPressed() {
     PVector position = new PVector( -1, 0 );
     Board board = game._board;
     game._hero.move(board,position);
+    game._hero.update(board);
   }
   if(Left){
     PVector position = new PVector( 0, -1 );
@@ -51,6 +52,7 @@ void keyPressed() {
     PVector position = new PVector( 0, 1 );
     
   }
+  
 }
 
 void mousePressed() {

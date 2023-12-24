@@ -28,16 +28,16 @@ class Hero {
   void move(Board board, PVector direction) {
     _cellX += direction.x * _cellS;
     _cellY += direction.y * _cellS;
-    
-    
+    drawIt(_cellX,_cellY);
   }
 
   void update(Board board) {
     board.drawIt();
+    
   }
 
-  void drawIt() {
-    image( hero, _cellX, _cellY, _cellS, _size) ;
+  void drawIt(float cellX, float cellY) {
+    image( hero, cellX, cellY, _cellS, _size) ;
        
   }
 }

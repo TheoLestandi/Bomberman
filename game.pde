@@ -16,6 +16,7 @@ class Game{
   
   PVector _posTab;
   PVector _sizeTab;
+  float _cellX,_cellY;
   
 
   Game() {
@@ -33,6 +34,8 @@ class Game{
     
     // Données pour le "hero". 
     _hero = new Hero(_board._cellSize);
+    _cellX=_hero._cellX;
+    _cellY=_hero._cellY;
   }
 
   void update() {
@@ -54,7 +57,7 @@ class Game{
     
     // Affichage du "board" et du "hero". 
     _board.drawIt();
-    _hero.drawIt();
+    _hero.drawIt(_cellX,_cellY);
   }
 
   void handleKey(int k) {
