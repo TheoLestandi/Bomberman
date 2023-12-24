@@ -11,6 +11,8 @@ class Board {
   
   Parser _parser;
   
+  int der_tab = 0;
+  
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
     _drawPosition = drawPosition;
@@ -23,7 +25,7 @@ class Board {
    
    
     _parser = new Parser(_line);
-    _tabB = _parser.loadParser();
+    //_tabB = _parser.loadParser();
   }
 
   PVector getCellCenter(float i, float j) {
@@ -35,7 +37,7 @@ class Board {
   }
 
   void drawIt() {
-    
+    _tabB = _parser.loadParser();
     for (int colonne = 0; colonne < _tabB[0].length; colonne++) {
       for (int ligne = 0; ligne < _tabB.length; ligne++) {
         float posx = colonne * _cellSize;
@@ -51,4 +53,4 @@ class Board {
     }
   }
 
-}
+}  

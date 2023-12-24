@@ -1,6 +1,6 @@
 class Game{
   String[] _line = loadStrings("levels/level1.txt");
-  String [] _line2=new String[_line.length-1];
+  String [] _line2 = new String[_line.length-1];
   
   Board _board;
   Hero _hero;
@@ -33,9 +33,7 @@ class Game{
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
     
     // Données pour le "hero". 
-    _hero = new Hero(_board._cellSize);
-    _cellX=_hero._cellX;
-    _cellY=_hero._cellY;
+    //_hero = new Hero(_board._cellSize, _line2);
   }
 
   void update() {

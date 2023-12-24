@@ -13,6 +13,9 @@ enum TypeSprites {
   // Sprites Sortie.
   EXIT_DOOR1, EXIT_DOOR2,
   
+  // Sprites non Bomberman.
+  NO_BBM,
+  
   // Sprites Bomberman.
   BOMBERMAN_DOWN1, BOMBERMAN_DOWN2, BOMBERMAN_DOWN3, BOMBERMAN_UP1, BOMBERMAN_UP2, BOMBERMAN_UP3,
   BOMBERMAN_LEFT1, BOMBERMAN_LEFT2, BOMBERMAN_LEFT3, BOMBERMAN_RIGHT1,  BOMBERMAN_RIGHT2, BOMBERMAN_RIGHT3, 
@@ -73,6 +76,9 @@ class Sprites {
   HashMap< TypeSprites, PImage > searchSpriteHero() {
     
     HashMap < TypeSprites, PImage > sprite_hero = new HashMap <> () ;
+    
+    // Non Bomberman.
+    sprite_hero.put(TypeSprites.NO_BBM, _imageSprites.get(96,0,16,16));
     
     // Bomberman mouvement vers le bas.
     sprite_hero.put(TypeSprites.BOMBERMAN_DOWN1, _imageSprites.get(16, 0, 16, 24));
