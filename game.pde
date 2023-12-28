@@ -18,6 +18,8 @@ class Game{
   PVector _sizeTab;
   float _cellX,_cellY;
   
+  Sprites sprite_hero;
+  PImage _sprite_hero ;
 
   Game() {
     // Nom du niveau.
@@ -34,6 +36,9 @@ class Game{
     
     // Données pour le "hero". 
     _hero = new Hero(_board._cellSize, _line2);
+    PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
+    sprite_hero = new Sprites(sprite_hero_and_mob );
+    _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
   }
 
   void update() {
@@ -55,25 +60,29 @@ class Game{
     
     // Affichage du "board" et du "hero". 
     _board.drawIt();
-    _hero.drawIt();
+    _hero.drawIt(_sprite_hero);
   }
 
   void handleKey(int k) {
     if(k=='z'||keyCode==UP||k=='Z'){
     PVector position = new PVector( 0, -1 );
     _hero.move(_board,position);
+    _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
   }
     if(k == 'q' || keyCode == LEFT){
     PVector position = new PVector( -1, 0 );
     _hero.move(_board,position);
+    _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
   }
     if(k == 's' || keyCode == DOWN){
     PVector position = new PVector( 0, 1 );
     _hero.move(_board,position);
+   _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
   }
     if(k == 'd' || keyCode == RIGHT){
     PVector position = new PVector( 1, 0 );
     _hero.move(_board,position);
+    _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
   }
   }
 }
