@@ -25,15 +25,14 @@ class Board {
    
    
     _parser = new Parser(_line);
-    //_tabB = _parser.loadParser();
+    _tabB = _parser.loadParser();
   }
 
   PVector getCellCenter(float i, float j) {
+    PVector center = new PVector(i + _cellSize / 2,j + _cellSize / 2);
     // cellCenterX et cellCenterY correspondent à l'angle haut-gauche de la cellule avec les index i et j. 
     // Puis on ajoute la moitié de cellSize aux deux pour avoir le milieu de la cellule. 
-    float cellCenterX = i * _cellSize + _cellSize / 2;
-    float cellCenterY = j * _cellSize + _cellSize / 2;
-    return new PVector( cellCenterX, cellCenterY);
+    return center;
   }
 
   void drawIt() {

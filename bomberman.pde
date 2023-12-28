@@ -34,27 +34,6 @@ void keyPressed() {
       is_game = true;
     }
   }
-  if(Up){
-    PVector position = new PVector( -1, 0 );
-    Board board = game._board;
-    game._hero.move(board,position);
-    game._hero.update(board);
-  }
-  if(Left){
-    PVector position = new PVector( 0, -1 );
-    Board board = game._board;
-    game._hero.move(board,position);
-  }
-  if(Down){
-    PVector position = new PVector( 1, 0 );
-    Board board = game._board;
-    game._hero.move(board,position);
-  }
-  if(Right){
-    PVector position = new PVector( 0, 1 );
-    Board board = game._board;
-    game._hero.move(board,position);
-  }
   
 }
 

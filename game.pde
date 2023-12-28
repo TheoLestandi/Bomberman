@@ -33,7 +33,7 @@ class Game{
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
     
     // Données pour le "hero". 
-    //_hero = new Hero(_board._cellSize, _line2);
+    _hero = new Hero(_board._cellSize, _line2);
   }
 
   void update() {
@@ -55,9 +55,25 @@ class Game{
     
     // Affichage du "board" et du "hero". 
     _board.drawIt();
-    _hero.drawIt(_cellX,_cellY);
+    _hero.drawIt();
   }
 
   void handleKey(int k) {
+    if(k=='z'||keyCode==UP||k=='Z'){
+    PVector position = new PVector( 0, -1 );
+    _hero.move(_board,position);
+  }
+    if(k == 'q' || keyCode == LEFT){
+    PVector position = new PVector( -1, 0 );
+    _hero.move(_board,position);
+  }
+    if(k == 's' || keyCode == DOWN){
+    PVector position = new PVector( 0, 1 );
+    _hero.move(_board,position);
+  }
+    if(k == 'd' || keyCode == RIGHT){
+    PVector position = new PVector( 1, 0 );
+    _hero.move(_board,position);
+  }
   }
 }
