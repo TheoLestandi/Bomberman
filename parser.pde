@@ -20,7 +20,6 @@ class Parser{
   boolean isEmpty, isWall, isWallDestruct, isExit, isBomberman, isNoBBM;
   
   PImage sprite_tiles = loadImage("data/img/tiles.png");
-  PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
   
   int num_sprite_exit = 1;
   int num_sprite_destructWall = 1;
@@ -32,7 +31,7 @@ class Parser{
   Parser(String[] _line){
     
     _spriteBoard = new Sprites( sprite_tiles );
-    _spriteHeroAndMob = new Sprites( sprite_hero_and_mob );
+    //_spriteHeroAndMob = new Sprites( sprite_hero_and_mob );
     
     _cells = new TypeCell[_line.length][_line[0].length()];
     _cells_hero = new TypeCell[_line.length][_line[0].length()];
@@ -205,7 +204,6 @@ class Parser{
             num_sprite_exit = 1;
           }
           
-          //boardIm[ligne][colonne] = _spriteBoard.searchSpriteBoard().get(TypeSprites.valueOf("EXIT_DOOR" + num_sprite_exit));         
           if (num_sprite_exit == 1) 
             boardIm[ligne][colonne] = _spriteBoard.searchSpriteBoard().get(TypeSprites.EXIT_DOOR1);
           else 
@@ -227,7 +225,6 @@ class Parser{
           heroIm[ligne][colonne] = _spriteHeroAndMob.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
         }
         else if ( isNO_BBM )  {
-          //else {
           heroIm[ligne][colonne] = _spriteHeroAndMob.searchSpriteHero().get(TypeSprites.NO_BBM);
         }
       }

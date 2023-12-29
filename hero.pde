@@ -13,8 +13,8 @@ class Hero {
   // if hero was hit by a bomb
   boolean _wasHit;
   
-  PImage characters = loadImage("data/img/characters.png");
-  PImage hero = characters.get(16, 0, 16, 24);
+  //PImage characters = loadImage("data/img/characters.png");
+  //PImage hero = characters.get(16, 0, 16, 24);
   
   Parser _parser_hero;
   
@@ -40,10 +40,8 @@ class Hero {
     //board.drawIt();
   }
 
-  void drawIt() {  
+  void drawIt(PImage hero) { 
     image(hero, _cellX, _cellY, _cellS, _size);
-      
-    
   }
   
 }

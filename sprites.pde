@@ -91,14 +91,14 @@ class Sprites {
     sprite_hero.put(TypeSprites.BOMBERMAN_UP3, _imageSprites.get(80, 0, 16, 24));
     
     // Bomberman mouvement vers la gauche.
-    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT1, _imageSprites.get(0, 16, 16, 24));
-    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT2, _imageSprites.get(32, 16, 16, 24));
-    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT3, _imageSprites.get(16, 16, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT1, _imageSprites.get(0, 24, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT2, _imageSprites.get(32, 24, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_LEFT3, _imageSprites.get(16, 24, 16, 24));
     
     // Bomberman mouvement vers la droite.
-    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT1, _imageSprites.get(48, 16, 16, 24));
-    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT2, _imageSprites.get(64, 16, 16, 24));
-    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT3, _imageSprites.get(80, 16, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT1, _imageSprites.get(48, 24, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT2, _imageSprites.get(64, 24, 16, 24));
+    sprite_hero.put(TypeSprites.BOMBERMAN_RIGHT3, _imageSprites.get(80, 24, 16, 24));
 
     // Bomberman sprites de la mort.
     sprite_hero.put(TypeSprites.BOMBERMAN_DEAD1, _imageSprites.get(0, 32, 16, 24));
