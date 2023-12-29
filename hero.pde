@@ -41,7 +41,7 @@ class Hero {
   }
 
   void drawIt() {  
-    image(hero, _cellX, _cellY, _cellS, _cellS);
+    image(hero, _cellX, _cellY, _cellS, _size);
       
     
   }
