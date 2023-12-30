@@ -16,10 +16,13 @@ class Game {
 
   PVector _posTab;
   PVector _sizeTab;
-  float _cellX,_cellY;
-  
+
+
   Sprites sprite_hero;
   PImage _sprite_hero ;
+
+  TypeCell _cell[][];
+  float _cellX, _cellY;
 
   Game() {
     // Nom du niveau.
@@ -39,7 +42,11 @@ class Game {
     PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
+
+    _cell=_board._parser._cells;
+    
   }
+
 
   void update() {
   }
@@ -60,29 +67,55 @@ class Game {
     // Affichage du "board" et du "hero".
     _board.drawIt();
     _hero.drawIt(_sprite_hero);
+    _cellX=_hero._cellX;
+    _cellY=_hero._cellY;
   }
 
   void handleKey(int k) {
-    if(k=='z'||keyCode==UP||k=='Z'){
-    PVector position = new PVector( 0, -1 );
-    _hero.move(_board,position);
-    _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
+    if (k=='z'||keyCode==UP||k=='Z') {
+      PVector position = new PVector( 0, -1 );
+       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
+      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
+        _hero.move(_board, position);
+       
+      }
+    }
+    if (k == 'q' || keyCode == LEFT) {
+      PVector position = new PVector( -1, 0 );
+      _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
+     if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
+        _hero.move(_board, position);
+        
+      }
+    }
+    if (k == 's' || keyCode == DOWN) {
+      PVector position = new PVector( 0, 1 );
+      _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
+      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
+        _hero.move(_board, position);
+       
+      }
+    }
+    if (k == 'd' || keyCode == RIGHT) {
+      PVector position = new PVector( 1, 0 );
+      _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
+      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
+        _hero.move(_board, position);
+        
+      }
+    }
   }
-    if(k == 'q' || keyCode == LEFT){
-    PVector position = new PVector( -1, 0 );
-    _hero.move(_board,position);
-    _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
+  boolean obstacle(float cellX, float cellY, PVector position, float CellSize, TypeCell [][] cell) {
+    int x=int(cellX/CellSize);
+    int y=int(cellY/CellSize)-2;
+    x+=position.x;
+    y+=position.y;
+    println (x);
+    println(y);
+    if (cell[y][x]==TypeCell.EMPTY) {
+      return true;
+    } else {
+      return false;
+    }
   }
-    if(k == 's' || keyCode == DOWN){
-    PVector position = new PVector( 0, 1 );
-    _hero.move(_board,position);
-   _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-  }
-    if(k == 'd' || keyCode == RIGHT){
-    PVector position = new PVector( 1, 0 );
-    _hero.move(_board,position);
-    _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
-  }
-  }
-  
 }

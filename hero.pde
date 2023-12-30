@@ -37,7 +37,7 @@ class Hero {
   }
 
   void update(Board board) {
-    //board.drawIt();
+    board.drawIt();
   }
 
   void drawIt(PImage hero) { 
