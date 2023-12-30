@@ -39,7 +39,9 @@ class Game {
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
 
     // Données pour le "hero".
-    _hero = new Hero(_board._cellSize, _line2);
+    sprite_hero = new Sprites(sprite_hero_and_mob );
+    _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
+    _hero = new Hero(_board._cellSize, _line2, _sprite_hero );
     PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
@@ -67,7 +69,7 @@ class Game {
 
     // Affichage du "board" et du "hero".
     _board.drawIt();
-    _hero.drawIt(_sprite_hero);
+    _hero.drawIt();
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
   }
@@ -77,7 +79,7 @@ class Game {
       PVector position = new PVector( 0, -1 );
        _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
+        _hero.move(_board, position, _sprite_hero);
        
       }
     }
@@ -85,7 +87,7 @@ class Game {
       PVector position = new PVector( -1, 0 );
       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
+        _hero.move(_board, position, _sprite_hero);
         
       }
     }
@@ -93,7 +95,7 @@ class Game {
       PVector position = new PVector( 0, 1 );
       _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
+        _hero.move(_board, position, _sprite_hero);
        
       }
     }
@@ -101,7 +103,7 @@ class Game {
       PVector position = new PVector( 1, 0 );
       _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
+        _hero.move(_board, position, _sprite_hero);
         
       }
     }
@@ -111,8 +113,6 @@ class Game {
     int y=int(cellY/CellSize)-2;
     x+=position.x;
     y+=position.y;
-    println (x);
-    println(y);
     if (cell[y][x]==TypeCell.EMPTY) {
       return true;
     } else {
