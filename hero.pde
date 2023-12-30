@@ -13,34 +13,31 @@ class Hero {
   // if hero was hit by a bomb
   boolean _wasHit;
   
-  //PImage characters = loadImage("data/img/characters.png");
-  //PImage hero = characters.get(16, 0, 16, 24);
-  
-  Parser _parser_hero;
-  
-  PImage [][] _tabH ;
+  // sprite du hero
+  PImage hero;
 
-  Hero(float cellSize, String[] _line) {
+  Hero(float cellSize, String[] _line, PImage sprite) {
     _wasHit = false;
     _cellS = cellSize;
     _size = _cellS + _cellS / 2; 
     _cellY = 2 * _size;
     _cellX = _cellS;
+    hero = sprite;
     
-    _parser_hero = new Parser( _line );
-    _tabH = _parser_hero.loadHero();
   }
 
-  void move(Board board, PVector direction) {
+  void move(Board board, PVector direction, PImage sprite_move) {
     _cellX += direction.x * _cellS;
     _cellY += direction.y * _cellS;
+    hero = sprite_move;
+    
   }
 
   void update(Board board) {
     board.drawIt();
   }
 
-  void drawIt(PImage hero) { 
+  void drawIt() { 
     image(hero, _cellX, _cellY, _cellS, _size);
   }
   

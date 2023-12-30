@@ -213,7 +213,7 @@ class Parser{
     }
     return boardIm;
   }
-  
+  /*
   PImage[][] loadHero() {
     for ( int colonne = 0; colonne < _cells_hero[0].length; colonne++ ) {
       for ( int ligne = 0; ligne < _cells_hero.length; ligne++ ) {
@@ -230,6 +230,6 @@ class Parser{
       }
     }
   return heroIm;
-  }
+  }*/
 
 }

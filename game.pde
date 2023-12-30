@@ -20,6 +20,7 @@ class Game {
 
   Sprites sprite_hero;
   PImage _sprite_hero ;
+  PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
 
   TypeCell _cell[][];
   float _cellX, _cellY;
