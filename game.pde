@@ -69,7 +69,7 @@ class Game {
 
     // Affichage du "board" et du "hero".
     _board.drawIt();
-    _hero.drawIt();
+    _hero.drawIt(_sprite_hero);
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
   }
@@ -79,33 +79,37 @@ class Game {
       PVector position = new PVector( 0, -1 );
        _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position, _sprite_hero);
+        _hero.move(_board, position);
        
       }
+      _hero.drawIt(_sprite_hero);
     }
     if (k == 'q' || keyCode == LEFT) {
       PVector position = new PVector( -1, 0 );
       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position, _sprite_hero);
+        _hero.move(_board, position);
         
       }
+      _hero.drawIt(_sprite_hero);
     }
     if (k == 's' || keyCode == DOWN) {
       PVector position = new PVector( 0, 1 );
       _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position, _sprite_hero);
+        _hero.move(_board, position);
        
       }
+      _hero.drawIt(_sprite_hero);
     }
     if (k == 'd' || keyCode == RIGHT) {
       PVector position = new PVector( 1, 0 );
       _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position, _sprite_hero);
+        _hero.move(_board, position);
         
       }
+      _hero.drawIt(_sprite_hero);
     }
   }
   boolean obstacle(float cellX, float cellY, PVector position, float CellSize, TypeCell [][] cell) {

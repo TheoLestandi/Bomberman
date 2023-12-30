@@ -26,10 +26,9 @@ class Hero {
     
   }
 
-  void move(Board board, PVector direction, PImage sprite_move) {
+  void move(Board board, PVector direction) {
     _cellX += direction.x * _cellS;
     _cellY += direction.y * _cellS;
-    hero = sprite_move;
     
   }
 
@@ -37,7 +36,7 @@ class Hero {
     board.drawIt();
   }
 
-  void drawIt() { 
+  void drawIt(PImage hero) { 
     image(hero, _cellX, _cellY, _cellS, _size);
   }
   
