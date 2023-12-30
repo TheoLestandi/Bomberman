@@ -6,6 +6,8 @@ public boolean is_game = true;
 Menu menu;
 public boolean is_menu = false;
 
+boolean isKeypressed;
+
 void setup() {
   size(800, 800, P2D);
   game = new Game();
@@ -20,10 +22,13 @@ void draw() {
   if ( is_menu ) {
     menu.drawIt(); 
   }
+  if (isKeypressed){
+    game.handleKey(key);
+  }
 }
 
 void keyPressed() {
-  game.handleKey(key);
+  //game.handleKey(key);
   if ( keyCode == ENTER ) {
     if ( is_menu == false ) {
       is_menu = true; 
@@ -34,7 +39,11 @@ void keyPressed() {
       is_game = true;
     }
   }
+  isKeypressed=true;
   
+}
+void keyReleased(){
+  isKeypressed=false;
 }
 
 void mousePressed() {
