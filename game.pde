@@ -25,6 +25,9 @@ class Game {
   TypeCell _cell[][];
   float _cellX, _cellY;
 
+  boolean UpLeft, UpRight, DownLeft, DownRight;
+  
+
   Game() {
     // Nom du niveau.
     _levelName = _line[0];
@@ -47,7 +50,6 @@ class Game {
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
 
     _cell=_board._parser._cells;
-    
   }
 
 
@@ -72,24 +74,23 @@ class Game {
     _hero.drawIt(_sprite_hero);
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
+    
   }
 
   void handleKey(int k) {
     if (k=='z'||keyCode==UP||k=='Z') {
       PVector position = new PVector( 0, -1 );
-       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
+      _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
         _hero.move(_board, position);
-       
       }
       _hero.drawIt(_sprite_hero);
     }
     if (k == 'q' || keyCode == LEFT) {
       PVector position = new PVector( -1, 0 );
       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
-     if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
+      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
         _hero.move(_board, position);
-        
       }
       _hero.drawIt(_sprite_hero);
     }
@@ -98,7 +99,6 @@ class Game {
       _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
         _hero.move(_board, position);
-       
       }
       _hero.drawIt(_sprite_hero);
     }
@@ -107,20 +107,66 @@ class Game {
       _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
       if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
         _hero.move(_board, position);
-        
       }
       _hero.drawIt(_sprite_hero);
     }
   }
-  boolean obstacle(float cellX, float cellY, PVector position, float CellSize, TypeCell [][] cell) {
-    int x=int(cellX/CellSize);
+  boolean obstacle(float cellX, float cellY, PVector direction, float CellSize, TypeCell [][] cell) {
+    int x=round(cellX/CellSize);
     int y=int(cellY/CellSize)-2;
-    x+=position.x;
-    y+=position.y;
-    if (cell[y][x]==TypeCell.EMPTY) {
-      return true;
-    } else {
+    println(x,y);
+    println(cellX, cellY);
+    x+=direction.x;
+    y+=direction.y;
+    println(x,y);
+    println(cell.length,cell[0].length);
+    if (x<=0){//||x>=cell.length){
+      println("false");
       return false;
+    }
+    if (y<=0){//||y>=cell[0].length+2){
+      println("false");
+      return false;
+    }
+    
+    float epsilon = 1;
+    println(direction.x,direction.y);
+    println(int(cellX/CellSize));
+    println(cellX+CellSize);
+    float UpLeftX=abs((cellX + (direction.x * CellSize)/4) - (int(cellX / CellSize)*CellSize + direction.x*CellSize));
+    float UpLeftY = abs((cellY + (direction.y * CellSize)/4) - (int(cellY / CellSize)*CellSize + direction.y*CellSize));
+    float UpRightX = abs((cellX + CellSize + (direction.x * CellSize )/4) - (int((CellSize+cellX) / CellSize)*CellSize + direction.x*CellSize));
+    float  UpRightY = abs((cellY + (direction.y * CellSize) /4) - (int(cellY / CellSize)*CellSize + direction.y*CellSize));
+    float  DownLeftX = abs((cellX + (direction.x * CellSize) /4)  - (int(cellX / CellSize)*CellSize + direction.x*CellSize));
+    float  DownLeftY = abs((CellSize + cellY + (direction.y * CellSize) /4) - (int((CellSize+cellY) / CellSize)*CellSize + direction.y*CellSize));
+    float DownRightX = abs((CellSize + cellX + (direction.x * CellSize) / 4) - (int((CellSize+cellX) / CellSize)*CellSize + direction.x*CellSize));
+    float DownRightY =  abs((CellSize + cellY + (direction.y * CellSize) / 4) - (int((CellSize+cellY) / CellSize)*CellSize + direction.y*CellSize));
+    /*println(UpLeftX,UpLeftY);
+    println(UpRightX,UpRightY);
+    println(DownLeftX,DownLeftY);
+    println(DownRightX,DownRightY);
+    println(epsilon);*/
+    
+    UpLeft = UpLeftX < epsilon && UpLeftY < epsilon;
+    println(UpLeft);
+    UpRight = UpRightX < epsilon && UpRightY < epsilon;
+    println(UpRight); 
+    DownLeft = DownLeftX < epsilon && DownLeftY < epsilon;
+    println(DownLeft);
+    DownRight = DownRightX < epsilon && DownRightY < epsilon;
+    println(DownRight);
+    if (UpLeft && UpRight && DownLeft && DownRight){
+      x+=direction.x;
+      y+=direction.y;
+    }
+    println(cell[y][x]!=TypeCell.EMPTY);
+    if (cell[y][x] != TypeCell.EMPTY && UpLeft && UpRight && DownLeft && DownRight) {
+      println("False");
+      return false;
+      
+    } else {
+      println("True");
+      return true;
     }
   }
 }

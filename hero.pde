@@ -20,15 +20,20 @@ class Hero {
     _wasHit = false;
     _cellS = cellSize;
     _size = _cellS + _cellS / 2; 
-    _cellY = 2 * _size;
+    _position= new PVector(_cellS,2*_size);
+    //_cellY = 2* _size;
+    _cellY = 3* _cellS;
     _cellX = _cellS;
     hero = sprite;
     
   }
 
   void move(Board board, PVector direction) {
-    _cellX += direction.x * _cellS;
-    _cellY += direction.y * _cellS;
+    _cellX += (direction.x * _cellS)/4;
+    _cellY += (direction.y * _cellS)/4;
+    _position.x += (direction.x * _cellS)/4;
+    _position.y += (direction.y * _cellS)/4;
+    
     
   }
 
@@ -37,7 +42,7 @@ class Hero {
   }
 
   void drawIt(PImage hero) { 
-    image(hero, _cellX, _cellY, _cellS, _size);
+    image(hero, _position.x, _position.y, _cellS, _size);
   }
   
 }
