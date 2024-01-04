@@ -1,4 +1,4 @@
-class Board {
+ class Board {
   PVector _drawPosition;
   PVector _drawSize;
   

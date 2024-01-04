@@ -4,6 +4,7 @@ class Game {
 
   Board _board;
   Hero _hero;
+  Bomb bomb;
 
   String _levelName;
 
@@ -110,6 +111,10 @@ class Game {
       }
       _hero.drawIt(_sprite_hero);
     }
+    if (k == ' '){
+      bomb = new Bomb(_cellX,_cellY,_sizeCell,false);
+      bomb.drawIt();
+    }
   }
   boolean obstacle(float cellX, float cellY, PVector direction, float CellSize, TypeCell [][] cell) {
     
@@ -119,10 +124,10 @@ class Game {
     PVector BDownRight = new PVector(cellX+CellSize+direction.x*CellSize/4,cellY+CellSize+direction.y*CellSize/4);
 
     
-    PVector xyUpLeft= new PVector((BUpLeft.y/CellSize)-2,(BUpLeft.x/CellSize));
-    PVector xyUpRight= new PVector((BUpRight.y/CellSize)-2,(BUpRight.x/CellSize));
-    PVector xyDownLeft= new PVector((BDownLeft.y/CellSize)-2,(BDownLeft.x/CellSize));
-    PVector xyDownRight= new PVector((BDownRight.y/CellSize)-2,(BDownRight.x/CellSize));
+    PVector xyUpLeft= new PVector((BUpLeft.y/CellSize)-2.5,(BUpLeft.x/CellSize));
+    PVector xyUpRight= new PVector((BUpRight.y/CellSize)-2.5,(BUpRight.x/CellSize));
+    PVector xyDownLeft= new PVector((BDownLeft.y/CellSize)-2.5,(BDownLeft.x/CellSize));
+    PVector xyDownRight= new PVector((BDownRight.y/CellSize)-2.5,(BDownRight.x/CellSize));
     
     
     if(abs(xyUpLeft.x-round(xyUpLeft.x))<1e-4){

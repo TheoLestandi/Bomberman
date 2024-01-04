@@ -21,8 +21,9 @@ class Hero {
     _cellS = cellSize;
     _size = _cellS + _cellS / 2; 
     _position= new PVector(_cellS,2*_size);
+    
     //_cellY = 2* _size;
-    _cellY = 3* _cellS;
+    _cellY = 3.5* _cellS;
     _cellX = _cellS;
     hero = sprite;
     
