@@ -28,6 +28,10 @@ class Game {
 
   boolean UpLeft, UpRight, DownLeft, DownRight;
   
+  float bombPlacementCellX;
+  float bombPlacementCellY;
+
+  
 
   Game() {
     // Nom du niveau.
@@ -71,8 +75,10 @@ class Game {
     text(_levelName, width/6, _posTab.y/2);
 
     // Affichage du "board" et du "hero".
+    
     _board.drawIt();
     if (bomb != null && millis()-bomb.Time>3000){
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell);
       bomb=null;
     }
     if (bomb != null) {
@@ -123,9 +129,26 @@ class Game {
       float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
       PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);
       bomb = new Bomb(centerCell.x,centerCell.y,_sizeCell,false);
-      
+      bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
+      bombPlacementCellY = cellY;
       //bomb.drawIt();
     }
+  }
+  
+  void explosion(float cellX,float cellY,TypeCell [][] cell){
+    if (cell[int(cellY+1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY+1)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY-1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY-1)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX+1)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY)][int(cellX+1)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX-1)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY)][int(cellX-1)]=TypeCell.EMPTY;
+    }
+    
   }
   boolean obstacle(float cellX, float cellY, PVector direction, float CellSize, TypeCell [][] cell) {
     
