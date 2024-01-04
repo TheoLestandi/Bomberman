@@ -112,61 +112,118 @@ class Game {
     }
   }
   boolean obstacle(float cellX, float cellY, PVector direction, float CellSize, TypeCell [][] cell) {
-    int x=round(cellX/CellSize);
-    int y=int(cellY/CellSize)-2;
-    println(x,y);
-    println(cellX, cellY);
-    x+=direction.x;
-    y+=direction.y;
-    println(x,y);
-    println(cell.length,cell[0].length);
-    if (x<=0){//||x>=cell.length){
-      println("false");
-      return false;
+    
+    PVector BUpLeft = new PVector(cellX+direction.x*CellSize/4,cellY+direction.y*CellSize/4);
+    PVector BUpRight = new PVector(cellX+CellSize+direction.x*CellSize/4,cellY+direction.y*CellSize/4);
+    PVector BDownLeft = new PVector(cellX+direction.x*CellSize/4,cellY+CellSize+direction.y*CellSize/4);
+    PVector BDownRight = new PVector(cellX+CellSize+direction.x*CellSize/4,cellY+CellSize+direction.y*CellSize/4);
+
+    
+    PVector xyUpLeft= new PVector((BUpLeft.y/CellSize)-2,(BUpLeft.x/CellSize));
+    PVector xyUpRight= new PVector((BUpRight.y/CellSize)-2,(BUpRight.x/CellSize));
+    PVector xyDownLeft= new PVector((BDownLeft.y/CellSize)-2,(BDownLeft.x/CellSize));
+    PVector xyDownRight= new PVector((BDownRight.y/CellSize)-2,(BDownRight.x/CellSize));
+    
+    
+    if(abs(xyUpLeft.x-round(xyUpLeft.x))<1e-4){
+      xyUpLeft.x = ceil(xyUpLeft.x);
     }
-    if (y<=0){//||y>=cell[0].length+2){
-      println("false");
-      return false;
+    if(abs(xyUpLeft.y-round(xyUpLeft.y))<1e-4){
+      xyUpLeft.y = ceil(xyUpLeft.y);
+    }
+    if(abs(xyUpRight.x-round(xyUpRight.x))<1e-4){
+      xyUpRight.x = ceil(xyUpRight.x);
+    }
+    if(abs(xyUpRight.y-round(xyUpRight.y))<1e-4){
+      xyUpRight.y = ceil(xyUpRight.y);
+    }
+    if(abs(xyDownLeft.x-round(xyDownLeft.x))<1e-4){
+      xyDownLeft.x = ceil(xyDownLeft.x);
+    }
+    if(abs(xyDownLeft.y-round(xyDownLeft.y))<1e-4){
+      xyDownLeft.y = ceil(xyDownLeft.y);
+    }
+    if(abs(xyDownRight.x-round(xyDownRight.x))<1e-4){
+      xyDownRight.x = ceil(xyDownRight.x);
+    }
+    if(abs(xyDownRight.y-round(xyDownRight.y))<1e-4){
+      xyDownRight.y = ceil(xyDownRight.y);
     }
     
-    float epsilon = 1;
-    println(direction.x,direction.y);
-    println(int(cellX/CellSize));
-    println(cellX+CellSize);
-    float UpLeftX=abs((cellX + (direction.x * CellSize)/4) - (int(cellX / CellSize)*CellSize + direction.x*CellSize));
-    float UpLeftY = abs((cellY + (direction.y * CellSize)/4) - (int(cellY / CellSize)*CellSize + direction.y*CellSize));
-    float UpRightX = abs((cellX + CellSize + (direction.x * CellSize )/4) - (int((CellSize+cellX) / CellSize)*CellSize + direction.x*CellSize));
-    float  UpRightY = abs((cellY + (direction.y * CellSize) /4) - (int(cellY / CellSize)*CellSize + direction.y*CellSize));
-    float  DownLeftX = abs((cellX + (direction.x * CellSize) /4)  - (int(cellX / CellSize)*CellSize + direction.x*CellSize));
-    float  DownLeftY = abs((CellSize + cellY + (direction.y * CellSize) /4) - (int((CellSize+cellY) / CellSize)*CellSize + direction.y*CellSize));
-    float DownRightX = abs((CellSize + cellX + (direction.x * CellSize) / 4) - (int((CellSize+cellX) / CellSize)*CellSize + direction.x*CellSize));
-    float DownRightY =  abs((CellSize + cellY + (direction.y * CellSize) / 4) - (int((CellSize+cellY) / CellSize)*CellSize + direction.y*CellSize));
-    /*println(UpLeftX,UpLeftY);
-    println(UpRightX,UpRightY);
-    println(DownLeftX,DownLeftY);
-    println(DownRightX,DownRightY);
-    println(epsilon);*/
     
-    UpLeft = UpLeftX < epsilon && UpLeftY < epsilon;
-    println(UpLeft);
-    UpRight = UpRightX < epsilon && UpRightY < epsilon;
-    println(UpRight); 
-    DownLeft = DownLeftX < epsilon && DownLeftY < epsilon;
-    println(DownLeft);
-    DownRight = DownRightX < epsilon && DownRightY < epsilon;
-    println(DownRight);
-    if (UpLeft && UpRight && DownLeft && DownRight){
-      x+=direction.x;
-      y+=direction.y;
-    }
-    println(cell[y][x]!=TypeCell.EMPTY);
-    if (cell[y][x] != TypeCell.EMPTY && UpLeft && UpRight && DownLeft && DownRight) {
-      println("False");
-      return false;
+    
+    if (xyDownLeft.x%1==0){//||abs(xyDownLeft.x-int(xyDownLeft.x+1))<1e-4){
+      xyDownLeft.x--;
       
-    } else {
-      println("True");
+    }
+    if (xyDownRight.x%1==0){//||abs(xyDownRight.x-int(xyDownRight.x+1))<1e-4){
+      xyDownRight.x--;
+      
+    }
+    if (xyDownRight.y%1==0){//||abs(xyDownRight.y-int(xyDownRight.y+1))<1e-4){
+      xyDownRight.y--;
+     
+    }
+    if (xyUpRight.y%1==0){//||abs(xyUpRight.y-int(xyUpRight.y+1))<1e-4){
+      xyUpRight.y--;
+     
+    }
+    if (xyUpLeft.x>=0 && xyUpLeft.x<1){
+      xyUpLeft.x=1.0;
+      return false;
+    }
+    if (xyUpLeft.y>=0 && xyUpLeft.y<1){
+      xyUpLeft.y=1.0;
+      return false;
+    }
+    if (xyDownLeft.y>=0 && xyDownLeft.y<1){
+      xyDownLeft.y=1.0;
+      return false;
+    }
+    
+    if (cell[floor(xyUpLeft.x)][floor(xyUpLeft.y)]!=TypeCell.EMPTY){
+      xyDownRight.x=xyUpLeft.x;
+      xyDownRight.y=xyUpLeft.y;
+    }
+    if (cell[floor(xyUpRight.x)][floor(xyUpRight.y)]!=TypeCell.EMPTY){
+      xyDownLeft.x=xyUpRight.x;
+      xyDownLeft.y=xyUpRight.y;
+    }
+    if (cell[floor(xyDownLeft.x)][floor(xyDownLeft.y)]!=TypeCell.EMPTY){
+      xyUpRight.x=xyDownLeft.x;
+      xyUpRight.y=xyDownLeft.y;
+    }
+    if (cell[floor(xyDownRight.x)][floor(xyDownRight.y)]!=TypeCell.EMPTY){
+      xyUpLeft.x=xyDownRight.x;
+      xyUpLeft.y=xyDownRight.y;
+    }
+    
+    if (cell[floor(xyUpLeft.x)][floor(xyUpLeft.y)]!=TypeCell.EMPTY){
+      xyDownRight.x=xyUpLeft.x;
+      xyDownRight.y=xyUpLeft.y;
+      return false;
+    }
+    if (cell[floor(xyUpRight.x)][floor(xyUpRight.y)]!=TypeCell.EMPTY){
+      xyDownLeft.x=xyUpRight.x;
+      xyDownLeft.y=xyUpRight.y;
+      return false;
+    }
+    if (cell[floor(xyDownLeft.x)][floor(xyDownLeft.y)]!=TypeCell.EMPTY){
+      xyUpRight.x=xyDownLeft.x;
+      xyUpRight.y=xyDownLeft.y;
+      return false;
+    }
+    if (cell[floor(xyDownRight.x)][floor(xyDownRight.y)]!=TypeCell.EMPTY){
+      xyUpLeft.x=xyDownRight.x;
+      xyUpLeft.y=xyDownRight.y;
+      return false;
+    }
+    else {
       return true;
     }
-  }
+    
+    
+    
+    
+  } 
 }
