@@ -19,9 +19,13 @@ class Bomb {
   }
 
   void update(Board board, Hero hero) {
+    
   }
   void drawIt(){
-    fill(0, 0, 255);
-    rect(_cellX, _cellY, _cellS, _cellS);
+    
+     fill(0, 0, 255);
+     rectMode(CENTER);
+     rect(_cellX, _cellY, _cellS, _cellS);
+    
   }
 }

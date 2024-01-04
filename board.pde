@@ -13,6 +13,8 @@
   
   int der_tab = 0;
   
+  boolean bomb;
+  
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
     _drawPosition = drawPosition;
@@ -25,6 +27,7 @@
    
    
     _parser = new Parser(_line);
+    bomb=false;
   }
 
   PVector getCellCenter(float i, float j) {
