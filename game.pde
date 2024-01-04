@@ -72,6 +72,9 @@ class Game {
 
     // Affichage du "board" et du "hero".
     _board.drawIt();
+    if (bomb != null && millis()-bomb.Time>3000){
+      bomb=null;
+    }
     if (bomb != null) {
       bomb.drawIt();
     }
@@ -115,7 +118,7 @@ class Game {
       }
       _hero.drawIt(_sprite_hero);
     }
-    if (k == ' '){
+    if (k == ' ' && bomb==null){
       float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
       float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
       PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);

@@ -3,10 +3,12 @@ class Bomb {
   float _cellX, _cellY;
   float _cellS;
   int _explosionRadius;
+  float Time;
 
 
   Bomb(float CellX,float CellY,float CellS, boolean bonus) {
     _timeToExplode = 3000.0;
+    Time = millis();
     _cellX = CellX;
     _cellY = CellY;
     _cellS=CellS;
