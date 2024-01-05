@@ -28,10 +28,10 @@ class Hero {
     _wasHit = false;
     _cellS = cellSize;
     _size = _cellS + _cellS / 2; 
-    _position= new PVector(posH.x * _cellS, posH.y * _cellS + ecart);
+    _position= new PVector(posH.x * _cellS, posH.y * _cellS/2 + ecart);
     
-    _cellY = posH.y;
-    _cellX = posH.x;
+    _cellY = _position.y+_cellS/2;
+    _cellX = _position.x;
     hero = sprite;
     
     
@@ -114,7 +114,7 @@ class Hero {
   }
   
   void drawIt(PImage hero) { 
-    image(hero, _position.x, _position.y, _cellS, _cellS);
+    image(hero, _position.x, _position.y, _cellS, _size);
   }
   
 }

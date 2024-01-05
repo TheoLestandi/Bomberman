@@ -45,7 +45,7 @@ class Game {
     _numberCellsX = _line2[0].length();
     _numberCellsY = _line2.length - 1;
     _sizeCell = float(width)/ _numberCellsX;
-    _ecart = 2*_sizeCell;
+    _ecart = 2.5*_sizeCell;
     _posTab = new PVector(0, _ecart);
     _sizeTab = new PVector(width, height - _posTab.y);
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
@@ -64,7 +64,6 @@ class Game {
     nbMob = _board._parser.numMob;
     mob = new Mob[nbMob];
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      println(positionMob[numMob]);
       mob[numMob] = new Mob( positionMob[numMob],_sizeCell, _ecart); 
     }
 
