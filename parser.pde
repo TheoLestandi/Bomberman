@@ -11,13 +11,15 @@ class Parser{
   TypeCell [][] _cells_hero;  
 
   
+  PVector spawnHero;
+  
   String[] _line;
   
   PImage [][] boardIm, heroIm; 
   
   char val;
   
-  boolean isEmpty, isWall, isWallDestruct, isExit, isBomberman, isNoBBM;
+  boolean isEmpty, isWall, isWallDestruct, isExit, isBomberman, isMob;
   
   PImage sprite_tiles = loadImage("data/img/tiles.png");
   
@@ -41,15 +43,15 @@ class Parser{
     for ( int i = 0; i < _line.length; i++ ) { 
       for ( int j = 0; j < _line[0].length(); j++ ) { 
         val = _line[i].charAt(j);
-        isEmpty = val == 'v' || val == 'M';
+        isEmpty = val == 'v';
         isWall = val == 'x';
         isWallDestruct = val == 'o';
         isExit = val == 'S';
         isBomberman = val == 'B';
-        isNoBBM = isEmpty | isWall | isWallDestruct | isExit ;
+        isMob = val == 'M';
         
         //On associe les TypeCell à des cellules 
-        if ( isEmpty || isBomberman) 
+        if ( isEmpty ) 
           _cells[i][j] = TypeCell.EMPTY;
         else if ( isWall )
           _cells[i][j] = TypeCell.WALL;
@@ -57,10 +59,14 @@ class Parser{
           _cells[i][j] = TypeCell.DESTRUCTIBLE_WALL;
         else if ( isExit ) 
           _cells[i][j] = TypeCell.EXIT_DOOR;
-        else if ( isBomberman )
+        else if ( isBomberman ){
           _cells_hero[i][j] = TypeCell.BOMBERMAN;
-        else if ( isNoBBM )
-          _cells_hero[i][j] = TypeCell.NO_BBM;          
+          _cells[i][j] = TypeCell.EMPTY;
+        }
+        else if ( isMob ){
+          _cells[i][j] = TypeCell.EMPTY;
+          _cells_hero[i][j] = TypeCell.MOB;   
+        }
       }
     }
   }

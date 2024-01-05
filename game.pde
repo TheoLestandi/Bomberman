@@ -78,7 +78,7 @@ class Game {
     
     _board.drawIt();
     if (bomb != null && millis()-bomb.Time>3000){
-      explosion(bombPlacementCellX, bombPlacementCellY, _cell);
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
       bomb=null;
     }
     if (bomb != null) {
@@ -135,18 +135,18 @@ class Game {
     }
   }
   
-  void explosion(float cellX,float cellY,TypeCell [][] cell){
-    if (cell[int(cellY+1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
-      cell[int(cellY+1)][int(cellX)]=TypeCell.EMPTY;
+  void explosion(float cellX,float cellY,TypeCell [][] cell, int rad){
+    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY-1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
-      cell[int(cellY-1)][int(cellX)]=TypeCell.EMPTY;
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY-rad)][int(cellX)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY)][int(cellX+1)]==TypeCell.DESTRUCTIBLE_WALL){
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.DESTRUCTIBLE_WALL){
       cell[int(cellY)][int(cellX+1)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY)][int(cellX-1)]==TypeCell.DESTRUCTIBLE_WALL){
-      cell[int(cellY)][int(cellX-1)]=TypeCell.EMPTY;
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.DESTRUCTIBLE_WALL){
+      cell[int(cellY)][int(cellX-rad)]=TypeCell.EMPTY;
     }
     
   }

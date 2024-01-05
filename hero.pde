@@ -4,11 +4,16 @@ class Hero {
   PVector _position;
   
   // position on board
-  float _cellX, _cellY, _cellCenter;
+  float _cellX, _cellY;
   
   // display size
   float _cellS;  
   float _size;
+  
+  boolean movingUp = false;
+  boolean movingDown = false;
+  boolean movingLeft = false;
+  boolean movingRight = false;
   
   // if hero was hit by a bomb
   boolean _wasHit;
