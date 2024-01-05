@@ -21,15 +21,14 @@ class Hero {
   // sprite du hero
   PImage hero;
 
-  Hero(float cellSize, String[] _line, PImage sprite) {
+  Hero(PVector posH, float cellSize,  float ecart, String[] _line, PImage sprite) {
     _wasHit = false;
     _cellS = cellSize;
     _size = _cellS + _cellS / 2; 
-    _position= new PVector(_cellS,2*_size);
+    _position= new PVector(posH.x * _cellS, posH.y * _cellS + ecart);
     
-    //_cellY = 2* _size;
-    _cellY = 3.5* _cellS;
-    _cellX = _cellS;
+    _cellY = posH.y;
+    _cellX = posH.x;
     hero = sprite;
     
   }
@@ -48,7 +47,7 @@ class Hero {
   }
 
   void drawIt(PImage hero) { 
-    image(hero, _position.x, _position.y, _cellS, _size);
+    image(hero, _position.x, _position.y, _cellS, _cellS);
   }
   
 }

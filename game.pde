@@ -5,12 +5,13 @@ class Game {
   Board _board;
   Hero _hero;
   Bomb bomb;
+  Mob[] mob;
 
   String _levelName;
 
   int _numberCellsX;
   int _numberCellsY;
-
+  float _ecart;
   float _sizeCell;
   float _size_inter_board = width/160;
   float _size_txt = width/16;
@@ -30,8 +31,10 @@ class Game {
   
   float bombPlacementCellX;
   float bombPlacementCellY;
-
   
+  PVector positionHero;
+  PVector[] positionMob;
+  int nbMob;
 
   Game() {
     // Nom du niveau.
@@ -42,17 +45,29 @@ class Game {
     _numberCellsX = _line2[0].length();
     _numberCellsY = _line2.length - 1;
     _sizeCell = float(width)/ _numberCellsX;
-    _posTab = new PVector(0, 2.5 * _sizeCell);
+    _ecart = 2*_sizeCell;
+    _posTab = new PVector(0, _ecart);
     _sizeTab = new PVector(width, height - _posTab.y);
     _board = new Board(_posTab, _sizeTab, _numberCellsX, _numberCellsY, _line2);
 
     // Données pour le "hero".
+    positionHero = _board._parser.spawnHero;
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-    _hero = new Hero(_board._cellSize, _line2, _sprite_hero );
+    _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
     PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
+    
+    // Données pour les mob.
+    positionMob = _board._parser.spawnMob;
+    nbMob = _board._parser.numMob;
+    mob = new Mob[nbMob];
+    for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      println(positionMob[numMob]);
+      mob[numMob] = new Mob( positionMob[numMob],_sizeCell, _ecart); 
+    }
+
 
     _cell=_board._parser._cells;
   }
@@ -67,6 +82,10 @@ class Game {
     strokeWeight(_size_inter_board);
     stroke(inter_board);
     line(0, _posTab.y + _sizeCell/2, width, _posTab.y + _sizeCell/2);
+    
+    strokeWeight(_size_inter_board * 2);
+    stroke(inter_board);
+    line(0, height - _sizeCell/2, width, height - _sizeCell/2);
 
     // Niveau:
     textAlign(CENTER, CENTER);
@@ -88,6 +107,10 @@ class Game {
     _hero.drawIt(_sprite_hero);
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
+    
+    for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      mob[numMob].drawIt();
+    }
     
   }
 

@@ -12,6 +12,8 @@ class Parser{
 
   
   PVector spawnHero;
+  PVector[] spawnMob;
+  int numMob = 0;
   
   String[] _line;
   
@@ -39,6 +41,7 @@ class Parser{
     _cells_hero = new TypeCell[_line.length][_line[0].length()];
     boardIm = new PImage[_cells.length][_cells[0].length];
     heroIm = new PImage[_cells.length][_cells[0].length];
+    spawnMob = new PVector[_cells.length*_cells[0].length];
     
     for ( int i = 0; i < _line.length; i++ ) { 
       for ( int j = 0; j < _line[0].length(); j++ ) { 
@@ -60,12 +63,15 @@ class Parser{
         else if ( isExit ) 
           _cells[i][j] = TypeCell.EXIT_DOOR;
         else if ( isBomberman ){
+          spawnHero = new PVector( i, j);
           _cells_hero[i][j] = TypeCell.BOMBERMAN;
           _cells[i][j] = TypeCell.EMPTY;
         }
         else if ( isMob ){
-          _cells[i][j] = TypeCell.EMPTY;
-          _cells_hero[i][j] = TypeCell.MOB;   
+          spawnMob[numMob]= new PVector(i, j);
+          _cells_hero[i][j] = TypeCell.MOB;  
+          _cells[i][j] = TypeCell.EMPTY; 
+          numMob += 1;
         }
       }
     }
