@@ -95,33 +95,32 @@ class Game {
     if (k=='z'||keyCode==UP||k=='Z') {
       PVector position = new PVector( 0, -1 );
       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
-      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
-      }
+      
+       _hero.move(_board, position);
+      
       _hero.drawIt(_sprite_hero);
     }
     if (k == 'q' || keyCode == LEFT) {
       PVector position = new PVector( -1, 0 );
       _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
-      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
-      }
+      
+      _hero.move(_board, position);
+      
       _hero.drawIt(_sprite_hero);
     }
     if (k == 's' || keyCode == DOWN) {
       PVector position = new PVector( 0, 1 );
       _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
-      }
+      
+      _hero.move(_board, position);
+      
       _hero.drawIt(_sprite_hero);
     }
     if (k == 'd' || keyCode == RIGHT) {
       PVector position = new PVector( 1, 0 );
       _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
-      if (obstacle(_cellX, _cellY, position, _sizeCell, _cell)) {
-        _hero.move(_board, position);
-      }
+      _hero.move(_board, position);
+      
       _hero.drawIt(_sprite_hero);
     }
     if (k == ' ' && bomb==null){
@@ -148,121 +147,22 @@ class Game {
     if (cell[int(cellY)][int(cellX-1)]==TypeCell.DESTRUCTIBLE_WALL){
       cell[int(cellY)][int(cellX-1)]=TypeCell.EMPTY;
     }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+      exit();
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1){
+      exit();
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1){
+      exit();
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+      exit();
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+      exit();
+    }
+    
     
   }
-  boolean obstacle(float cellX, float cellY, PVector direction, float CellSize, TypeCell [][] cell) {
-    
-    PVector BUpLeft = new PVector(cellX+direction.x*CellSize/4,cellY+direction.y*CellSize/4);
-    PVector BUpRight = new PVector(cellX+CellSize+direction.x*CellSize/4,cellY+direction.y*CellSize/4);
-    PVector BDownLeft = new PVector(cellX+direction.x*CellSize/4,cellY+CellSize+direction.y*CellSize/4);
-    PVector BDownRight = new PVector(cellX+CellSize+direction.x*CellSize/4,cellY+CellSize+direction.y*CellSize/4);
-
-    
-    PVector xyUpLeft= new PVector((BUpLeft.y/CellSize)-2.5,(BUpLeft.x/CellSize));
-    PVector xyUpRight= new PVector((BUpRight.y/CellSize)-2.5,(BUpRight.x/CellSize));
-    PVector xyDownLeft= new PVector((BDownLeft.y/CellSize)-2.5,(BDownLeft.x/CellSize));
-    PVector xyDownRight= new PVector((BDownRight.y/CellSize)-2.5,(BDownRight.x/CellSize));
-    
-    
-    if(abs(xyUpLeft.x-round(xyUpLeft.x))<1e-4){
-      xyUpLeft.x = ceil(xyUpLeft.x);
-    }
-    if(abs(xyUpLeft.y-round(xyUpLeft.y))<1e-4){
-      xyUpLeft.y = ceil(xyUpLeft.y);
-    }
-    if(abs(xyUpRight.x-round(xyUpRight.x))<1e-4){
-      xyUpRight.x = ceil(xyUpRight.x);
-    }
-    if(abs(xyUpRight.y-round(xyUpRight.y))<1e-4){
-      xyUpRight.y = ceil(xyUpRight.y);
-    }
-    if(abs(xyDownLeft.x-round(xyDownLeft.x))<1e-4){
-      xyDownLeft.x = ceil(xyDownLeft.x);
-    }
-    if(abs(xyDownLeft.y-round(xyDownLeft.y))<1e-4){
-      xyDownLeft.y = ceil(xyDownLeft.y);
-    }
-    if(abs(xyDownRight.x-round(xyDownRight.x))<1e-4){
-      xyDownRight.x = ceil(xyDownRight.x);
-    }
-    if(abs(xyDownRight.y-round(xyDownRight.y))<1e-4){
-      xyDownRight.y = ceil(xyDownRight.y);
-    }
-    
-    
-    
-    if (xyDownLeft.x%1==0){//||abs(xyDownLeft.x-int(xyDownLeft.x+1))<1e-4){
-      xyDownLeft.x--;
-      
-    }
-    if (xyDownRight.x%1==0){//||abs(xyDownRight.x-int(xyDownRight.x+1))<1e-4){
-      xyDownRight.x--;
-      
-    }
-    if (xyDownRight.y%1==0){//||abs(xyDownRight.y-int(xyDownRight.y+1))<1e-4){
-      xyDownRight.y--;
-     
-    }
-    if (xyUpRight.y%1==0){//||abs(xyUpRight.y-int(xyUpRight.y+1))<1e-4){
-      xyUpRight.y--;
-     
-    }
-    if (xyUpLeft.x>=0 && xyUpLeft.x<1){
-      xyUpLeft.x=1.0;
-      return false;
-    }
-    if (xyUpLeft.y>=0 && xyUpLeft.y<1){
-      xyUpLeft.y=1.0;
-      return false;
-    }
-    if (xyDownLeft.y>=0 && xyDownLeft.y<1){
-      xyDownLeft.y=1.0;
-      return false;
-    }
-    
-    if (cell[floor(xyUpLeft.x)][floor(xyUpLeft.y)]!=TypeCell.EMPTY){
-      xyDownRight.x=xyUpLeft.x;
-      xyDownRight.y=xyUpLeft.y;
-    }
-    if (cell[floor(xyUpRight.x)][floor(xyUpRight.y)]!=TypeCell.EMPTY){
-      xyDownLeft.x=xyUpRight.x;
-      xyDownLeft.y=xyUpRight.y;
-    }
-    if (cell[floor(xyDownLeft.x)][floor(xyDownLeft.y)]!=TypeCell.EMPTY){
-      xyUpRight.x=xyDownLeft.x;
-      xyUpRight.y=xyDownLeft.y;
-    }
-    if (cell[floor(xyDownRight.x)][floor(xyDownRight.y)]!=TypeCell.EMPTY){
-      xyUpLeft.x=xyDownRight.x;
-      xyUpLeft.y=xyDownRight.y;
-    }
-    
-    if (cell[floor(xyUpLeft.x)][floor(xyUpLeft.y)]!=TypeCell.EMPTY){
-      xyDownRight.x=xyUpLeft.x;
-      xyDownRight.y=xyUpLeft.y;
-      return false;
-    }
-    if (cell[floor(xyUpRight.x)][floor(xyUpRight.y)]!=TypeCell.EMPTY){
-      xyDownLeft.x=xyUpRight.x;
-      xyDownLeft.y=xyUpRight.y;
-      return false;
-    }
-    if (cell[floor(xyDownLeft.x)][floor(xyDownLeft.y)]!=TypeCell.EMPTY){
-      xyUpRight.x=xyDownLeft.x;
-      xyUpRight.y=xyDownLeft.y;
-      return false;
-    }
-    if (cell[floor(xyDownRight.x)][floor(xyDownRight.y)]!=TypeCell.EMPTY){
-      xyUpLeft.x=xyDownRight.x;
-      xyUpLeft.y=xyDownRight.y;
-      return false;
-    }
-    else {
-      return true;
-    }
-    
-    
-    
-    
-  } 
 }
