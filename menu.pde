@@ -44,6 +44,7 @@ class Menu {
   PVector center_menu;
   PVector size_menu;
   float radius_menu;
+  float _size_line = width/160;
   
   PVector size_button;
   PVector pos_button1;
@@ -79,6 +80,7 @@ class Menu {
   void drawIt() {
     rectMode( CENTER );
     stroke(black);
+    strokeWeight(_size_line);
     fill( white_menu );
     rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y, radius_menu );
     textAlign( CENTER, CENTER );

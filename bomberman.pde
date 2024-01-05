@@ -20,6 +20,7 @@ void draw() {
     game.drawIt();
   }
   if ( is_menu ) {
+    game.drawIt();
     menu.drawIt(); 
   }
   if (isKeypressed){
@@ -29,7 +30,8 @@ void draw() {
 
 void keyPressed() {
   //game.handleKey(key);
-  if ( keyCode == ENTER ) {
+  if ( keyCode == ESC) {
+    key = 0;
     if ( is_menu == false ) {
       is_menu = true; 
       is_game = false;
