@@ -91,6 +91,11 @@ class Game {
     fill(black);
     textSize(_size_txt);
     text(_levelName, width/6, _posTab.y/2);
+    
+    textAlign(CENTER, CENTER);
+    fill(black);
+    textSize(_size_txt);
+    text(BBM_life, width/6*3, _posTab.y/2);
 
     // Affichage du "board" et du "hero".
     
@@ -170,19 +175,44 @@ class Game {
       cell[int(cellY)][int(cellX-rad)]=TypeCell.EMPTY;
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
-      exit();
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      }
+      else
+        exit();
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1){
-      exit();
+      if ( BBM_life > 1 ){
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      }
+      else
+        exit();
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1){
-      exit();
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      }
+      else
+        exit();
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
-      exit();
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      }
+      else
+        exit();
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
-      exit();
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      }
+      else
+        exit();
     }
     
     

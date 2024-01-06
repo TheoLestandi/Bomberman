@@ -21,7 +21,7 @@ class Hero {
   // sprite du hero
   PImage hero;
   
-  int vitesse=4;
+  int vitesse=20;
   TypeCell cell [][];
 
   Hero(PVector posH, float cellSize,  float ecart, String[] _line, PImage sprite) {
