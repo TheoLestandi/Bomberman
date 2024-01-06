@@ -7,7 +7,7 @@ class Bomb {
   
   PImage _sprite;
   Sprites _sprite_bomb;
-   int derFrameBomb = 0;
+  int derFrameBomb = 0;
   int num_bomb = 1;
   int timeFrame = 300;
 
@@ -36,10 +36,6 @@ class Bomb {
      loadBomb();
      imageMode(CENTER);
      image(_sprite, _cellX, _cellY, _cellS, _cellS);
-   /*
-     fill(0);
-     rectMode(CENTER);
-     rect(_cellX, _cellY, _cellS, _cellS);*/
   }
   
   void loadBomb() {

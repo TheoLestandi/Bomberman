@@ -22,6 +22,9 @@ class Game {
 
   Sprites sprite_hero;
   PImage _sprite_hero ;
+  int derFrameHero = 0;
+  int num_hero = 1;
+  int timeFrame = 200;
   PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
 
   TypeCell _cell[][];
@@ -119,37 +122,35 @@ class Game {
   }
 
   void handleKey(int k) {
+    
     if (k=='z'||keyCode==UP||k=='Z') {
       PVector position = new PVector( 0, -1 );
-      _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_UP1);
-      
-       _hero.move(_board, position);
-      
+      loadHero("BOMBERMAN_UP");      
+       _hero.move(_board, position);      
       _hero.drawIt(_sprite_hero);
     }
+    
     if (k == 'q' || keyCode == LEFT) {
       PVector position = new PVector( -1, 0 );
-      _sprite_hero= sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_LEFT1);
-      
+      loadHero("BOMBERMAN_LEFT");    
       _hero.move(_board, position);
-      
       _hero.drawIt(_sprite_hero);
     }
+    
     if (k == 's' || keyCode == DOWN) {
       PVector position = new PVector( 0, 1 );
-      _sprite_hero=sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-      
+      loadHero("BOMBERMAN_DOWN");    
       _hero.move(_board, position);
-      
       _hero.drawIt(_sprite_hero);
     }
+    
     if (k == 'd' || keyCode == RIGHT) {
       PVector position = new PVector( 1, 0 );
-      _sprite_hero =sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_RIGHT1);
+      loadHero("BOMBERMAN_RIGHT");    
       _hero.move(_board, position);
-      
       _hero.drawIt(_sprite_hero);
     }
+    
     if (k == ' ' && bomb==null){
       float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
       float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
@@ -157,7 +158,6 @@ class Game {
       bomb = new Bomb(centerCell.x,centerCell.y,_sizeCell,false);
       bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
       bombPlacementCellY = cellY;
-      //bomb.drawIt();
     }
   }
   
@@ -213,8 +213,28 @@ class Game {
       }
       else
         exit();
+    }    
+  }
+  
+  void loadHero(String _name) {
+    if (millis() - derFrameHero >= timeFrame) {
+       derFrameHero = millis();
+       num_hero++;
     }
     
+    if (num_hero > 4) {
+      num_hero = 1;
+    }
+
+    TypeSprites name = Enum.valueOf(TypeSprites.class, _name+num_hero);
     
+    if (num_hero == 1)
+      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+    else if (num_hero == 2)
+      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+    else if (num_hero == 3)
+      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+    else if (num_hero == 4)
+      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
   }
 }
