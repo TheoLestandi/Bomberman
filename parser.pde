@@ -15,6 +15,7 @@ class Parser{
   PVector[] spawnMob;
   int numMob = 0;
   
+  PImage sprite_tiles = loadImage("data/img/tiles.png");
   String[] _line;
   
   PImage [][] boardIm, heroIm; 
@@ -22,8 +23,6 @@ class Parser{
   char val;
   
   boolean isEmpty, isWall, isWallDestruct, isExit, isBomberman, isMob;
-  
-  PImage sprite_tiles = loadImage("data/img/tiles.png");
   
   int num_sprite_exit = 1;
   int num_sprite_destructWall = 1;
@@ -243,5 +242,6 @@ class Parser{
     }
   return heroIm;
   }*/
+  
 
 }

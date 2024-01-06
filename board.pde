@@ -44,6 +44,7 @@
         float posx = colonne * _cellSize;
         float posy = ligne * _cellSize + _drawPosition.y;   
         PImage sprite = _tabB[ligne][colonne];
+        imageMode(CORNER);
         if ( ligne == 0 ) 
           image(sprite, posx, posy + _cellSize/2, _cellSize, _cellSize/2);       
         else if ( ligne == _tabB.length - 1 ) 

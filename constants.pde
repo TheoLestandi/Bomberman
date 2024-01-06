@@ -4,7 +4,11 @@ final int SCORE_MONSTER_DESTROYED = 100;
 
 // Vitesse.
 final int _speed = 3;
+
+// Vies.
 public int BBM_life = 5;
+
+// Sprites.
 
 // Couleurs.
 public color orange = color(255, 128, 0);

@@ -4,7 +4,14 @@ class Bomb {
   float _cellS;
   int _explosionRadius;
   float Time;
+  
+  PImage _sprite;
+  Sprites _sprite_bomb;
+   int derFrameBomb = 0;
+  int num_bomb = 1;
+  int timeFrame = 300;
 
+  PImage sprite_tiles = loadImage("data/img/tiles.png");
 
   Bomb(float CellX,float CellY,float CellS, boolean bonus) {
     _timeToExplode = 3000.0;
@@ -18,16 +25,40 @@ class Bomb {
     else {
       _explosionRadius = 1;
     }
+    _sprite_bomb = new Sprites( sprite_tiles );
+    _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW1);
   }
 
   void update(Board board, Hero hero) {
     
   }
   void drawIt(){
-    
-     fill(0, 0, 255);
+     loadBomb();
+     imageMode(CENTER);
+     image(_sprite, _cellX, _cellY, _cellS, _cellS);
+   /*
+     fill(0);
      rectMode(CENTER);
-     rect(_cellX, _cellY, _cellS, _cellS);
+     rect(_cellX, _cellY, _cellS, _cellS);*/
+  }
+  
+  void loadBomb() {
+    if (millis() - derFrameBomb >= timeFrame) {
+       derFrameBomb = millis();
+       num_bomb++;
+    }
     
+    if (num_bomb > 4) {
+      num_bomb = 1;
+    }
+
+    if (num_bomb == 1)
+      _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.BOMB1);
+    else if (num_bomb == 2)
+      _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.BOMB2);
+    else if (num_bomb == 3)
+      _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.BOMB3);
+    else if (num_bomb == 4)
+      _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.BOMB2);
   }
 }

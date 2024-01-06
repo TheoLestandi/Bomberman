@@ -13,7 +13,9 @@ enum TypeSprites {
   // Sprites Sortie.
   EXIT_DOOR1, EXIT_DOOR2,
   
-  // Sprites non Bomberman.
+  // Sprites Bomb.
+  BOMB1, BOMB2, BOMB3,
+  
   NO_BBM,
   
   // Sprites Bomberman.
@@ -69,6 +71,11 @@ class Sprites {
     // Porte de sortie.
     sprite_board.put(TypeSprites.EXIT_DOOR1, _imageSprites.get(128, 48, 16, 16));
     sprite_board.put(TypeSprites.EXIT_DOOR2, _imageSprites.get(144, 48, 16, 16));
+    
+    // Bomb.
+    sprite_board.put(TypeSprites.BOMB1, _imageSprites.get(80, 48, 16, 16));
+    sprite_board.put(TypeSprites.BOMB2, _imageSprites.get(96, 48, 16, 16));
+    sprite_board.put(TypeSprites.BOMB3, _imageSprites.get(112, 48, 16, 16));
     
     return sprite_board;
   }

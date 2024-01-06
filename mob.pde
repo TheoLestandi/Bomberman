@@ -25,6 +25,7 @@ class Mob {
   void drawIt() {
     noStroke();
     fill(255,255,0);
+    rectMode(CORNER);
     rect(_position.x * _size, _position.y* _size + _ecart, _size, _size);
   }
 }

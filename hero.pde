@@ -114,6 +114,7 @@ class Hero {
   }
   
   void drawIt(PImage hero) { 
+    imageMode(CORNER);
     image(hero, _position.x, _position.y, _cellS, _size);
   }
   

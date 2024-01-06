@@ -95,7 +95,7 @@ class Game {
     textAlign(CENTER, CENTER);
     fill(black);
     textSize(_size_txt);
-    text(BBM_life, width/6*3, _posTab.y/2);
+    text("Life: "+BBM_life, width/6*3, _posTab.y/2);
 
     // Affichage du "board" et du "hero".
     
@@ -108,13 +108,13 @@ class Game {
       bomb.drawIt();
     }
     
-    _hero.drawIt(_sprite_hero);
-    _cellX=_hero._cellX;
-    _cellY=_hero._cellY;
-    
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       mob[numMob].drawIt();
     }
+    
+    _hero.drawIt(_sprite_hero);
+    _cellX=_hero._cellX;
+    _cellY=_hero._cellY;
     
   }
 
