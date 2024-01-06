@@ -14,11 +14,10 @@ class Game {
   float _ecart;
   float _sizeCell;
   float _size_inter_board = width/160;
-  float _size_txt = width/16;
+  float _size_txt = width/20;
 
   PVector _posTab;
   PVector _sizeTab;
-
 
   Sprites sprite_hero;
   PImage _sprite_hero ;
@@ -26,6 +25,7 @@ class Game {
   int num_hero = 1;
   int timeFrame = 200;
   PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
+  int score = 0;
 
   TypeCell _cell[][];
   float _cellX, _cellY;
@@ -80,28 +80,16 @@ class Game {
 
   void drawIt() {
     // Fond d'écran quand on joue.
-    background(orange);
+    background(orange);  
     strokeWeight(_size_inter_board);
     stroke(inter_board);
     line(0, _posTab.y + _sizeCell/2, width, _posTab.y + _sizeCell/2);
-    
-    strokeWeight(_size_inter_board * 2);
-    stroke(inter_board);
-    line(0, height - _sizeCell/2, width, height - _sizeCell/2);
 
-    // Niveau:
-    textAlign(CENTER, CENTER);
-    fill(black);
-    textSize(_size_txt);
-    text(_levelName, width/6, _posTab.y/2);
-    
-    textAlign(CENTER, CENTER);
-    fill(black);
-    textSize(_size_txt);
-    text("Life: "+BBM_life, width/6*3, _posTab.y/2);
+    drawButton(width/6, _posTab.y/2, _size_txt,_levelName);
+    drawButton(width/6*5, _posTab.y/2, _size_txt,"Life: "+BBM_life);
+    drawButton(width/6*3, _posTab.y/3*2, _size_txt, ""+score);
 
-    // Affichage du "board" et du "hero".
-    
+    // Affichage du "board" et du "hero".    
     _board.drawIt();
     if (bomb != null && millis()-bomb.Time>3000){
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
@@ -236,5 +224,18 @@ class Game {
       _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
     else if (num_hero == 4)
       _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+  }
+  
+  void drawButton(float posX, float posY, float sizetxt, String txt){
+    stroke(inter_board);
+    strokeWeight(_size_inter_board);
+    fill(black);
+    rectMode(CENTER);
+    rect(posX,posY,width/5, width/14);
+    textAlign(CENTER, CENTER);
+    fill(white);
+    textSize(sizetxt);
+    text(txt, posX, posY);
+    
   }
 }
