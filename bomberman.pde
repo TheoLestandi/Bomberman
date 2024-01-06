@@ -27,7 +27,7 @@ void draw() {
     game.drawIt();
     menu.drawPause(); 
   }
-  if (isKeypressed){
+  if (isKeypressed && !is_titre && !is_menu ){
     game.handleKey(key);
   }
 }

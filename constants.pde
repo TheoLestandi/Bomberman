@@ -18,3 +18,4 @@ public color white = color(255);
 public color white_menu = color(255, 220);
 
 // Boolean pour les touches de contrôle du Bomberman.
+public boolean boomExit;

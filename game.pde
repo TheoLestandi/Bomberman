@@ -42,6 +42,7 @@ class Game {
   Game() {
     // Nom du niveau.
     _levelName = _line[0];
+    boomExit = false;
 
     // Données pour le "board".
     arrayCopy(_line, 1, _line2, 0, _line2.length);
@@ -91,9 +92,11 @@ class Game {
 
     // Affichage du "board" et du "hero".    
     _board.drawIt();
+
     if (bomb != null && millis()-bomb.Time>3000){
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
       bomb=null;
+    
     }
     if (bomb != null) {
       bomb.drawIt();
@@ -110,43 +113,42 @@ class Game {
   }
 
   void handleKey(int k) {
-    
-    if (k=='z'||keyCode==UP||k=='Z') {
-      PVector position = new PVector( 0, -1 );
-      loadHero("BOMBERMAN_UP");      
-       _hero.move(_board, position);      
-      _hero.drawIt(_sprite_hero);
-    }
-    
-    if (k == 'q' || keyCode == LEFT) {
-      PVector position = new PVector( -1, 0 );
-      loadHero("BOMBERMAN_LEFT");    
-      _hero.move(_board, position);
-      _hero.drawIt(_sprite_hero);
-    }
-    
-    if (k == 's' || keyCode == DOWN) {
-      PVector position = new PVector( 0, 1 );
-      loadHero("BOMBERMAN_DOWN");    
-      _hero.move(_board, position);
-      _hero.drawIt(_sprite_hero);
-    }
-    
-    if (k == 'd' || keyCode == RIGHT) {
-      PVector position = new PVector( 1, 0 );
-      loadHero("BOMBERMAN_RIGHT");    
-      _hero.move(_board, position);
-      _hero.drawIt(_sprite_hero);
-    }
-    
-    if (k == ' ' && bomb==null){
-      float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
-      float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
-      PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);
-      bomb = new Bomb(centerCell.x,centerCell.y,_sizeCell,false);
-      bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
-      bombPlacementCellY = cellY;
-    }
+      if (k=='z'||keyCode==UP||k=='Z') {
+        PVector position = new PVector( 0, -1 );
+        loadHero("BOMBERMAN_UP");      
+         _hero.move(_board, position);      
+        _hero.drawIt(_sprite_hero);
+      }
+      
+      if (k == 'q' || keyCode == LEFT) {
+        PVector position = new PVector( -1, 0 );
+        loadHero("BOMBERMAN_LEFT");    
+        _hero.move(_board, position);
+        _hero.drawIt(_sprite_hero);
+      }
+      
+      if (k == 's' || keyCode == DOWN) {
+        PVector position = new PVector( 0, 1 );
+        loadHero("BOMBERMAN_DOWN");    
+        _hero.move(_board, position);
+        _hero.drawIt(_sprite_hero);
+      }
+      
+      if (k == 'd' || keyCode == RIGHT) {
+        PVector position = new PVector( 1, 0 );
+        loadHero("BOMBERMAN_RIGHT");    
+        _hero.move(_board, position);
+        _hero.drawIt(_sprite_hero);
+      }
+      
+      if (k == ' ' && bomb==null){
+        float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
+        float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
+        PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);
+        bomb = new Bomb(centerCell.x,centerCell.y,_sizeCell,false);
+        bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
+        bombPlacementCellY = cellY;
+      }
   }
   
   void explosion(float cellX,float cellY,TypeCell [][] cell, int rad){
@@ -162,6 +164,21 @@ class Game {
     if (cell[int(cellY)][int(cellX-rad)]==TypeCell.DESTRUCTIBLE_WALL){
       cell[int(cellY)][int(cellX-rad)]=TypeCell.EMPTY;
     }
+    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.EXIT_DOOR){
+      boomExit = true;
+    }
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.EXIT_DOOR){
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.EXIT_DOOR){
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.EXIT_DOOR){
+      boomExit = true;
+    }
+    
+    
+   
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
       if ( BBM_life > 1 ) {
         BBM_life -= 1;

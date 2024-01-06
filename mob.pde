@@ -17,7 +17,6 @@ class Mob {
     _cellX = int(position_on_board.y);
     _cellY = int(position_on_board.x);
     _position = new PVector(position_on_board.y, position_on_board.x);
-    println(_position);
     _size = size;
     _ecart = ecart;
   }

@@ -118,6 +118,9 @@ class Parser{
         
         // Conditions pour "EXIT_DOOR".
         boolean isEXIT_DOOR = _cells[ligne][colonne] == TypeCell.EXIT_DOOR;
+        boolean isEXIT_DOOR_UNDER_WALL = ligne != 0 && _cells[ligne-1][colonne] == TypeCell.WALL 
+        || ligne != 0 && _cells[ligne-1][colonne] == TypeCell.DESTRUCTIBLE_WALL;;
+        
                 
         // ici on regarde si le bloc au dessus du sprite est un mur ou un mur destructible puis en fonction de la condition adéquate, cela affiche le bon sprite.
         if ( isEMPTY ) {
@@ -205,7 +208,38 @@ class Parser{
         
         // ici c'est le sprite de la sortie.
         if ( isEXIT_DOOR ) {   
+         if ( !boomExit ) {
+           if (millis() - derFrameDestructWall >= timeFrame) {
+             derFrameDestructWall = millis();
+             num_sprite_destructWall++;
+           }
           
+            if (num_sprite_destructWall > 4) {
+              num_sprite_destructWall = 1;
+            }
+            
+            if ( isEXIT_DOOR_UNDER_WALL ) {
+              if (num_sprite_destructWall == 1)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW1);
+              else if (num_sprite_destructWall == 2)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW2);
+              else if (num_sprite_destructWall == 3)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW3);
+              else if (num_sprite_destructWall == 4)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL_SHADOW4);
+            }
+            else {
+              if (num_sprite_destructWall == 1)
+              boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL1);
+              else if (num_sprite_destructWall == 2)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL2);
+              else if (num_sprite_destructWall == 3)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL3);
+              else if (num_sprite_destructWall == 4)
+                boardIm[ligne][colonne] =  _spriteBoard.searchSpriteBoard().get(TypeSprites.DESTRUCTIBLE_WALL4);       
+            }
+         }
+         else {
           if (millis() - derFrameExit >= timeFrame) {
              derFrameExit = millis();
              num_sprite_exit++;
@@ -219,6 +253,7 @@ class Parser{
             boardIm[ligne][colonne] = _spriteBoard.searchSpriteBoard().get(TypeSprites.EXIT_DOOR1);
           else 
             boardIm[ligne][colonne] = _spriteBoard.searchSpriteBoard().get(TypeSprites.EXIT_DOOR2);
+        }
         }
       }
     }
