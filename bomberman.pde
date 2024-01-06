@@ -1,9 +1,10 @@
 import java.util.Map;
 
 Game game;
-public boolean is_game = true;
+public boolean is_game = false;
 
 Menu menu;
+public boolean is_titre = true;
 public boolean is_menu = false;
 
 boolean isKeypressed;
@@ -15,13 +16,16 @@ void setup() {
 }
 
 void draw() {
+  if (is_titre){
+    menu.drawTitre();
+  }
   if ( is_game ){
     game.update();
     game.drawIt();
   }
   if ( is_menu ) {
     game.drawIt();
-    menu.drawIt(); 
+    menu.drawPause(); 
   }
   if (isKeypressed){
     game.handleKey(key);
@@ -30,15 +34,17 @@ void draw() {
 
 void keyPressed() {
   //game.handleKey(key);
-  if ( keyCode == ESC) {
+  if ( keyCode == ESC ) {
     key = 0;
-    if ( is_menu == false ) {
-      is_menu = true; 
-      is_game = false;
-    }
-    else {
-      is_menu = false;
-      is_game = true;
+    if ( !is_titre ) {
+      if ( !is_menu) {
+        is_menu = true; 
+        is_game = false;
+      }
+      else {
+        is_menu = false;
+        is_game = true;
+      }
     }
   }
   isKeypressed=true;
@@ -49,6 +55,12 @@ void keyReleased(){
 }
 
 void mousePressed() {
+  if ( mouseButton == LEFT && is_titre ) {
+    if ( menu.isInsideButton(menu.pos_button_titre1, menu.size_button) ) {
+      is_titre = false;
+      is_game = true;
+    }
+  }
   if ( mouseButton == LEFT && is_menu ) {
     if ( menu.isInsideButton(menu.pos_button1, menu.size_button) ) {
       is_menu = false;
