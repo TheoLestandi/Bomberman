@@ -14,6 +14,7 @@ class Parser{
   PVector spawnHero;
   PVector[] spawnMob;
   int numMob = 0;
+  PVector spawnExit;
   PVector []spawnBonus;
   int numBonus = 0;
   
@@ -69,6 +70,7 @@ class Parser{
           numBonus += 1;
         }
         else if ( isExit ) {
+          spawnExit = new PVector( i, j);
           _cells[i][j] = TypeCell.EXIT_DOOR;
         }
         else if ( isBomberman ){

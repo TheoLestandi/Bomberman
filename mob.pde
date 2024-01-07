@@ -3,6 +3,7 @@
   PVector [] possibilities = {new PVector(-1, 0), new PVector(0, -1), new PVector(0, 1), new PVector(1, 0)};
   int [] Mobpossibilities;
   PVector _position;
+  PVector pos_sprite;
   PVector positionbis;
   
   // position on board
@@ -10,6 +11,7 @@
   
   // display size
   float _size;
+  float _sizeY;
   float _ecart;
 
   boolean _dead= false;
@@ -19,22 +21,35 @@
   PVector direction;
   TypeCell cell[][];
   
+  
+  Sprites allMobSprite;
+  PImage sprite_mob = loadImage("data/img/characters.png");
+  PImage _sprite_mob;
+  
+  int derFrameMob = 0;
+  int num_mob = 1;
+  int timeFrame = 50;
+  
   Mob(PVector position_on_board, float size, float ecart,Board board) {
     _cellX = int(position_on_board.y);
     _cellY = int(position_on_board.x);
     _size = size;
+    _sizeY = _size + _size / 2;
     _ecart = ecart;
     
     //pour chaque mob on etablit un liste de possibilité de direction
     _position = new PVector(position_on_board.y, position_on_board.x);
+    pos_sprite = new PVector(_position.x * _size, _position.y * _size + _size * 2);
     Mobpossibilities= new int[0];
     positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
     for (int i = 0 ; i < 4 ; i++){
       direction=new PVector (possibilities[i].x,possibilities[i].y);
-      if(obst(direction,board,20)){
+      if(obst(direction,board,25)){
         Mobpossibilities=append(Mobpossibilities,i);
       }
     }
+    allMobSprite = new Sprites(sprite_mob);
+    _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN1);
   }
   
   void move(Board board,float vitesse) {
@@ -42,6 +57,8 @@
      if(obst(direction,board,vitesse)){
        positionbis.x+=(direction.x*_size)/vitesse;
        positionbis.y+=(direction.y*_size)/vitesse;
+       pos_sprite.x+=(direction.x*_size)/vitesse;
+       pos_sprite.y+=(direction.y*_size)/vitesse;
      }
      else {
        for (int i=0;i<4;i++){
@@ -122,12 +139,29 @@
     return i;
   }
   
+  void loadMob() {
+    if (millis() - derFrameMob >= timeFrame) {
+      derFrameMob = millis();
+      num_mob++;
+    }
+
+    if (num_mob > 4) {
+      num_mob = 1;
+    }
+
+    if (num_mob == 1)
+      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN1);
+    else if (num_mob == 2)
+      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN2);
+    else if (num_mob == 3)
+      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN3);
+    else if (num_mob == 4)
+      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN4);
+  }
   
   void drawIt() {
-    noStroke();
-    fill(255,255,0);
-    rectMode(CORNER);
-    rect(positionbis.x,positionbis.y,_size,_size);
-    //rect(_position.x * _size, _position.y* _size + _ecart, _size, _size);
+    loadMob();
+    imageMode(CORNER);
+    image(_sprite_mob, pos_sprite.x, pos_sprite.y, _size, _sizeY);
   }
 }

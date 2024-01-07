@@ -115,11 +115,6 @@ class Hero {
     return false;    
   }
   
-  boolean bomb_wall(){
-    return true;
-  }
-    
-  
   float arrondi(float i){
     if (abs(i-round(i))<1e-4){
       return round(i);
