@@ -139,6 +139,7 @@
     return i;
   }
   
+  // fonction qui changel le sprite du mob.
   void loadMob() {
     if (millis() - derFrameMob >= timeFrame) {
       derFrameMob = millis();
@@ -159,6 +160,7 @@
       _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN4);
   }
   
+  // affiche le mob.
   void drawIt() {
     loadMob();
     imageMode(CORNER);
