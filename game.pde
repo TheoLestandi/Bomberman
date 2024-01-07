@@ -156,31 +156,25 @@ class Game {
     int cellX_parser = int(x);
     int cellY_parser = int(y);
 
-    boolean upWall = false;
-    boolean downWall = false;
-    boolean leftWall = false;
-    boolean rightWall = false;
-
     for ( int i = 1; i <= radius; i++ ) {
-      if (!upWall && cellY_parser - i >= 0) {
+      if (!bomb.upWall && cellY_parser - i >= 0) {
         if ( _cell[cellX_parser][cellY_parser-i] == TypeCell.WALL ) {
-          upWall = true;
-          print(upWall);
+          bomb.upWall = true;
         }
       }
-      if (!downWall && cellY_parser + i >= 0) {
+      if (!bomb.downWall && cellY_parser + i >= 0) {
         if ( _cell[cellX_parser][cellY_parser+i] == TypeCell.WALL )
-          upWall = true;
+          bomb.downWall = true;
       }
     }
     for ( int j = 1; j <= radius; j++ ) {
-      if (!upWall && cellX_parser - j >= 0) {
+      if (!bomb.leftWall && cellX_parser - j >= 0) {
         if ( _cell[cellX_parser-j][cellY_parser] == TypeCell.WALL )
-          upWall = true;
+          bomb.leftWall = true;
       }
-      if (!downWall && cellX_parser + j >= 0) {
+      if (!bomb.rightWall && cellX_parser + j >= 0) {
         if ( _cell[cellX_parser+j][cellY_parser] == TypeCell.WALL )
-          upWall = true;
+          bomb.rightWall = true;
       }
     }
   }

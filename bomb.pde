@@ -12,6 +12,11 @@ class Bomb {
   int timeFrame = 300;
 
   PImage sprite_tiles = loadImage("data/img/tiles.png");
+  
+  boolean upWall = false;
+  boolean downWall = false;
+  boolean leftWall = false;
+  boolean rightWall = false;
 
   Bomb(float CellX,float CellY,float CellS, boolean bonus) {
     _timeToExplode = 3000.0;
@@ -61,14 +66,22 @@ class Bomb {
   void explosion_bomb_rad() {
      imageMode(CENTER);
      image(_sprite, _cellX, _cellY, _cellS, _cellS);
+    if (!leftWall) {
      imageMode(CENTER);
      image(_sprite, _cellX-_cellS, _cellY, _cellS, _cellS);
+    }
+    if (!upWall) {
      imageMode(CENTER);
      image(_sprite, _cellX, _cellY-_cellS, _cellS, _cellS);
+    }
+    if (!rightWall) {
      imageMode(CENTER);
      image(_sprite, _cellX+_cellS, _cellY, _cellS, _cellS);
+    }
+    if (!downWall) {
      imageMode(CENTER);
      image(_sprite, _cellX, _cellY+_cellS, _cellS, _cellS);
+    }
   }
      
     
