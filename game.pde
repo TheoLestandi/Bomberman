@@ -101,8 +101,6 @@ class Game {
     _board.drawIt();
 
     if (bomb != null && millis()-bomb.Time>=bomb._timeToExplode) {
-      println(millis()-bomb.Time);
-      println(bomb._timeToExplode);
       is_explose = true;
       canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
@@ -129,7 +127,6 @@ class Game {
         if (mobHero(mob[numMob].positionbis)) {
           if ( BBM_life > 1 ) {
             _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-            println(BBM_life);
             BBM_life -= 1;
           } else {
             exit();
@@ -414,8 +411,6 @@ class Game {
   void endGame() {
     if ( boomExit && mobLife == 0) {
       PVector posH = new PVector( _hero.arrondi(_hero._position.y / _sizeCell)-2, _hero.arrondi(_hero._position.x / _sizeCell));
-      println( posH);
-      println( _board._parser.spawnExit ) ;
       if ( posH.x == _board._parser.spawnExit.x && posH.y == _board._parser.spawnExit.y) {
         is_game = false;
         is_titre = true;
