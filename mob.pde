@@ -25,23 +25,32 @@
     _size = size;
     _ecart = ecart;
     _position = new PVector(position_on_board.y, position_on_board.x);
+    println(_cellX,_cellY);
+    println(_position.x,_position.y);
     //positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
-    positionbis=new PVector(_position.y* _size +_ecart,_position.x* _size);
+    positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
+    direction=new PVector(0,-1);
+    //println(
     
   }
   
-  void move(Board board,int vitesse) {
+  void move(Board board,float vitesse) {
     println(positionbis.x,positionbis.y);
     chiffre[0]=int(random(0,4));
-     direction=possibilities[chiffre[0]];
+    
      println(direction);
      if(obst(direction,board,vitesse)){
        positionbis.x+=(direction.x*_size)/vitesse;
        positionbis.y+=(direction.y*_size)/vitesse;
        println("mouv1",positionbis.x,positionbis.y);
      }
+     else {
+       direction.y *= -1;
+       direction= new PVector( direction.x, direction.y);
+     }
      
-       }
+       
+  }
      
      
      
@@ -51,7 +60,7 @@
    
     
   
-  boolean obst(PVector direction, Board board, int vitesse){
+  boolean obst(PVector direction, Board board, float vitesse){
     cell=board._parser._cells;
     if (direction.x==1 && direction.y==0){
       float cellRUX=positionbis.x+_size-1+direction.x*_size/vitesse;
@@ -95,9 +104,13 @@
       float cellULY=positionbis.y+direction.y*_size/vitesse;
       float cellURX=positionbis.x+_size-1;
       float cellURY=positionbis.y+direction.y*_size/vitesse;
+      println(cellULX,cellULY,cellURX,cellURY);
+      println(int(arrondi(cellULY/_size-2.5)),int(arrondi(cellULX/_size)),int(arrondi(cellURY/_size-2.5)),int(arrondi(cellURX/_size)));
       
-      if (cell[int(arrondi(cellULY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY && cell[int(arrondi(cellURY/_size-2.5))][int(arrondi(cellURX/_size))]==TypeCell.EMPTY){
+      if (cell[int(arrondi(cellULY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY && cell[int(arrondi(cellURY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY){
+        println("move");
         return true;
+        
       }
       else{
         return false;
@@ -118,7 +131,7 @@
     noStroke();
     fill(255,255,0);
     rectMode(CORNER);
-    rect(positionbis.y,positionbis.x,_size,_size);
+    rect(positionbis.x,positionbis.y,_size,_size);
     //rect(_position.x * _size, _position.y* _size + _ecart, _size, _size);
   }
 }

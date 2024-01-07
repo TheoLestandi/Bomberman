@@ -102,8 +102,10 @@ class Game {
     }
     
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      mob[numMob].move(_board,20);
       mob[numMob].drawIt();
-      mob[numMob].move(_board,4);
+      println("draw");
+      
     }
     
     _hero.drawIt(_sprite_hero);
