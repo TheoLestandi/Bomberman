@@ -257,10 +257,12 @@ class Menu {
         is_game = true;
       }
       if ( menu.isInsideButton(menu.pos_button_titre2, menu.size_button) ) {
+        is_titre=false;
         is_load= true;
       }
       if ( menu.isInsideButton(menu.pos_button_titre4, menu.size_button) ) {
         is_titre = false;
+        in_titre = false;
         exit();
       }
     }

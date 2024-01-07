@@ -5,6 +5,7 @@ public boolean is_game = false;
 
 Menu menu;
 public boolean is_titre = true;
+public boolean in_titre = true;
 public boolean is_menu = false;
 public boolean is_save = false;
 public boolean is_load = false;
@@ -34,7 +35,7 @@ void draw() {
     menu.drawSave(); 
   }
   if ( is_load ) {
-    if ( !is_titre ) { 
+    if ( !in_titre  ) { 
       game.drawIt();
       menu.drawLoad(); 
     }
