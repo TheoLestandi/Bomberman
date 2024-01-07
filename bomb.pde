@@ -18,7 +18,7 @@ class Bomb {
   PImage _sprite_R;
   PImage _sprite_U;
   PImage _sprite_D;
-  int derFrameExplo = 0;
+  int derFrameExplo = derFrameBomb;
   int num_explosion_M = 1;
   int num_explosion_L = 1;
   int num_explosion_R = 1;
@@ -29,7 +29,7 @@ class Bomb {
   int num_inverse_R = 1;
   int num_inverse_U = 1;
   int num_inverse_D = 1;
-  int timeExplo = 300;
+  int timeExplo = 100;
 
   PImage sprite_tiles = loadImage("data/img/tiles.png");
 

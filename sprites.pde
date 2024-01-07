@@ -160,36 +160,36 @@ class Sprites {
     HashMap < TypeSprites, PImage > sprite_mob = new HashMap <> () ; 
     
     // Mob mouvement vers le bas.
-    sprite_mob.put(TypeSprites.MOB_DOWN1, _imageSprites.get(0, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_DOWN2, _imageSprites.get(16, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_DOWN3, _imageSprites.get(32, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_DOWN4, _imageSprites.get(48, 48, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_DOWN1, _imageSprites.get(0, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_DOWN2, _imageSprites.get(16, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_DOWN3, _imageSprites.get(32, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_DOWN4, _imageSprites.get(48, 72, 16, 24));
 
     // Mob mouvement vers le haut.
-    sprite_mob.put(TypeSprites.MOB_UP1, _imageSprites.get(64, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_UP2, _imageSprites.get(80, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_UP3, _imageSprites.get(96, 48, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_UP4, _imageSprites.get(112, 48, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_UP1, _imageSprites.get(64, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_UP2, _imageSprites.get(80, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_UP3, _imageSprites.get(96, 72, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_UP4, _imageSprites.get(112, 72, 16, 24));
     
     // Mob mouvement vers la gauche.
-    sprite_mob.put(TypeSprites.MOB_LEFT1, _imageSprites.get(0, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_LEFT2, _imageSprites.get(16, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_LEFT3, _imageSprites.get(32, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_LEFT4, _imageSprites.get(48, 64, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_LEFT1, _imageSprites.get(0, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_LEFT2, _imageSprites.get(16, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_LEFT3, _imageSprites.get(32, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_LEFT4, _imageSprites.get(48, 96, 16, 24));
     
     // Mob mouvement vers la droite.
-    sprite_mob.put(TypeSprites.MOB_RIGHT1, _imageSprites.get(64, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_RIGHT2, _imageSprites.get(80, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_RIGHT3, _imageSprites.get(96, 64, 16, 24));
-    sprite_mob.put(TypeSprites.MOB_RIGHT4, _imageSprites.get(112, 64, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_RIGHT1, _imageSprites.get(64, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_RIGHT2, _imageSprites.get(80, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_RIGHT3, _imageSprites.get(96, 96, 16, 24));
+    sprite_mob.put(TypeSprites.MOB_RIGHT4, _imageSprites.get(112, 96, 16, 24));
 
     // Slime animations.
-    sprite_mob.put(TypeSprites.SLIME1, _imageSprites.get(0, 80, 16, 24));
-    sprite_mob.put(TypeSprites.SLIME2, _imageSprites.get(16, 80, 16, 24));
-    sprite_mob.put(TypeSprites.SLIME3, _imageSprites.get(32, 80, 16, 24));
-    sprite_mob.put(TypeSprites.SLIME4, _imageSprites.get(48, 80, 16, 24));
-    sprite_mob.put(TypeSprites.SLIME5, _imageSprites.get(64, 80, 16, 24));
-    sprite_mob.put(TypeSprites.SLIME6, _imageSprites.get(80, 80, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME1, _imageSprites.get(0, 120, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME2, _imageSprites.get(16, 120, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME3, _imageSprites.get(32, 120, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME4, _imageSprites.get(48, 120, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME5, _imageSprites.get(64, 120, 16, 24));
+    sprite_mob.put(TypeSprites.SLIME6, _imageSprites.get(80, 120, 16, 24));
     
     return sprite_mob;
   }
