@@ -67,7 +67,7 @@ class Game {
     nbMob = _board._parser.numMob;
     mob = new Mob[nbMob];
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      mob[numMob] = new Mob( positionMob[numMob], _sizeCell, _ecart);
+      mob[numMob] = new Mob( positionMob[numMob], _sizeCell, _ecart, _board);
     }
 
 

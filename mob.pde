@@ -1,6 +1,7 @@
  class Mob {
   // position on screen
   PVector [] possibilities = {new PVector(-1, 0), new PVector(0, -1), new PVector(0, 1), new PVector(1, 0)};
+  int [] Mobpossibilities;
   PVector _position;
   PVector positionbis;
   
@@ -19,7 +20,7 @@
   PVector direction;
   TypeCell cell[][];
   
-  Mob(PVector position_on_board, float size, float ecart) {
+  Mob(PVector position_on_board, float size, float ecart,Board board) {
     _cellX = int(position_on_board.y);
     _cellY = int(position_on_board.x);
     _size = size;
@@ -28,29 +29,44 @@
     println(_cellX,_cellY);
     println(_position.x,_position.y);
     //positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
+    Mobpossibilities= new int[0];
     positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
-    direction=new PVector(0,-1);
+    //int chiffre=int(random(0,1));
+    
+    
+    for (int i=0;i<4;i++){
+      direction=new PVector (possibilities[i].x,possibilities[i].y);
+      if(obst(direction,board,20)){
+        Mobpossibilities=append(Mobpossibilities,i);
+      }
+    }
+    
     //println(
     
   }
   
   void move(Board board,float vitesse) {
-    println(positionbis.x,positionbis.y);
-    chiffre[0]=int(random(0,4));
-    
-     println(direction);
+     
      if(obst(direction,board,vitesse)){
        positionbis.x+=(direction.x*_size)/vitesse;
        positionbis.y+=(direction.y*_size)/vitesse;
        println("mouv1",positionbis.x,positionbis.y);
      }
      else {
-       direction.y *= -1;
-       direction= new PVector( direction.x, direction.y);
+       for (int i=0;i<4;i++){
+      direction=new PVector (possibilities[i].x,possibilities[i].y);
+      if(obst(direction,board,20)){
+        Mobpossibilities=append(Mobpossibilities,i);
+      }
+    }
+     int chiffre=Mobpossibilities[int(random(0,Mobpossibilities.length))];
+     direction=new PVector (possibilities[chiffre].x,possibilities[chiffre].y);
      }
      
        
   }
+  //PVector[] tabpossib(){
+ // }
      
      
      
