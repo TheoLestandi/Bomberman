@@ -6,6 +6,7 @@ class Game {
   Hero _hero;
   Bomb bomb;
   Mob[] mob;
+  int mobcenterx, mobcentery;
 
   String _levelName;
 
@@ -104,8 +105,10 @@ class Game {
     }
 
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      mob[numMob].move(_board,20);
-      mob[numMob].drawIt();
+      if ( mob[numMob]!=null){
+        mob[numMob].move(_board, 20);
+        mob[numMob].drawIt();
+      }
     }
 
     _hero.drawIt(_sprite_hero);
@@ -178,7 +181,7 @@ class Game {
       }
     }
   }
-  
+
   void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
     if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
       cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
@@ -204,105 +207,132 @@ class Game {
     if (cell[int(cellY)][int(cellX-rad)]==TypeCell.EXIT_DOOR) {
       boomExit = true;
     }
-  
-  
-  
+
+    //Mort mob
+    for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      if (mob[numMob]!=null){
+      
+
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+1) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-1) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+    }
+    }
+
+
+    //Mort hero
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      } else
+      } else {
         exit();
+      }
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      } else
+      } else {
         exit();
+      }
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      } else
+      } else {
         exit();
+      }
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      } else
+      } else {
         exit();
+      }
     }
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      } else
+      } else {
         exit();
-    }
-  }
-  
-  void loadHero(String _name) {
-    if (millis() - derFrameHero >= timeFrame) {
-      derFrameHero = millis();
-      num_hero++;
-    }
-  
-    if (num_hero > 4) {
-      num_hero = 1;
-    }
-  
-    TypeSprites name = Enum.valueOf(TypeSprites.class, _name+num_hero);
-  
-    if (num_hero == 1)
-      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-    else if (num_hero == 2)
-      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-    else if (num_hero == 3)
-      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-    else if (num_hero == 4)
-      _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-  }
-  
-  void drawButton(float posX, float posY, float sizetxt, String txt) {
-    stroke(inter_board);
-    strokeWeight(_size_inter_board);
-    fill(black);
-    rectMode(CENTER);
-    rect(posX, posY, width/5, width/14);
-    textAlign(CENTER, CENTER);
-    fill(white);
-    textSize(sizetxt);
-    text(txt, posX, posY);
-  }
-  
-  void saveBoard(String name_player) {
-    char[][] mapSave = new char[_cell.length][_cell[0].length];
-    for (int j = 0; j < _cell.length; j++) {
-      for (int i = 0; i < _cell[0].length; i++) {
-        if (_cell[j][i] == TypeCell.WALL) {
-          mapSave[i][j] = 'x';
-        } else if (_cell[j][i] == TypeCell.DESTRUCTIBLE_WALL) {
-          mapSave[i][j] = 'o';
-        } else if (_cell[j][i] == TypeCell.EXIT_DOOR) {
-          mapSave[i][j] = 'S';
-        } else {
-          mapSave[i][j] = 'v';
-        }
       }
     }
-  
-    String[] map =  new String[_cell[0].length];
-    for (int i = 0; i < _cell[0].length; i++) {
-      map[i] = new String(mapSave[i]);
-    }
-  
-    String[] all_parameters = { str(score), str(BBM_life) };
-  
-    saveStrings("data/save/"+name_player+"/map.txt", map);
-    saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
   }
 
-}
+    void loadHero(String _name) {
+      if (millis() - derFrameHero >= timeFrame) {
+        derFrameHero = millis();
+        num_hero++;
+      }
+
+      if (num_hero > 4) {
+        num_hero = 1;
+      }
+
+      TypeSprites name = Enum.valueOf(TypeSprites.class, _name+num_hero);
+
+      if (num_hero == 1)
+        _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+      else if (num_hero == 2)
+        _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+      else if (num_hero == 3)
+        _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+      else if (num_hero == 4)
+        _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
+    }
+
+    void drawButton(float posX, float posY, float sizetxt, String txt) {
+      stroke(inter_board);
+      strokeWeight(_size_inter_board);
+      fill(black);
+      rectMode(CENTER);
+      rect(posX, posY, width/5, width/14);
+      textAlign(CENTER, CENTER);
+      fill(white);
+      textSize(sizetxt);
+      text(txt, posX, posY);
+    }
+
+    void saveBoard(String name_player) {
+      char[][] mapSave = new char[_cell.length][_cell[0].length];
+      for (int j = 0; j < _cell.length; j++) {
+        for (int i = 0; i < _cell[0].length; i++) {
+          if (_cell[j][i] == TypeCell.WALL) {
+            mapSave[i][j] = 'x';
+          } else if (_cell[j][i] == TypeCell.DESTRUCTIBLE_WALL) {
+            mapSave[i][j] = 'o';
+          } else if (_cell[j][i] == TypeCell.EXIT_DOOR) {
+            mapSave[i][j] = 'S';
+          } else {
+            mapSave[i][j] = 'v';
+          }
+        }
+      }
+
+      String[] map =  new String[_cell[0].length];
+      for (int i = 0; i < _cell[0].length; i++) {
+        map[i] = new String(mapSave[i]);
+      }
+
+      String[] all_parameters = { str(score), str(BBM_life) };
+
+      saveStrings("data/save/"+name_player+"/map.txt", map);
+      saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
+    }
+  }
