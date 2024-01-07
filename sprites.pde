@@ -16,7 +16,12 @@ enum TypeSprites {
   // Sprites Bomb.
   BOMB1, BOMB2, BOMB3,
   
-  NO_BBM,
+  // Sprites Explosion.
+  EXPLO_MID1, EXPLO_MID2, EXPLO_MID3, EXPLO_MID4, EXPLO_MID5,
+  EXPLO_LEFT1, EXPLO_LEFT2, EXPLO_LEFT3, EXPLO_LEFT4, EXPLO_LEFT5,
+  EXPLO_RIGHT1, EXPLO_RIGHT2, EXPLO_RIGHT3, EXPLO_RIGHT4, EXPLO_RIGHT5,
+  EXPLO_UP1, EXPLO_UP2, EXPLO_UP3, EXPLO_UP4, EXPLO_UP5,
+  EXPLO_DOWN1, EXPLO_DOWN2, EXPLO_DOWN3, EXPLO_DOWN4, EXPLO_DOWN5,
   
   // Sprites Bomberman.
   BOMBERMAN_DOWN1, BOMBERMAN_DOWN2, BOMBERMAN_DOWN3,  BOMBERMAN_DOWN4,
@@ -79,15 +84,41 @@ class Sprites {
     sprite_board.put(TypeSprites.BOMB2, _imageSprites.get(96, 48, 16, 16));
     sprite_board.put(TypeSprites.BOMB3, _imageSprites.get(112, 48, 16, 16));
     
+    // Explosions.
+    sprite_board.put(TypeSprites.EXPLO_MID1, _imageSprites.get(0, 32, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_MID2, _imageSprites.get(16, 32, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_MID3, _imageSprites.get(32, 32, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_MID4, _imageSprites.get(48, 32, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_MID5, _imageSprites.get(64, 32, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_LEFT1, _imageSprites.get(0, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_LEFT2, _imageSprites.get(16, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_LEFT3, _imageSprites.get(32, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_LEFT4, _imageSprites.get(48, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_LEFT5, _imageSprites.get(64, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_RIGHT1, _imageSprites.get(80, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_RIGHT2, _imageSprites.get(96, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_RIGHT3, _imageSprites.get(112, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_RIGHT4, _imageSprites.get(128, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_RIGHT5, _imageSprites.get(144, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_UP1, _imageSprites.get(80, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_UP2, _imageSprites.get(96, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_UP3, _imageSprites.get(112, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_UP4, _imageSprites.get(128, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_UP5, _imageSprites.get(144, 0, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_DOWN1, _imageSprites.get(0, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_DOWN2, _imageSprites.get(16, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_DOWN3, _imageSprites.get(32, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_DOWN4, _imageSprites.get(48, 16, 16, 16));
+    sprite_board.put(TypeSprites.EXPLO_DOWN5, _imageSprites.get(64, 16, 16, 16));
+    
+    
+    
     return sprite_board;
   }
   
   HashMap< TypeSprites, PImage > searchSpriteHero() {
     
     HashMap < TypeSprites, PImage > sprite_hero = new HashMap <> () ;
-    
-    // Non Bomberman.
-    sprite_hero.put(TypeSprites.NO_BBM, _imageSprites.get(96,0,16,16));
     
     // Bomberman mouvement vers le bas.
     sprite_hero.put(TypeSprites.BOMBERMAN_DOWN1, _imageSprites.get(16, 0, 16, 24));
