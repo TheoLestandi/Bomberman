@@ -106,12 +106,6 @@ class Game {
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       mob[numMob].move(_board,20);
       mob[numMob].drawIt();
-<<<<<<< Updated upstream
-      println("draw");
-      
-=======
-      //mob[numMob].move(_board,new PVector(1,0),4);
->>>>>>> Stashed changes
     }
 
     _hero.drawIt(_sprite_hero);
