@@ -99,7 +99,7 @@ class Game {
 
     // Affichage du "board" et du "hero".
     _board.drawIt();
-    
+
     if (bomb != null && millis()-bomb.Time>=bomb._timeToExplode) {
       println(millis()-bomb.Time);
       println(bomb._timeToExplode);
@@ -335,6 +335,7 @@ class Game {
     }
   }
 
+
   //Fonction pour verifier si le mob touche le hero ou pas
   boolean mobHero(PVector positionMob) {
     if (floor((_cellX+_sizeCell/2)/_sizeCell)==floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell)
@@ -379,7 +380,8 @@ class Game {
     textSize(sizetxt);
     text(txt, posX, posY);
   }
-
+  
+  //Sauvegarde du board pas terminé
   void saveBoard(String name_player) {
     char[][] mapSave = new char[_cell.length][_cell[0].length];
     for (int j = 0; j < _cell.length; j++) {
@@ -395,67 +397,9 @@ class Game {
         }
       }
     }
-
-//Fonction pour verifier si le mob touche le hero ou pas 
-boolean mobHero(PVector positionMob) {
-  //println(floor((_cellX+_sizeCell/2)/_sizeCell),floor((_cellY+_sizeCell/2)/_sizeCell-2.5),floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5),floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell));
-  if (floor((_cellX+_sizeCell/2)/_sizeCell)==floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell) && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5)) {
-    //println("touche1");
-    return true;
-  } else {
-    return false;
-  }
-}
-
-
-void loadHero(String _name) {
-  if (millis() - derFrameHero >= timeFrame) {
-    derFrameHero = millis();
-    num_hero++;
   }
 
-  if (num_hero > 4) {
-    num_hero = 1;
-  }
-
-  TypeSprites name = Enum.valueOf(TypeSprites.class, _name+num_hero);
-
-  if (num_hero == 1)
-    _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-  else if (num_hero == 2)
-    _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-  else if (num_hero == 3)
-    _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-  else if (num_hero == 4)
-    _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
-}
-
-void drawButton(float posX, float posY, float sizetxt, String txt) {
-  stroke(inter_board);
-  strokeWeight(_size_inter_board);
-  fill(black);
-  rectMode(CENTER);
-  rect(posX, posY, width/5, width/14);
-  textAlign(CENTER, CENTER);
-  fill(white);
-  textSize(sizetxt);
-  text(txt, posX, posY);
-}
-
-//Sauvegarde de la map (pas terminé)
-void saveBoard(String name_player) {
-  char[][] mapSave = new char[_cell.length][_cell[0].length];
-  for (int j = 0; j < _cell.length; j++) {
-    String[] map =  new String[_cell[0].length];
-    for (int i = 0; i < _cell[0].length; i++) {
-      map[i] = new String(mapSave[i]);
-    }
-
-    String[] all_parameters = { str(score), str(BBM_life) };
-
-    saveStrings("data/save/"+name_player+"/map.txt", map);
-    saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
-  }
+ 
 
   //Fonction pour arrondir
   float arrondi(float i) {
@@ -464,8 +408,8 @@ void saveBoard(String name_player) {
     }
     return i;
   }
-  
-  
+
+
   // Fonction condition de la fin du jeu.
   void endGame() {
     if ( boomExit && mobLife == 0) {
@@ -478,5 +422,4 @@ void saveBoard(String name_player) {
       }
     }
   }
-
 }
