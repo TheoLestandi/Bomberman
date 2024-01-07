@@ -32,10 +32,10 @@ class Game {
   float _cellX, _cellY;
 
   boolean UpLeft, UpRight, DownLeft, DownRight;
-  
+
   float bombPlacementCellX;
   float bombPlacementCellY;
-  
+
   PVector positionHero;
   PVector[] positionMob;
   int nbMob;
@@ -61,13 +61,13 @@ class Game {
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
     _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-    
+
     // Données pour les mob.
     positionMob = _board._parser.spawnMob;
     nbMob = _board._parser.numMob;
     mob = new Mob[nbMob];
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      mob[numMob] = new Mob( positionMob[numMob],_sizeCell, _ecart); 
+      mob[numMob] = new Mob( positionMob[numMob], _sizeCell, _ecart);
     }
 
 
@@ -80,161 +80,194 @@ class Game {
 
   void drawIt() {
     // Fond d'écran quand on joue.
-    background(orange);  
+    background(orange);
     strokeWeight(_size_inter_board);
     stroke(inter_board);
     line(0, _posTab.y + _sizeCell/2, width, _posTab.y + _sizeCell/2);
 
-    drawButton(width/6, _posTab.y/2, _size_txt,_levelName);
-    drawButton(width/6*5, _posTab.y/2, _size_txt,"Life: "+BBM_life);
+    drawButton(width/6, _posTab.y/2, _size_txt, _levelName);
+    drawButton(width/6*5, _posTab.y/2, _size_txt, "Life: "+BBM_life);
     drawButton(width/6*3, _posTab.y/3*2, _size_txt, ""+score);
 
-    // Affichage du "board" et du "hero".    
+    // Affichage du "board" et du "hero".
     _board.drawIt();
 
-    if (bomb != null && millis()-bomb.Time>3000){
+
+    if (bomb != null && millis()-bomb.Time>3000) {
+      canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
+      bomb.explosion_bomb_rad();
       bomb=null;
-    
     }
     if (bomb != null) {
       bomb.drawIt();
     }
-    
+
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       mob[numMob].move(_board,20);
       mob[numMob].drawIt();
+<<<<<<< Updated upstream
       println("draw");
       
+=======
+      //mob[numMob].move(_board,new PVector(1,0),4);
+>>>>>>> Stashed changes
     }
-    
+
     _hero.drawIt(_sprite_hero);
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
-    
   }
 
   void handleKey(int k) {
-      if (k=='z'||keyCode==UP||k=='Z') {
-        PVector position = new PVector( 0, -1 );
-        loadHero("BOMBERMAN_UP");      
-         _hero.move(_board, position);      
-        _hero.drawIt(_sprite_hero);
+    if (k=='z'||keyCode==UP||k=='Z') {
+      PVector position = new PVector( 0, -1 );
+      loadHero("BOMBERMAN_UP");
+      _hero.move(_board, position);
+      _hero.drawIt(_sprite_hero);
+    }
+
+    if (k == 'q' || keyCode == LEFT) {
+      PVector position = new PVector( -1, 0 );
+      loadHero("BOMBERMAN_LEFT");
+      _hero.move(_board, position);
+      _hero.drawIt(_sprite_hero);
+    }
+
+    if (k == 's' || keyCode == DOWN) {
+      PVector position = new PVector( 0, 1 );
+      loadHero("BOMBERMAN_DOWN");
+      _hero.move(_board, position);
+      _hero.drawIt(_sprite_hero);
+    }
+
+    if (k == 'd' || keyCode == RIGHT) {
+      PVector position = new PVector( 1, 0 );
+      loadHero("BOMBERMAN_RIGHT");
+      _hero.move(_board, position);
+      _hero.drawIt(_sprite_hero);
+    }
+
+    if (k == ' ' && bomb==null) {
+      float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
+      float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
+      PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);
+      bomb = new Bomb(centerCell.x, centerCell.y, _sizeCell, false);
+      bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
+      bombPlacementCellY = cellY;
+    }
+  }
+
+  void canExplose(float x, float y, int radius) {
+    int cellX_parser = int(x);
+    int cellY_parser = int(y);
+
+    boolean upWall = false;
+    boolean downWall = false;
+    boolean leftWall = false;
+    boolean rightWall = false;
+
+    for ( int i = 1; i <= radius; i++ ) {
+      if (!upWall && cellY_parser - i >= 0) {
+        if ( _cell[cellX_parser][cellY_parser-i] == TypeCell.WALL ) {
+          upWall = true;
+          print(upWall);
+        }
       }
-      
-      if (k == 'q' || keyCode == LEFT) {
-        PVector position = new PVector( -1, 0 );
-        loadHero("BOMBERMAN_LEFT");    
-        _hero.move(_board, position);
-        _hero.drawIt(_sprite_hero);
+      if (!downWall && cellY_parser + i >= 0) {
+        if ( _cell[cellX_parser][cellY_parser+i] == TypeCell.WALL )
+          upWall = true;
       }
-      
-      if (k == 's' || keyCode == DOWN) {
-        PVector position = new PVector( 0, 1 );
-        loadHero("BOMBERMAN_DOWN");    
-        _hero.move(_board, position);
-        _hero.drawIt(_sprite_hero);
+    }
+    for ( int j = 1; j <= radius; j++ ) {
+      if (!upWall && cellX_parser - j >= 0) {
+        if ( _cell[cellX_parser-j][cellY_parser] == TypeCell.WALL )
+          upWall = true;
       }
-      
-      if (k == 'd' || keyCode == RIGHT) {
-        PVector position = new PVector( 1, 0 );
-        loadHero("BOMBERMAN_RIGHT");    
-        _hero.move(_board, position);
-        _hero.drawIt(_sprite_hero);
+      if (!downWall && cellX_parser + j >= 0) {
+        if ( _cell[cellX_parser+j][cellY_parser] == TypeCell.WALL )
+          upWall = true;
       }
-      
-      if (k == ' ' && bomb==null){
-        float cellX=floor((_cellX+_sizeCell/2)/_sizeCell);
-        float cellY=floor((_cellY+_sizeCell/2)/_sizeCell-2.5);
-        PVector centerCell= _board.getCellCenter(cellX*_sizeCell, cellY*_sizeCell+2.5*_sizeCell);
-        bomb = new Bomb(centerCell.x,centerCell.y,_sizeCell,false);
-        bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
-        bombPlacementCellY = cellY;
-      }
+    }
   }
   
-  void explosion(float cellX,float cellY,TypeCell [][] cell, int rad){
-    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+  void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
+    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
       cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL){
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
       cell[int(cellY-rad)][int(cellX)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.DESTRUCTIBLE_WALL){
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.DESTRUCTIBLE_WALL  ) {
       cell[int(cellY)][int(cellX+1)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.DESTRUCTIBLE_WALL){
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.DESTRUCTIBLE_WALL  ) {
       cell[int(cellY)][int(cellX-rad)]=TypeCell.EMPTY;
     }
-    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.EXIT_DOOR){
+    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.EXIT_DOOR) {
       boomExit = true;
     }
-    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.EXIT_DOOR){
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.EXIT_DOOR) {
       boomExit = true;
     }
-    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.EXIT_DOOR){
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.EXIT_DOOR) {
       boomExit = true;
     }
-    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.EXIT_DOOR){
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.EXIT_DOOR) {
       boomExit = true;
     }
-    
-    
-   
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+  
+  
+  
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      }
-      else
+      } else
         exit();
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1){
-      if ( BBM_life > 1 ){
-        BBM_life -= 1;
-        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      }
-      else
-        exit();
-    }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1){
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      }
-      else
+      } else
         exit();
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      }
-      else
+      } else
         exit();
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY){
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-      }
-      else
+      } else
         exit();
-    }    
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else
+        exit();
+    }
   }
   
   void loadHero(String _name) {
     if (millis() - derFrameHero >= timeFrame) {
-       derFrameHero = millis();
-       num_hero++;
+      derFrameHero = millis();
+      num_hero++;
     }
-    
+  
     if (num_hero > 4) {
       num_hero = 1;
     }
-
+  
     TypeSprites name = Enum.valueOf(TypeSprites.class, _name+num_hero);
-    
+  
     if (num_hero == 1)
       _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
     else if (num_hero == 2)
@@ -245,12 +278,12 @@ class Game {
       _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
   }
   
-  void drawButton(float posX, float posY, float sizetxt, String txt){
+  void drawButton(float posX, float posY, float sizetxt, String txt) {
     stroke(inter_board);
     strokeWeight(_size_inter_board);
     fill(black);
     rectMode(CENTER);
-    rect(posX,posY,width/5, width/14);
+    rect(posX, posY, width/5, width/14);
     textAlign(CENTER, CENTER);
     fill(white);
     textSize(sizetxt);
@@ -263,26 +296,23 @@ class Game {
       for (int i = 0; i < _cell[0].length; i++) {
         if (_cell[j][i] == TypeCell.WALL) {
           mapSave[i][j] = 'x';
-        }
-        else if (_cell[j][i] == TypeCell.DESTRUCTIBLE_WALL) {
+        } else if (_cell[j][i] == TypeCell.DESTRUCTIBLE_WALL) {
           mapSave[i][j] = 'o';
-        }   
-        else if (_cell[j][i] == TypeCell.EXIT_DOOR) {
+        } else if (_cell[j][i] == TypeCell.EXIT_DOOR) {
           mapSave[i][j] = 'S';
-        }
-        else {
+        } else {
           mapSave[i][j] = 'v';
         }
       }
     }
-    
+  
     String[] map =  new String[_cell[0].length];
     for (int i = 0; i < _cell[0].length; i++) {
       map[i] = new String(mapSave[i]);
     }
-    
+  
     String[] all_parameters = { str(score), str(BBM_life) };
-    
+  
     saveStrings("data/save/"+name_player+"/map.txt", map);
     saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
   }

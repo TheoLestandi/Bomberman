@@ -85,8 +85,22 @@ class Menu {
   PVector pos_button_load2;
   PVector pos_button_load3;
   PVector pos_button_load4;
-
   
+  // écran scoreBoard.
+  Button _button_score1;
+  Button _button_score2;
+  Button _button_score3;
+  Button _button_score4;
+  Button _button_score5;
+ 
+  String txt_menu_score =  "Score Board";
+  PVector size_button_score;
+  PVector pos_button_score1;
+  PVector pos_button_score2;
+  PVector pos_button_score3;
+  PVector pos_button_score4;
+  PVector pos_button_score5;
+
   // General.
   PVector pos_txt;
   float size_txt;
@@ -129,7 +143,7 @@ class Menu {
     _button1 = new Button("Resume", pos_button1, size_button, black, orange);
     _button2 = new Button("Save", pos_button2, size_button, black, orange);
     _button3 = new Button("Load save", pos_button3, size_button, black, orange);
-    _button4 = new Button("Best score", pos_button4, size_button, black, orange);
+    _button4 = new Button("Score Board", pos_button4, size_button, black, orange);
     _button5 = new Button("Quit", pos_button5, size_button, black, orange);
 
     // boutons écran save.
@@ -150,6 +164,20 @@ class Menu {
     _button_load2 = new Button("", pos_button_load2, size_button_load, black, orange);
     _button_load3 = new Button("", pos_button_load3, size_button_load, black, orange);
     _button_load4 = new Button("", pos_button_load4, size_button_load, black, orange);
+    
+    // boutons écran score board.
+    size_button_score = new PVector( width * 0.6, size_menu.y * 0.1 );
+    pos_button_score1 = new PVector( width * 0.2, size_menu.y * 0.25 );
+    pos_button_score2 = new PVector( width * 0.2, size_menu.y * 0.40 );
+    pos_button_score3 = new PVector( width * 0.2, size_menu.y * 0.55 );
+    pos_button_score4 = new PVector( width * 0.2, size_menu.y * 0.70 );
+    pos_button_score5 = new PVector( width * 0.2, size_menu.y * 0.85 );
+    
+    _button_score1 = new Button("1.", pos_button_score1, size_button_score, black, orange);
+    _button_score2 = new Button("2.", pos_button_score2, size_button_score, black, orange);
+    _button_score3 = new Button("3.", pos_button_score3, size_button_score, black, orange);
+    _button_score4 = new Button("4.", pos_button_score4, size_button_score, black, orange);
+    _button_score5 = new Button("5.", pos_button_score5, size_button_score, black, orange);
   }
   
   void drawTitre() {
@@ -221,6 +249,23 @@ class Menu {
     _button_load3.drawButton();
     _button_load4.drawButton();
   }
+  
+   void drawScore() {
+    rectMode( CENTER );
+    stroke(black);
+    strokeWeight(_size_line);
+    fill( white_menu );
+    rect( center_menu.x, center_menu.y, size_menu.x, size_menu.y, radius_menu );
+    textAlign( CENTER, CENTER );
+    fill( black ); 
+    textSize( size_txt );
+    text( txt_menu_load, pos_txt.x, pos_txt.y );
+    _button_score1.drawButton();
+    _button_score2.drawButton();
+    _button_score3.drawButton();
+    _button_score4.drawButton();
+    _button_score5.drawButton();
+  }
 
   boolean isInsideButton ( PVector pos_button, PVector size_button ) {
      return (mouseX >= pos_button.x  && mouseX < pos_button.x + size_button.x ) && (mouseY >= pos_button.y && mouseY < pos_button.y + size_button.y );
@@ -252,15 +297,24 @@ class Menu {
 
   void handleMouse() {
     if ( mouseButton == LEFT && is_titre ) {
-      if ( menu.isInsideButton(menu.pos_button_titre1, menu.size_button) ) {
+      if ( menu.isInsideButton(menu.pos_button_titre1, menu.size_button_titre) ) {
         is_titre = false;
+        in_titre = false;
         is_game = true;
       }
-      if ( menu.isInsideButton(menu.pos_button_titre2, menu.size_button) ) {
-        is_titre=false;
+      if ( menu.isInsideButton(menu.pos_button_titre2, menu.size_button_titre) ) {
+        is_titre = false;
+        is_game = false;
+        in_titre = true;
         is_load= true;
       }
-      if ( menu.isInsideButton(menu.pos_button_titre4, menu.size_button) ) {
+      if ( menu.isInsideButton(menu.pos_button_titre3, menu.size_button_titre) ) {
+        is_titre = false;
+        is_game = false;
+        in_titre = true;
+        is_score = true;
+      }
+      if ( menu.isInsideButton(menu.pos_button_titre4, menu.size_button_titre) ) {
         is_titre = false;
         in_titre = false;
         exit();
@@ -278,6 +332,10 @@ class Menu {
       if ( menu.isInsideButton(menu.pos_button3, menu.size_button) ) {
         is_menu = false;
         is_load = true;
+      }
+      if ( menu.isInsideButton(menu.pos_button4, menu.size_button) ) {
+        is_menu = false;
+        is_score = true;
       }
       if ( menu.isInsideButton(menu.pos_button5, menu.size_button) ) {
         is_menu = false;
@@ -311,15 +369,28 @@ class Menu {
           is_menu = true;
         }
         if ( is_load ) {
-          is_load = false; 
-          is_menu = true;
+          if ( !in_titre ) {
+            is_load = false; 
+            is_menu = true;
+          }
+          else{
+            is_load = false;
+            is_menu = false;
+            is_titre = true;
+          }
+        }
+        if ( is_score ) {
+          if ( !in_titre ) {
+            is_score = false; 
+            is_menu = true;
+          }
+          else{
+            is_score = false;
+            is_menu = false;
+            is_titre = true;
+          }
         }
       }
-      else {
-        if ( is_load ) {
-          is_load = false; 
-      }
     }
-  }
   }
 } 

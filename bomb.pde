@@ -57,4 +57,19 @@ class Bomb {
     else if (num_bomb == 4)
       _sprite =  _sprite_bomb.searchSpriteBoard().get(TypeSprites.BOMB2);
   }
+  
+  void explosion_bomb_rad() {
+     imageMode(CENTER);
+     image(_sprite, _cellX, _cellY, _cellS, _cellS);
+     imageMode(CENTER);
+     image(_sprite, _cellX-_cellS, _cellY, _cellS, _cellS);
+     imageMode(CENTER);
+     image(_sprite, _cellX, _cellY-_cellS, _cellS, _cellS);
+     imageMode(CENTER);
+     image(_sprite, _cellX+_cellS, _cellY, _cellS, _cellS);
+     imageMode(CENTER);
+     image(_sprite, _cellX, _cellY+_cellS, _cellS, _cellS);
+  }
+     
+    
 }

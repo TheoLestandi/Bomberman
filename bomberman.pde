@@ -9,6 +9,7 @@ public boolean in_titre = true;
 public boolean is_menu = false;
 public boolean is_save = false;
 public boolean is_load = false;
+public boolean is_score = false; 
 
 boolean isKeypressed;
 
@@ -41,6 +42,14 @@ void draw() {
     }
     else 
       menu.drawLoad(); 
+  }
+  if ( is_score ) {
+    if ( !in_titre  ) { 
+      game.drawIt();
+      menu.drawScore(); 
+    }
+    else 
+      menu.drawScore(); 
   }
   if (isKeypressed && !is_titre && !is_menu && !is_save && !is_load){
     game.handleKey(key);
