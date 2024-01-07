@@ -119,8 +119,8 @@ class Hero {
     }
     return i;
   }
+ 
   void update(Board board) {
-    board.drawIt();
   }
   
   void drawIt(PImage hero) { 

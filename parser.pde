@@ -259,24 +259,5 @@ class Parser{
     }
     return boardIm;
   }
-  /*
-  PImage[][] loadHero() {
-    for ( int colonne = 0; colonne < _cells_hero[0].length; colonne++ ) {
-      for ( int ligne = 0; ligne < _cells_hero.length; ligne++ ) {
-                
-        boolean isBOMBERMAN = _cells_hero[ligne][colonne] == TypeCell.BOMBERMAN;
-        boolean isNO_BBM = _cells_hero[ligne][colonne] == TypeCell.NO_BBM;
-        
-        if ( isBOMBERMAN ) {
-          heroIm[ligne][colonne] = _spriteHeroAndMob.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-        }
-        else if ( isNO_BBM )  {
-          heroIm[ligne][colonne] = _spriteHeroAndMob.searchSpriteHero().get(TypeSprites.NO_BBM);
-        }
-      }
-    }
-  return heroIm;
-  }*/
-  
 
 }

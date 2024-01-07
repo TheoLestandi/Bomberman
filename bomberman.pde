@@ -5,7 +5,10 @@ public boolean is_game = false;
 
 Menu menu;
 public boolean is_titre = true;
+public boolean in_titre = true;
 public boolean is_menu = false;
+public boolean is_save = false;
+public boolean is_load = false;
 
 boolean isKeypressed;
 
@@ -27,26 +30,27 @@ void draw() {
     game.drawIt();
     menu.drawPause(); 
   }
-  if (isKeypressed && !is_titre && !is_menu ){
+  if ( is_save ) {
+    game.drawIt();
+    menu.drawSave(); 
+  }
+  if ( is_load ) {
+    if ( !in_titre  ) { 
+      game.drawIt();
+      menu.drawLoad(); 
+    }
+    else 
+      menu.drawLoad(); 
+  }
+  if (isKeypressed && !is_titre && !is_menu && !is_save && !is_load){
     game.handleKey(key);
   }
 }
 
 void keyPressed() {
-  //game.handleKey(key);
-  if ( keyCode == ESC ) {
-    key = 0;
-    if ( !is_titre ) {
-      if ( !is_menu) {
-        is_menu = true; 
-        is_game = false;
-      }
-      else {
-        is_menu = false;
-        is_game = true;
-      }
-    }
-  }
+  menu.handleKey();
+  if (is_save) 
+    menu.saveName();
   isKeypressed=true;
   
 }
@@ -55,19 +59,5 @@ void keyReleased(){
 }
 
 void mousePressed() {
-  if ( mouseButton == LEFT && is_titre ) {
-    if ( menu.isInsideButton(menu.pos_button_titre1, menu.size_button) ) {
-      is_titre = false;
-      is_game = true;
-    }
-  }
-  if ( mouseButton == LEFT && is_menu ) {
-    if ( menu.isInsideButton(menu.pos_button1, menu.size_button) ) {
-      is_menu = false;
-      is_game = true;
-    }
-    if ( menu.isInsideButton(menu.pos_button5, menu.size_button) ) {
-      exit();
-    }
-  }
+  menu.handleMouse();
 }

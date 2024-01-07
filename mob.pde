@@ -1,4 +1,4 @@
-class Mob {
+ class Mob {
   // position on screen
   PVector [] possibilities = {new PVector(-1, 0), new PVector(0, -1), new PVector(0, 1), new PVector(1, 0)};
   PVector _position;
