@@ -216,16 +216,16 @@ class Game {
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
-      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+1) {
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
         mob[numMob]=null;
       }
-      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-1) {
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
         mob[numMob]=null;
       }
-      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
-      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
     }
@@ -241,7 +241,7 @@ class Game {
         exit();
       }
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+1) {
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
@@ -249,7 +249,7 @@ class Game {
         exit();
       }
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-1) {
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
@@ -257,7 +257,7 @@ class Game {
         exit();
       }
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
@@ -265,7 +265,98 @@ class Game {
         exit();
       }
     }
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (rad=2){
+      if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
+      cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
+      cell[int(cellY-rad)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.DESTRUCTIBLE_WALL  ) {
+      cell[int(cellY)][int(cellX+1)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.DESTRUCTIBLE_WALL  ) {
+      cell[int(cellY)][int(cellX-rad)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY+rad)][int(cellX)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY-rad)][int(cellX)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX+rad)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX-rad)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+
+    //Mort mob
+    for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      if (mob[numMob]!=null){
+      
+
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+    }
+    }
+
+
+    //Mort hero
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
       if ( BBM_life > 1 ) {
         BBM_life -= 1;
         _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
@@ -274,6 +365,8 @@ class Game {
       }
     }
   }
+  }
+  
 
     void loadHero(String _name) {
       if (millis() - derFrameHero >= timeFrame) {
