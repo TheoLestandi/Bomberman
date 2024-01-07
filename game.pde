@@ -364,6 +364,7 @@ void drawButton(float posX, float posY, float sizetxt, String txt) {
   text(txt, posX, posY);
 }
 
+//Sauvegarde de la map (pas terminé)
 void saveBoard(String name_player) {
   char[][] mapSave = new char[_cell.length][_cell[0].length];
   for (int j = 0; j < _cell.length; j++) {
