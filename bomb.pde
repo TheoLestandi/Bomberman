@@ -40,7 +40,7 @@ class Bomb {
 
   Bomb(float CellX,float CellY,float CellS, boolean bonus) {
     _timeToExplode = 3000;
-    _timeExplosion = _timeToExplode + 1300; 
+    _timeExplosion = _timeToExplode + 900; 
     Time = millis();
     _cellX = CellX;
     _cellY = CellY;

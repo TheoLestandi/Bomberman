@@ -45,6 +45,7 @@ class Game {
     // Nom du niveau.
     _levelName = _line[0];
     boomExit = false;
+    is_explose = false;
 
     // Données pour le "board".
     arrayCopy(_line, 1, _line2, 0, _line2.length);
@@ -94,19 +95,31 @@ class Game {
     _board.drawIt();
 
 
+<<<<<<< Updated upstream
     if (bomb != null && millis()-bomb.Time>3000) {
       canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
+=======
+    if (bomb != null && millis()-bomb.Time>bomb._timeToExplode) {
+      is_explose = true;
+      canExplose(bombPlacementCellX, bombPlacementCellY, 1);
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell, 1);
+>>>>>>> Stashed changes
       bomb.explosion_bomb_rad();
-      bomb=null;
+      if (bomb != null && millis()-bomb.Time>bomb._timeExplosion) {
+        is_explose = false;
+        bomb=null;
+      }
     }
-    if (bomb != null) {
+    if (bomb != null && !is_explose) {
       bomb.drawIt();
     }
 
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       if ( mob[numMob]!=null){
-        mob[numMob].move(_board, 20);
+        if (!(_pause)) {
+          mob[numMob].move(_board, 25);
+        }
         mob[numMob].drawIt();
       }
     }

@@ -11,8 +11,7 @@
   // display size
   float _size;
   float _ecart;
-  
-  boolean _pause= false;
+
   boolean _dead= false;
   
   int compteur=1;
@@ -58,19 +57,8 @@
     }
      int chiffre=Mobpossibilities[int(random(0,Mobpossibilities.length))];
      direction=new PVector (possibilities[chiffre].x,possibilities[chiffre].y);
-     }
-     
-       
-  }
-
-     
-     
-     
-    
-   
-  
-   
-    
+     }  
+  } 
   
   boolean obst(PVector direction, Board board, float vitesse){
     cell=board._parser._cells;
