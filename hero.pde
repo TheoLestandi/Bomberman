@@ -37,6 +37,7 @@ class Hero {
     
   }
 
+
   void move(Board board, PVector direction) {
     if (obst(direction,board)){
       _cellX += (direction.x * _cellS)/vitesse;
@@ -48,6 +49,7 @@ class Hero {
     
   }
   
+  //Verification si le hero va dans une cellule non vide
   boolean obst(PVector direction, Board board){
     cell=board._parser._cells;
     if (direction.x==1 && direction.y==0){
@@ -128,6 +130,7 @@ class Hero {
   void update(Board board) {
   }
   
+  //Dessin du hero
   void drawIt(PImage hero) { 
     imageMode(CORNER);
     image(hero, _position.x, _position.y, _cellS, _size);

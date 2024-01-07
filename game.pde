@@ -20,6 +20,7 @@ class Game {
   PVector _posTab;
   PVector _sizeTab;
 
+  //Animation hero
   Sprites sprite_hero;
   PImage _sprite_hero ;
   PImage position_base_hero;
@@ -28,16 +29,20 @@ class Game {
   int timeFrame = 200;
   PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
   int score = 0;
-
+  
+  //Tableau avec les types des cellules
   TypeCell _cell[][];
   float _cellX, _cellY;
 
-  boolean UpLeft, UpRight, DownLeft, DownRight;
-
+  
+  //Coordonné de la bombe
   float bombPlacementCellX;
   float bombPlacementCellY;
-
+  
+  //Position du hero
   PVector positionHero;
+  
+  //Position du Mob 
   PVector[] positionMob;
   int nbMob;
 
@@ -115,6 +120,8 @@ class Game {
         mob[numMob].move(_board, 25);
       }
       mob[numMob].drawIt();
+      
+      //on verifie si les mobs de tue pas le hero
       if (mobHero(mob[numMob].positionbis)) {
         if ( BBM_life > 1 ) {
           _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
@@ -132,6 +139,7 @@ class Game {
   _cellY=_hero._cellY;
 }
 
+//Fonction pour faire bouger le hero avec les fleches et posser les bombes
 void handleKey(int k) {
   if (k=='z'||keyCode==UP||k=='Z') {
     PVector position = new PVector( 0, -1 );
@@ -172,12 +180,12 @@ void handleKey(int k) {
     bombwall(bombPlacementCellX, bombPlacementCellY);
   }
 }
+//J'ai voulu faire en sorte que les bombes deviennes comme des murs
 void bombwall(float cellX, float cellY) {
   if (floor((_cellX+_sizeCell/2)/_sizeCell)!=cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)!=cellY) {
     _cell[int(cellY)][int(cellX)]=TypeCell.WALL;
   }
 }
-
 
 
 void canExplose(float x, float y, int radius) {
@@ -207,6 +215,7 @@ void canExplose(float x, float y, int radius) {
   }
 }
 
+//fonction pour detruire les murs, tuer les mobs et le hero 
 void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
   if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
     cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
@@ -309,6 +318,7 @@ void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
   }
 }
 
+//Fonction pour verifier si le mob touche le hero ou pas 
 boolean mobHero(PVector positionMob) {
   //println(floor((_cellX+_sizeCell/2)/_sizeCell),floor((_cellY+_sizeCell/2)/_sizeCell-2.5),floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5),floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell));
   if (floor((_cellX+_sizeCell/2)/_sizeCell)==floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell) && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5)) {
@@ -382,6 +392,7 @@ void saveBoard(String name_player) {
 }
 }
 
+//Fonction pour arrondir
 float arrondi(float i) {
   if (abs(i-round(i))<1e-4) {
     return round(i);

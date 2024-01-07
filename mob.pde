@@ -24,22 +24,17 @@
     _cellY = int(position_on_board.x);
     _size = size;
     _ecart = ecart;
+    
+    //pour chaque mob on etablit un liste de possibilité de direction
     _position = new PVector(position_on_board.y, position_on_board.x);
-    //positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
     Mobpossibilities= new int[0];
     positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
-    //int chiffre=int(random(0,1));
-    
-    
-    for (int i=0;i<4;i++){
+    for (int i = 0 ; i < 4 ; i++){
       direction=new PVector (possibilities[i].x,possibilities[i].y);
       if(obst(direction,board,20)){
         Mobpossibilities=append(Mobpossibilities,i);
       }
     }
-    
-    //println(
-    
   }
   
   void move(Board board,float vitesse) {
@@ -50,16 +45,17 @@
      }
      else {
        for (int i=0;i<4;i++){
-      direction=new PVector (possibilities[i].x,possibilities[i].y);
-      if(obst(direction,board,20)){
-        Mobpossibilities=append(Mobpossibilities,i);
+        direction=new PVector (possibilities[i].x,possibilities[i].y);
+        if(obst(direction,board,20)){
+          Mobpossibilities=append(Mobpossibilities,i);
+        }
       }
-    }
      int chiffre=Mobpossibilities[int(random(0,Mobpossibilities.length))];
      direction=new PVector (possibilities[chiffre].x,possibilities[chiffre].y);
      }  
   } 
   
+  //Verification si le mob ne touche pas de mur
   boolean obst(PVector direction, Board board, float vitesse){
     cell=board._parser._cells;
     if (direction.x==1 && direction.y==0){
@@ -117,6 +113,8 @@
     return false;
     
   }
+  
+  //Fonction qui gère les arrondi
   float arrondi(float i){
     if (abs(i-round(i))<1e-4){
       return round(i);
