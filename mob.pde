@@ -14,6 +14,9 @@ class Mob {
   boolean _pause= false;
   boolean _dead= false;
   
+  int compteur=1;
+  int chiffre[]=new int[4];
+  PVector direction;
   TypeCell cell[][];
   
   Mob(PVector position_on_board, float size, float ecart) {
@@ -27,46 +30,25 @@ class Mob {
     
   }
   
-  void move(Board board, PVector direction,int vitesse) {
-     if (obst(direction,board,vitesse)){
-      println("move");
-       positionbis.x += (direction.x * _size)/vitesse;
-      positionbis.y += (direction.y * _size)/vitesse;
-      println(positionbis.x,positionbis.y);
-      drawIt();
-      move(board, direction, vitesse);
+  void move(Board board,int vitesse) {
+    println(positionbis.x,positionbis.y);
+    chiffre[0]=int(random(0,4));
+     direction=possibilities[chiffre[0]];
+     println(direction);
+     if(obst(direction,board,vitesse)){
+       positionbis.x+=(direction.x*_size)/vitesse;
+       positionbis.y+=(direction.y*_size)/vitesse;
+       println("mouv1",positionbis.x,positionbis.y);
      }
-     else if (!obst(direction,board,vitesse)){
-       if (obst(new PVector(-1,0),board,vitesse)){
-         println("move1");
-         positionbis.x += (-1 * _size)/vitesse;
-         positionbis.y += (0 * _size)/vitesse;
-         println(positionbis.x,positionbis.y);
-          move(board, new PVector(-1,0), vitesse);
+     
        }
-       else{
-         if (obst(new PVector(0,1),board,vitesse)){
-           println("move2");
-         positionbis.x += (0 * _size)/vitesse;
-         positionbis.y += (1 * _size)/vitesse;
-         println(positionbis.x,positionbis.y);
-          move(board, new PVector(-1,0), vitesse);
-         }
-         else{
-           if (obst(new PVector(0,-1),board,vitesse)){
-           println("move3");
-             positionbis.x += (0 * _size)/vitesse;
-           
-           positionbis.y += (1 * _size)/vitesse;
-           
-           println(positionbis.x,positionbis.y);
-           move(board, new PVector(-1,0), vitesse);
-         }
-       }
-    }
+     
+     
+     
     
-   }
-   }
+   
+  
+   
     
   
   boolean obst(PVector direction, Board board, int vitesse){
