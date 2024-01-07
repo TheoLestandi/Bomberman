@@ -54,7 +54,7 @@ void draw() {
     else 
       menu.drawScore(); 
   }
-  if (isKeypressed && !is_titre && !is_menu && !is_save && !is_load){
+  if (isKeypressed && !is_titre && !is_menu && !is_save && !is_load && !is_score){
     game.handleKey(key);
   }
 }

@@ -31,7 +31,7 @@
     positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
     for (int i = 0 ; i < 4 ; i++){
       direction=new PVector (possibilities[i].x,possibilities[i].y);
-      if(obst(direction,board,20)){
+      if(obst(direction,board,25)){
         Mobpossibilities=append(Mobpossibilities,i);
       }
     }

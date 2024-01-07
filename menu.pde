@@ -292,7 +292,6 @@ class Menu {
   
 
   void update(Game game) {
-    
   }
 
   void handleMouse() {

@@ -45,6 +45,7 @@ class Game {
   //Position du Mob 
   PVector[] positionMob;
   int nbMob;
+  int mobLife;
 
   Game() {
     // Nom du niveau.
@@ -72,11 +73,11 @@ class Game {
     // Données pour les mob.
     positionMob = _board._parser.spawnMob;
     nbMob = _board._parser.numMob;
+    mobLife = nbMob;
     mob = new Mob[nbMob];
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       mob[numMob] = new Mob( positionMob[numMob], _sizeCell, _ecart, _board);
     }
-
 
     _cell=_board._parser._cells;
   }
@@ -102,8 +103,13 @@ class Game {
 
     if (bomb != null && millis()-bomb.Time>bomb._timeToExplode) {
       is_explose = true;
+<<<<<<< Updated upstream
       canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
+=======
+      canExplose(bombPlacementCellX, bombPlacementCellY, 1);
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell, 1);
+>>>>>>> Stashed changes
       bomb.explosion_bomb_rad();
       is_explose = false;
       bomb=null;
@@ -146,6 +152,13 @@ void handleKey(int k) {
     loadHero("BOMBERMAN_UP");
     _hero.move(_board, position);
     _hero.drawIt(_sprite_hero);
+<<<<<<< Updated upstream
+=======
+    _cellX=_hero._cellX;
+    _cellY=_hero._cellY;
+    
+    endGame();
+>>>>>>> Stashed changes
   }
 
   if (k == 'q' || keyCode == LEFT) {
@@ -247,29 +260,44 @@ void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
     if (mob[numMob]!=null) {
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
+        mobLife -= 1;
+        score += SCORE_MONSTER_DESTROYED;
       }
+<<<<<<< Updated upstream
     }
     if (mob[numMob]!=null) {
 
+=======
+      }
+      if (mob[numMob]!=null){
+>>>>>>> Stashed changes
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
         mob[numMob]=null;
+        mobLife -= 1;
+        score += SCORE_MONSTER_DESTROYED;
       }
     }
 
     if (mob[numMob]!=null) {
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
         mob[numMob]=null;
+        mobLife -= 1;
+        score += SCORE_MONSTER_DESTROYED;
       }
     }
 
     if (mob[numMob]!=null) {
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
+        mobLife -= 1;
+        score += SCORE_MONSTER_DESTROYED;
       }
     }
     if (mob[numMob]!=null) {
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
+        mobLife -= 1;
+        score += SCORE_MONSTER_DESTROYED;
       }
     }
   }
@@ -283,6 +311,7 @@ void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
     } else {
       exit();
     }
+<<<<<<< Updated upstream
   }
   if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
     if ( BBM_life > 1 ) {
@@ -399,3 +428,22 @@ float arrondi(float i) {
   }
   return i;
 }
+=======
+   
+   // Fonction condition de la fin du jeu.
+    void endGame(){
+      if ( boomExit && mobLife == 0) {
+        PVector posH = new PVector( _hero.arrondi(_hero._position.y / _sizeCell)-2, _hero.arrondi(_hero._position.x / _sizeCell));
+        println( posH);
+        println( _board._parser.spawnExit ) ;
+        if ( posH.x == _board._parser.spawnExit.x && posH.y == _board._parser.spawnExit.y) {
+          is_game = false;
+          is_titre = true;
+        }
+      }
+            
+    }
+}
+  
+  
+>>>>>>> Stashed changes

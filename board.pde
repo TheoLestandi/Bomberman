@@ -14,7 +14,11 @@
   int der_tab = 0;
   
   boolean bomb;
+<<<<<<< Updated upstream
   
+=======
+  //PVector []posibilitiesBonus=_parser.spawnBonus;
+>>>>>>> Stashed changes
   
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 
