@@ -10,6 +10,7 @@ public boolean is_menu = false;
 public boolean is_save = false;
 public boolean is_load = false;
 public boolean is_score = false; 
+public boolean _pause = false;
 
 boolean isKeypressed;
 
@@ -24,10 +25,12 @@ void draw() {
     menu.drawTitre();
   }
   if ( is_game ){
+    _pause = false;
     game.update();
     game.drawIt();
   }
   if ( is_menu ) {
+    _pause = true;
     game.drawIt();
     menu.drawPause(); 
   }

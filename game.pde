@@ -45,6 +45,7 @@ class Game {
     // Nom du niveau.
     _levelName = _line[0];
     boomExit = false;
+    is_explose = false;
 
     // Données pour le "board".
     arrayCopy(_line, 1, _line2, 0, _line2.length);
@@ -94,22 +95,25 @@ class Game {
     _board.drawIt();
 
 
-    if (bomb != null && millis()-bomb.Time>3000) {
+    if (bomb != null && millis()-bomb.Time>bomb._timeToExplode) {
+      is_explose = true;
       canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
       bomb.explosion_bomb_rad();
+      is_explose = false;
       bomb=null;
       _cell[int(bombPlacementCellY)][int(bombPlacementCellX)]=TypeCell.EMPTY;
+      }
     }
-    if (bomb != null) {
+    if (bomb != null && !is_explose) {
       bomb.drawIt();
     }
 
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       if ( mob[numMob]!=null){
-        println(BBM_life);
-        
-        mob[numMob].move(_board, 20);
+        if (!(_pause)) {
+          mob[numMob].move(_board, 25);
+        }
         mob[numMob].drawIt();
         if(mobHero(mob[numMob].positionbis)){
            if ( BBM_life > 1 ) {
