@@ -14,6 +14,9 @@ class Parser{
   PVector spawnHero;
   PVector[] spawnMob;
   int numMob = 0;
+  PVector []spawnBonus;
+  int numBonus = 0;
+  
   
   PImage sprite_tiles = loadImage("data/img/tiles.png");
   String[] _line;
@@ -41,6 +44,7 @@ class Parser{
     boardIm = new PImage[_cells.length][_cells[0].length];
     heroIm = new PImage[_cells.length][_cells[0].length];
     spawnMob = new PVector[_cells.length*_cells[0].length];
+    spawnBonus = new PVector[_cells.length*_cells[0].length];
     
     for ( int i = 0; i < _line.length; i++ ) { 
       for ( int j = 0; j < _line[0].length(); j++ ) { 
@@ -53,14 +57,20 @@ class Parser{
         isMob = val == 'M';
         
         //On associe les TypeCell à des cellules 
-        if ( isEmpty ) 
+        if ( isEmpty ) {
           _cells[i][j] = TypeCell.EMPTY;
-        else if ( isWall )
+        }
+        else if ( isWall ){
           _cells[i][j] = TypeCell.WALL;
-        else if ( isWallDestruct ) 
+        }
+        else if ( isWallDestruct ) {
           _cells[i][j] = TypeCell.DESTRUCTIBLE_WALL;
-        else if ( isExit ) 
+          spawnBonus[numBonus]= new PVector(i, j);
+          numBonus += 1;
+        }
+        else if ( isExit ) {
           _cells[i][j] = TypeCell.EXIT_DOOR;
+        }
         else if ( isBomberman ){
           spawnHero = new PVector( i, j);
           _cells_hero[i][j] = TypeCell.BOMBERMAN;
