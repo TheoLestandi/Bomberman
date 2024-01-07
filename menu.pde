@@ -37,10 +37,16 @@ class Menu {
   
   // ecran titre.
   Button _button_titre1;
+  Button _button_titre2;
+  Button _button_titre3;
+  Button _button_titre4;
   
   String txt_menu_titre =  "Bomberman";
   PVector size_button_titre;
   PVector pos_button_titre1;
+  PVector pos_button_titre2;
+  PVector pos_button_titre3;
+  PVector pos_button_titre4;
 
   // ecran pause.
   Button _button1;
@@ -67,18 +73,19 @@ class Menu {
   PVector pos_button_nom;
   PVector pos_button_save;
   
-  //ecran Load Save.
+  //ecran Load Save. 
+  Button _button_load1;
+  Button _button_load2;
+  Button _button_load3;
+  Button _button_load4;
+ 
   String txt_menu_load =  "Load Save";
   PVector size_button_load;
   PVector pos_button_load1;
   PVector pos_button_load2;
   PVector pos_button_load3;
   PVector pos_button_load4;
-  
-  Button _button_load1;
-  Button _button_load2;
-  Button _button_load3;
-  Button _button_load4;
+
   
   // General.
   PVector pos_txt;
@@ -101,9 +108,15 @@ class Menu {
     size_button_titre = new PVector( width * 0.4, size_menu.y * 0.12 );
     
     // boutons écran titre.
-    pos_button_titre1 = new PVector( width * 0.3, size_menu.y * 0.45 );
+    pos_button_titre1 = new PVector( width * 0.3, size_menu.y * 0.40 );
+    pos_button_titre2 = new PVector( width * 0.3, size_menu.y * 0.55 );
+    pos_button_titre3 = new PVector( width * 0.3, size_menu.y * 0.70 );
+    pos_button_titre4 = new PVector( width * 0.3, size_menu.y * 0.85 );
     
     _button_titre1 =  new Button("Play", pos_button_titre1, size_button_titre, orange, white);
+    _button_titre2 =  new Button("Load Save", pos_button_titre2, size_button_titre, orange, white);
+    _button_titre3 =  new Button("Board score", pos_button_titre3, size_button_titre, orange, white);
+    _button_titre4 =  new Button("Quit", pos_button_titre4, size_button_titre, orange, white);
     
     // boutons écran pause.
     size_button = new PVector( width * 0.4, size_menu.y * 0.08 );
@@ -121,13 +134,13 @@ class Menu {
 
     // boutons écran save.
     size_button_save = new PVector( width * 0.5, size_menu.y * 0.2 );
-    pos_button_nom = new PVector( width * 0.25, size_menu.y * 0.4 );
+    pos_button_nom = new PVector( width * 0.25, size_menu.y * 0.35 );
     pos_button_save = new PVector( width * 0.25, size_menu.y * 0.65 );
     
     _button_save = new Button("Save", pos_button_save, size_button_save, black, orange);
 
     // boutons écran load save.
-    size_button_load = size_button_save = new PVector( width * 0.4, size_menu.y * 0.12 );
+    size_button_load = new PVector( width * 0.4, size_menu.y * 0.12 );
     pos_button_load1 = new PVector( width * 0.3, size_menu.y * 0.3 );
     pos_button_load2 = new PVector( width * 0.3, size_menu.y * 0.45 );
     pos_button_load3 = new PVector( width * 0.3, size_menu.y * 0.6 );
@@ -151,10 +164,13 @@ class Menu {
     rectMode(CENTER);
     rect(width/2,height/2,width-60,height-60);
     textAlign( CENTER, CENTER );
-    fill( orange); 
+    fill(orange); 
     textSize( size_txt * 5 / 3);
     text( txt_menu_titre, pos_txt.x, pos_txt.y );
     _button_titre1.drawButton();
+    _button_titre2.drawButton();
+    _button_titre3.drawButton();
+    _button_titre4.drawButton();
   
   }
 
@@ -212,7 +228,7 @@ class Menu {
   
   // fonction qui sauvegarde un nom.
   void saveName() {
-    if (((char)key >= 'a') && ((char)key <= 'z')) {
+    if (((char)key >= 'a') && ((char)key <= 'z') && ( text.length() < 15)) {
       if (text == "Entrez un nom:") {
         text = str((char)key);
       }
@@ -240,6 +256,13 @@ class Menu {
         is_titre = false;
         is_game = true;
       }
+      if ( menu.isInsideButton(menu.pos_button_titre2, menu.size_button) ) {
+        is_load= true;
+      }
+      if ( menu.isInsideButton(menu.pos_button_titre4, menu.size_button) ) {
+        is_titre = false;
+        exit();
+      }
     }
     if ( mouseButton == LEFT && is_menu ) {
       if ( menu.isInsideButton(menu.pos_button1, menu.size_button) ) {
@@ -250,12 +273,13 @@ class Menu {
         is_menu = false;
         is_save = true;
       }
-      if ( menu.isInsideButton(menu.pos_button2, menu.size_button) ) {
+      if ( menu.isInsideButton(menu.pos_button3, menu.size_button) ) {
         is_menu = false;
         is_load = true;
       }
       if ( menu.isInsideButton(menu.pos_button5, menu.size_button) ) {
-        exit();
+        is_menu = false;
+        is_titre = true;
       }
     }
     if ( mouseButton == LEFT && is_save ) {
@@ -270,23 +294,28 @@ class Menu {
   void handleKey() {
     if ( keyCode == ESC ) {
     key = 0;
-    if ( !is_titre ) {
-      if ( !is_menu) {
-        is_menu = true; 
-        text = "Entrez un nom:";
-        is_game = false;
+      if ( !is_titre ) {
+        if ( !is_menu) {
+          is_menu = true; 
+          text = "Entrez un nom:";
+          is_game = false;
+        }
+        else {
+          is_menu = false;
+          is_game = true;
+        }
+        if ( is_save ) {
+          is_save = false; 
+          is_menu = true;
+        }
+        if ( is_load ) {
+          is_load = false; 
+          is_menu = true;
+        }
       }
       else {
-        is_menu = false;
-        is_game = true;
-      }
-      if ( is_save ) {
-        is_save = false; 
-        is_menu = true;
-      }
-      if ( is_load ) {
-        is_load = false; 
-        is_menu = true;
+        if ( is_load ) {
+          is_load = false; 
       }
     }
   }

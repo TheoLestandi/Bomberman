@@ -34,10 +34,14 @@ void draw() {
     menu.drawSave(); 
   }
   if ( is_load ) {
-    game.drawIt();
-    menu.drawSave(); 
+    if ( !is_titre ) { 
+      game.drawIt();
+      menu.drawLoad(); 
+    }
+    else 
+      menu.drawLoad(); 
   }
-  if (isKeypressed && !is_titre && !is_menu && !is_save){
+  if (isKeypressed && !is_titre && !is_menu && !is_save && !is_load){
     game.handleKey(key);
   }
 }

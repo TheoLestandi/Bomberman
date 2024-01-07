@@ -29,24 +29,24 @@
   
   void move(Board board, PVector direction,int vitesse) {
      if (obst(direction,board,vitesse)){
-      println("move");
+      //println("move");
        positionbis.x += (direction.x * _size)/vitesse;
       positionbis.y += (direction.y * _size)/vitesse;
-      println(positionbis.x,positionbis.y);
+      //println(positionbis.x,positionbis.y);
       drawIt();
       move(board, direction, vitesse);
      }
      else if (!obst(direction,board,vitesse)){
        if (obst(new PVector(-1,0),board,vitesse)){
-         println("move1");
+         //println("move1");
          positionbis.x += (-1 * _size)/vitesse;
          positionbis.y += (0 * _size)/vitesse;
-         println(positionbis.x,positionbis.y);
+         //println(positionbis.x,positionbis.y);
           move(board, new PVector(-1,0), vitesse);
        }
        else{
          if (obst(new PVector(0,1),board,vitesse)){
-           println("move2");
+          // println("move2");
          positionbis.x += (0 * _size)/vitesse;
          positionbis.y += (1 * _size)/vitesse;
          println(positionbis.x,positionbis.y);
@@ -54,12 +54,12 @@
          }
          else{
            if (obst(new PVector(0,-1),board,vitesse)){
-           println("move3");
+          // println("move3");
              positionbis.x += (0 * _size)/vitesse;
            
            positionbis.y += (1 * _size)/vitesse;
            
-           println(positionbis.x,positionbis.y);
+           //println(positionbis.x,positionbis.y);
            move(board, new PVector(-1,0), vitesse);
          }
        }
