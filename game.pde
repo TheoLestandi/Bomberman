@@ -21,6 +21,7 @@ class Game {
 
   Sprites sprite_hero;
   PImage _sprite_hero ;
+  PImage position_base_hero;
   int derFrameHero = 0;
   int num_hero = 1;
   int timeFrame = 200;
@@ -56,12 +57,10 @@ class Game {
 
     // Données pour le "hero".
     positionHero = _board._parser.spawnHero;
-    sprite_hero = new Sprites(sprite_hero_and_mob );
-    _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
-    _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
     PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
     sprite_hero = new Sprites(sprite_hero_and_mob );
     _sprite_hero = sprite_hero.searchSpriteHero().get(TypeSprites.BOMBERMAN_DOWN1);
+    _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
     
     // Données pour les mob.
     positionMob = _board._parser.spawnMob;
@@ -254,6 +253,36 @@ class Game {
     fill(white);
     textSize(sizetxt);
     text(txt, posX, posY);
-    
   }
+  
+  void saveBoard(String name_player) {
+    char[][] mapSave = new char[_cell.length][_cell[0].length];
+    for (int j = 0; j < _cell.length; j++) {
+      for (int i = 0; i < _cell[0].length; i++) {
+        if (_cell[j][i] == TypeCell.WALL) {
+          mapSave[i][j] = 'x';
+        }
+        else if (_cell[j][i] == TypeCell.DESTRUCTIBLE_WALL) {
+          mapSave[i][j] = 'o';
+        }   
+        else if (_cell[j][i] == TypeCell.EXIT_DOOR) {
+          mapSave[i][j] = 'S';
+        }
+        else {
+          mapSave[i][j] = 'v';
+        }
+      }
+    }
+    
+    String[] map =  new String[_cell[0].length];
+    for (int i = 0; i < _cell[0].length; i++) {
+      map[i] = new String(mapSave[i]);
+    }
+    
+    String[] all_parameters = { str(score), str(BBM_life) };
+    
+    saveStrings("data/save/"+name_player+"/map.txt", map);
+    saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
+  }
+
 }
