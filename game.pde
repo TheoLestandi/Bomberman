@@ -95,8 +95,8 @@ class Game {
 
 
     if (bomb != null && millis()-bomb.Time>3000) {
-      canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
-      explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
+      canExplose(bombPlacementCellX, bombPlacementCellY, 1);
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell, 1);
       bomb.explosion_bomb_rad();
       bomb=null;
     }
@@ -212,19 +212,23 @@ class Game {
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       if (mob[numMob]!=null){
       
-
+      println(floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell),floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5));
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
+      println(cellX,cellY+rad);
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
         mob[numMob]=null;
       }
+      println(cellX,cellY-rad);
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
         mob[numMob]=null;
       }
+      println(cellX+rad,cellY);
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
+      println(cellX-rad,cellY);
       if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
         mob[numMob]=null;
       }
@@ -273,6 +277,7 @@ class Game {
         exit();
       }
     }
+    
     if (rad==2){
       if (cell[int(cellY+rad-1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
       cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
