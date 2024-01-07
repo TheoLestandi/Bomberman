@@ -14,7 +14,7 @@
   int der_tab = 0;
   
   boolean bomb;
-  PVector []posibilitiesBonus=_parser.spawnBonus;
+  
   
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY, String[] _line) {
     // On initialise chaque variables par les arguments mis en paramarètre de Board. 

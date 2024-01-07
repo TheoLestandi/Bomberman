@@ -99,6 +99,7 @@ class Game {
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
       bomb.explosion_bomb_rad();
       bomb=null;
+      _cell[int(bombPlacementCellY)][int(bombPlacementCellX)]=TypeCell.EMPTY;
     }
     if (bomb != null) {
       bomb.drawIt();
@@ -106,8 +107,23 @@ class Game {
 
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       if ( mob[numMob]!=null){
+        println(BBM_life);
+        
         mob[numMob].move(_board, 20);
         mob[numMob].drawIt();
+        if(mobHero(mob[numMob].positionbis)){
+           if ( BBM_life > 1 ) {
+             _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+             println(BBM_life);
+             BBM_life -= 1;
+           } 
+           else {
+             exit();
+           }
+        }
+        
+        
+        
       }
     }
 
@@ -152,9 +168,19 @@ class Game {
       bomb = new Bomb(centerCell.x, centerCell.y, _sizeCell, false);
       bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
       bombPlacementCellY = cellY;
+      
+      bombwall(bombPlacementCellX,bombPlacementCellY);
     }
   }
-
+  void bombwall(float cellX,float cellY){
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)!=cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)!=cellY) {
+      _cell[int(cellY)][int(cellX)]=TypeCell.WALL;
+    }
+      
+  }
+  
+  
+  
   void canExplose(float x, float y, int radius) {
     int cellX_parser = int(x);
     int cellY_parser = int(y);
@@ -284,7 +310,19 @@ class Game {
     }
     
   }
-  
+
+  boolean mobHero(PVector positionMob){
+    //println(floor((_cellX+_sizeCell/2)/_sizeCell),floor((_cellY+_sizeCell/2)/_sizeCell-2.5),floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5),floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell));
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell) && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5)) {
+      //println("touche1");
+      return true;
+    }
+     else{
+       return false;
+    }
+    
+  }
+
 
     void loadHero(String _name) {
       if (millis() - derFrameHero >= timeFrame) {
@@ -346,4 +384,11 @@ class Game {
       saveStrings("data/save/"+name_player+"/map.txt", map);
       saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
     }
+  }
+  
+  float arrondi(float i){
+    if (abs(i-round(i))<1e-4){
+      return round(i);
+    }
+    return i;
   }
