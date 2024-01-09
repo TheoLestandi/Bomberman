@@ -20,7 +20,6 @@ class Game {
   PVector _posTab;
   PVector _sizeTab;
 
-  //Animation hero
   Sprites sprite_hero;
   PImage _sprite_hero ;
   PImage position_base_hero;
@@ -30,22 +29,17 @@ class Game {
   PImage sprite_hero_and_mob = loadImage("data/img/characters.png");
   int score = 0;
 
-  //Tableau avec les types des cellules
   TypeCell _cell[][];
   float _cellX, _cellY;
 
+  boolean UpLeft, UpRight, DownLeft, DownRight;
 
-  //Coordonné de la bombe
   float bombPlacementCellX;
   float bombPlacementCellY;
 
-  //Position du hero
   PVector positionHero;
-
-  //Position du Mob
   PVector[] positionMob;
   int nbMob;
-  int mobLife;
 
   Game() {
     // Nom du niveau.
@@ -73,11 +67,11 @@ class Game {
     // Données pour les mob.
     positionMob = _board._parser.spawnMob;
     nbMob = _board._parser.numMob;
-    mobLife = nbMob;
     mob = new Mob[nbMob];
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
       mob[numMob] = new Mob( positionMob[numMob], _sizeCell, _ecart, _board);
     }
+
 
     _cell=_board._parser._cells;
   }
@@ -100,49 +94,39 @@ class Game {
     // Affichage du "board" et du "hero".
     _board.drawIt();
 
-    if (bomb != null && millis()-bomb.Time>=bomb._timeToExplode) {
+
+<<<<<<< Updated upstream
+    if (bomb != null && millis()-bomb.Time>3000) {
+      canExplose(bombPlacementCellX, bombPlacementCellY, 1);
+      explosion(bombPlacementCellX, bombPlacementCellY, _cell, 1);
+=======
+    if (bomb != null && millis()-bomb.Time>bomb._timeToExplode) {
       is_explose = true;
       canExplose(bombPlacementCellX, bombPlacementCellY, bomb._explosionRadius);
       explosion(bombPlacementCellX, bombPlacementCellY, _cell, bomb._explosionRadius);
+>>>>>>> Stashed changes
       bomb.explosion_bomb_rad();
-      if (bomb != null && millis()-bomb.Time>=bomb._timeExplosion) {
+      if (bomb != null && millis()-bomb.Time>bomb._timeExplosion) {
         is_explose = false;
         bomb=null;
       }
-      _cell[int(bombPlacementCellY)][int(bombPlacementCellX)]=TypeCell.EMPTY;
     }
-
-    if (bomb != null && !is_explose) {
+    if (bomb != null && !(is_explose)) {
       bomb.drawIt();
     }
 
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      if ( mob[numMob]!=null) {
-        if (!(_pause)) {
-          mob[numMob].move(_board, 25);
-        }
+      if ( mob[numMob]!=null){
+        mob[numMob].move(_board, 20);
         mob[numMob].drawIt();
-
-        //on verifie si les mobs de tue pas le hero
-        if (mobHero(mob[numMob].positionbis)) {
-          if ( BBM_life > 1 ) {
-            _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-            BBM_life -= 1;
-          } else {
-            exit();
-          }
-        }
       }
     }
 
     _hero.drawIt(_sprite_hero);
     _cellX=_hero._cellX;
     _cellY=_hero._cellY;
-
-    endGame();
   }
 
-  //Fonction pour faire bouger le hero avec les fleches et posser les bombes
   void handleKey(int k) {
     if (k=='z'||keyCode==UP||k=='Z') {
       PVector position = new PVector( 0, -1 );
@@ -179,17 +163,8 @@ class Game {
       bomb = new Bomb(centerCell.x, centerCell.y, _sizeCell, false);
       bombPlacementCellX = cellX; // Enregistrez les coordonnées de la pose de la bombe
       bombPlacementCellY = cellY;
-
-      bombwall(bombPlacementCellX, bombPlacementCellY);
     }
   }
-  //J'ai voulu faire en sorte que les bombes deviennes comme des murs
-  void bombwall(float cellX, float cellY) {
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)!=cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)!=cellY) {
-      _cell[int(cellY)][int(cellX)]=TypeCell.WALL;
-    }
-  }
-
 
   void canExplose(float x, float y, int radius) {
     int cellX_parser = int(x);
@@ -218,7 +193,6 @@ class Game {
     }
   }
 
-  //fonction pour detruire les murs, tuer les mobs et le hero
   void explosion(float cellX, float cellY, TypeCell [][] cell, int rad) {
     if (cell[int(cellY+rad)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
       cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
@@ -247,44 +221,29 @@ class Game {
 
     //Mort mob
     for ( int numMob = 0; numMob < nbMob; numMob++ ) {
-      if (mob[numMob]!=null) {
-        if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
-          mob[numMob]=null;
-          mobLife -= 1;
-          score += SCORE_MONSTER_DESTROYED;
-        }
+      if (mob[numMob]!=null){
+      
+      println(floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell),floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5));
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
       }
-
-      if (mob[numMob]!=null) {
-        if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
-          mob[numMob]=null;
-          mobLife -= 1;
-          score += SCORE_MONSTER_DESTROYED;
-        }
+      println(cellX,cellY+rad);
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
+        mob[numMob]=null;
       }
-
-      if (mob[numMob]!=null) {
-        if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
-          mob[numMob]=null;
-          mobLife -= 1;
-          score += SCORE_MONSTER_DESTROYED;
-        }
+      println(cellX,cellY-rad);
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
+        mob[numMob]=null;
       }
-
-      if (mob[numMob]!=null) {
-        if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
-          mob[numMob]=null;
-          mobLife -= 1;
-          score += SCORE_MONSTER_DESTROYED;
-        }
+      println(cellX+rad,cellY);
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
       }
-      if (mob[numMob]!=null) {
-        if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
-          mob[numMob]=null;
-          mobLife -= 1;
-          score += SCORE_MONSTER_DESTROYED;
-        }
+      println(cellX-rad,cellY);
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
       }
+    }
     }
 
 
@@ -296,53 +255,134 @@ class Game {
       } else {
         exit();
       }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    
+    if (rad==2){
+      if (cell[int(cellY+rad-1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
+      cell[int(cellY+rad)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY-rad+1)][int(cellX)]==TypeCell.DESTRUCTIBLE_WALL ) {
+      cell[int(cellY-rad)][int(cellX)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX+rad-1)]==TypeCell.DESTRUCTIBLE_WALL  ) {
+      cell[int(cellY)][int(cellX+rad-1)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY)][int(cellX-rad+1)]==TypeCell.DESTRUCTIBLE_WALL  ) {
+      cell[int(cellY)][int(cellX-rad+1)]=TypeCell.EMPTY;
+    }
+    if (cell[int(cellY+rad-1)][int(cellX)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY-rad+1)][int(cellX)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX+rad-1)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
+    if (cell[int(cellY)][int(cellX-rad+1)]==TypeCell.EXIT_DOOR) {
+      boomExit = true;
+    }
 
-      if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad) {
-        if ( BBM_life > 1 ) {
-          BBM_life -= 1;
-          _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-        } else {
-          exit();
-        }
+    //Mort mob
+    for ( int numMob = 0; numMob < nbMob; numMob++ ) {
+      if (mob[numMob]!=null){
+      
+
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
       }
-      if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-rad) {
-        if ( BBM_life > 1 ) {
-          BBM_life -= 1;
-          _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-        } else {
-          exit();
-        }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY+rad-1) {
+        mob[numMob]=null;
       }
-      if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
-        if ( BBM_life > 1 ) {
-          BBM_life -= 1;
-          _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-        } else {
-          exit();
-        }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY-rad+1) {
+        mob[numMob]=null;
       }
-      if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-rad && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
-        if ( BBM_life > 1 ) {
-          BBM_life -= 1;
-          _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
-        } else {
-          exit();
-        }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX+rad-1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+      if (floor((mob[numMob].positionbis.x+_sizeCell/2)/_sizeCell)==cellX-rad+1 && floor((mob[numMob].positionbis.y+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+        mob[numMob]=null;
+      }
+    }
+    }
+
+
+    //Mort hero
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY+rad-1) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY-rad+1) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX+rad-1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
+      }
+    }
+    if (floor((_cellX+_sizeCell/2)/_sizeCell)==cellX-rad+1 && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==cellY) {
+      if ( BBM_life > 1 ) {
+        BBM_life -= 1;
+        _hero = new Hero( positionHero, _board._cellSize, _ecart, _line2, _sprite_hero );
+      } else {
+        exit();
       }
     }
   }
-
-
-  //Fonction pour verifier si le mob touche le hero ou pas
-  boolean mobHero(PVector positionMob) {
-    if (floor((_cellX+_sizeCell/2)/_sizeCell)==floor(arrondi(positionMob.x+_sizeCell/2)/_sizeCell)
-      && floor((_cellY+_sizeCell/2)/_sizeCell-2.5)==floor(arrondi((positionMob.y+_sizeCell/2)/_sizeCell)-2.5)) {
-      return true;
-    } else {
-      return false;
-    }
   }
-
+  
 
   void loadHero(String _name) {
     if (millis() - derFrameHero >= timeFrame) {
@@ -365,6 +405,7 @@ class Game {
     else if (num_hero == 4)
       _sprite_hero =  sprite_hero.searchSpriteHero().get(name);
   }
+  
 
   void drawButton(float posX, float posY, float sizetxt, String txt) {
     stroke(inter_board);
@@ -377,8 +418,7 @@ class Game {
     textSize(sizetxt);
     text(txt, posX, posY);
   }
-  
-  //Sauvegarde du board pas terminé
+
   void saveBoard(String name_player) {
     char[][] mapSave = new char[_cell.length][_cell[0].length];
     for (int j = 0; j < _cell.length; j++) {
@@ -394,27 +434,15 @@ class Game {
         }
       }
     }
-  }
 
- 
-
-  //Fonction pour arrondir
-  float arrondi(float i) {
-    if (abs(i-round(i))<1e-4) {
-      return round(i);
+    String[] map =  new String[_cell[0].length];
+    for (int i = 0; i < _cell[0].length; i++) {
+      map[i] = new String(mapSave[i]);
     }
-    return i;
-  }
 
+    String[] all_parameters = { str(score), str(BBM_life) };
 
-  // Fonction condition de la fin du jeu.
-  void endGame() {
-    if ( boomExit && mobLife == 0) {
-      PVector posH = new PVector( _hero.arrondi(_hero._position.y / _sizeCell)-2, _hero.arrondi(_hero._position.x / _sizeCell));
-      if ( posH.x == _board._parser.spawnExit.x && posH.y == _board._parser.spawnExit.y) {
-        is_game = false;
-        is_titre = true;
-      }
-    }
+    saveStrings("data/save/"+name_player+"/map.txt", map);
+    saveStrings("data/save/"+name_player+"/parameters.txt", all_parameters);
   }
 }

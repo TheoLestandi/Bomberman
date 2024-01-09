@@ -1,9 +1,7 @@
  class Mob {
   // position on screen
   PVector [] possibilities = {new PVector(-1, 0), new PVector(0, -1), new PVector(0, 1), new PVector(1, 0)};
-  int [] Mobpossibilities;
   PVector _position;
-  PVector pos_sprite;
   PVector positionbis;
   
   // position on board
@@ -11,9 +9,9 @@
   
   // display size
   float _size;
-  float _sizeY;
   float _ecart;
-
+  
+  boolean _pause= false;
   boolean _dead= false;
   
   int compteur=1;
@@ -21,58 +19,87 @@
   PVector direction;
   TypeCell cell[][];
   
-  
-  Sprites allMobSprite;
-  PImage sprite_mob = loadImage("data/img/characters.png");
-  PImage _sprite_mob;
-  
-  int derFrameMob = 0;
-  int num_mob = 1;
-  int timeFrame = 50;
-  
-  Mob(PVector position_on_board, float size, float ecart,Board board) {
+  Mob(PVector position_on_board, float size, float ecart) {
     _cellX = int(position_on_board.y);
     _cellY = int(position_on_board.x);
     _size = size;
-    _sizeY = _size + _size / 2;
     _ecart = ecart;
-    
-    //pour chaque mob on etablit un liste de possibilité de direction
     _position = new PVector(position_on_board.y, position_on_board.x);
-    pos_sprite = new PVector(_position.x * _size, _position.y * _size + _size * 2);
-    Mobpossibilities= new int[0];
+    println(_cellX,_cellY);
+    println(_position.x,_position.y);
+    //positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
     positionbis=new PVector(_position.x* _size,_position.y* _size +_ecart);
-    for (int i = 0 ; i < 4 ; i++){
-      direction=new PVector (possibilities[i].x,possibilities[i].y);
-      if(obst(direction,board,25)){
-        Mobpossibilities=append(Mobpossibilities,i);
-      }
-    }
-    allMobSprite = new Sprites(sprite_mob);
-    _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN1);
+    direction=new PVector(0,-1);
+    //println(
+    
   }
   
+<<<<<<< Updated upstream
   void move(Board board,float vitesse) {
-     
+    println(positionbis.x,positionbis.y);
+    chiffre[0]=int(random(0,4));
+=======
+  void move(Board board, PVector direction,int vitesse) {
+     if (obst(direction,board,vitesse)){
+      //println("move");
+       positionbis.x += (direction.x * _size)/vitesse;
+      positionbis.y += (direction.y * _size)/vitesse;
+      //println(positionbis.x,positionbis.y);
+      drawIt();
+      move(board, direction, vitesse);
+     }
+     else if (!obst(direction,board,vitesse)){
+       if (obst(new PVector(-1,0),board,vitesse)){
+         //println("move1");
+         positionbis.x += (-1 * _size)/vitesse;
+         positionbis.y += (0 * _size)/vitesse;
+         //println(positionbis.x,positionbis.y);
+          move(board, new PVector(-1,0), vitesse);
+       }
+       else{
+         if (obst(new PVector(0,1),board,vitesse)){
+          // println("move2");
+         positionbis.x += (0 * _size)/vitesse;
+         positionbis.y += (1 * _size)/vitesse;
+         //println(positionbis.x,positionbis.y);
+          move(board, new PVector(-1,0), vitesse);
+         }
+         else{
+           if (obst(new PVector(0,-1),board,vitesse)){
+          // println("move3");
+             positionbis.x += (0 * _size)/vitesse;
+           
+           positionbis.y += (1 * _size)/vitesse;
+           
+           //println(positionbis.x,positionbis.y);
+           move(board, new PVector(-1,0), vitesse);
+         }
+       }
+    }
+>>>>>>> Stashed changes
+    
+     println(direction);
      if(obst(direction,board,vitesse)){
        positionbis.x+=(direction.x*_size)/vitesse;
        positionbis.y+=(direction.y*_size)/vitesse;
-       pos_sprite.x+=(direction.x*_size)/vitesse;
-       pos_sprite.y+=(direction.y*_size)/vitesse;
+       println("mouv1",positionbis.x,positionbis.y);
      }
      else {
-       for (int i=0;i<4;i++){
-        direction=new PVector (possibilities[i].x,possibilities[i].y);
-        if(obst(direction,board,20)){
-          Mobpossibilities=append(Mobpossibilities,i);
-        }
-      }
-     int chiffre=Mobpossibilities[int(random(0,Mobpossibilities.length))];
-     direction=new PVector (possibilities[chiffre].x,possibilities[chiffre].y);
-     }  
-  } 
+       direction.y *= -1;
+       direction= new PVector( direction.x, direction.y);
+     }
+     
+       
+  }
+     
+     
+     
+    
+   
   
-  //Verification si le mob ne touche pas de mur
+   
+    
+  
   boolean obst(PVector direction, Board board, float vitesse){
     cell=board._parser._cells;
     if (direction.x==1 && direction.y==0){
@@ -117,9 +144,11 @@
       float cellULY=positionbis.y+direction.y*_size/vitesse;
       float cellURX=positionbis.x+_size-1;
       float cellURY=positionbis.y+direction.y*_size/vitesse;
+      println(cellULX,cellULY,cellURX,cellURY);
+      println(int(arrondi(cellULY/_size-2.5)),int(arrondi(cellULX/_size)),int(arrondi(cellURY/_size-2.5)),int(arrondi(cellURX/_size)));
       
-      if (cell[int(arrondi(cellULY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY && cell[int(arrondi(cellURY/_size-2.5))][int(arrondi(cellURX/_size))]==TypeCell.EMPTY){
-        
+      if (cell[int(arrondi(cellULY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY && cell[int(arrondi(cellURY/_size-2.5))][int(arrondi(cellULX/_size))]==TypeCell.EMPTY){
+        println("move");
         return true;
         
       }
@@ -130,8 +159,6 @@
     return false;
     
   }
-  
-  //Fonction qui gère les arrondi
   float arrondi(float i){
     if (abs(i-round(i))<1e-4){
       return round(i);
@@ -139,31 +166,16 @@
     return i;
   }
   
-  // fonction qui changel le sprite du mob.
-  void loadMob() {
-    if (millis() - derFrameMob >= timeFrame) {
-      derFrameMob = millis();
-      num_mob++;
-    }
-
-    if (num_mob > 4) {
-      num_mob = 1;
-    }
-
-    if (num_mob == 1)
-      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN1);
-    else if (num_mob == 2)
-      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN2);
-    else if (num_mob == 3)
-      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN3);
-    else if (num_mob == 4)
-      _sprite_mob =  allMobSprite.searchSpriteMob().get(TypeSprites.MOB_DOWN4);
-  }
   
-  // affiche le mob.
   void drawIt() {
-    loadMob();
-    imageMode(CORNER);
-    image(_sprite_mob, pos_sprite.x, pos_sprite.y, _size, _sizeY);
+    noStroke();
+    fill(255,255,0);
+    rectMode(CORNER);
+<<<<<<< Updated upstream
+    rect(positionbis.x,positionbis.y,_size,_size);
+    //rect(_position.x * _size, _position.y* _size + _ecart, _size, _size);
+=======
+    rect(positionbis.y,positionbis.x,_size,_size);
+>>>>>>> Stashed changes
   }
 }
